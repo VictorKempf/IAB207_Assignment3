@@ -4,33 +4,70 @@ from flask_login import UserMixin
 
 # Define the User model
 class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(150), unique=True, nullable=False)
-    email = db.Column(db.String(150), unique=True, nullable=False)
-    password = db.Column(db.String(150), nullable=False)
-    # Add other fields as necessary (e.g., roles, relationships)
+    __tablename__ = 'users'
 
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(50), nullable=False)
+    surname = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    contact_number = db.Column(db.String(20), nullable=False)
+    street_address = db.Column(db.String(100), nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
+
+    orders = db.relationship('Order', backref='user')
+    comments = db.relationship('Comment', backref='user')
+    events = db.relationship('Event', backref='owner')
+
+    def __repr__(self):
+        return f"<User {self.email}>"
+    
 # Define the Event model
 class Event(db.Model):
+    __tablename__ = 'events'
+
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    date = db.Column(db.DateTime, default=datetime.now(timezone.utc))
+    event_name = db.Column(db.String(100), unique=True, nullable=False)
+    artist_name = db.Column(db.String(100), nullable=False)
+    venue = db.Column(db.String(100), nullable=False)
+    date = db.Column(db.Date, nullable=False)
+    start_time = db.Column(db.Time, nullable=False)
+    end_time = db.Column(db.Time, nullable=False)
+    ticket_amount = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    image_path = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=False)
-    # Add other fields or relationships if needed
+    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    orders = db.relationship('Order', backref='event')
+    comments = db.relationship('Comment', backref='event')
+
+    def __repr__(self):
+        return f"<Event {self.event_name}>"
 
 # Define the Comment model
 class Comment(db.Model):
+    __tablename__ = 'comments'
+
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
-    date_posted = db.Column(db.DateTime, default=datetime.now(timezone.utc))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
-    # Add other fields or relationships if needed
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
+
+    def __repr__(self):
+        return f"<Comment {self.id} by User {self.user_id}>"
 
 # Define the Order model
 class Order(db.Model):
+    __tablename__ = 'orders'
+
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
-    order_date = db.Column(db.DateTime, default=datetime.now(timezone.utc))
-    # Add other fields if needed
+    order_id = db.Column(db.String(50), unique=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    total_price = db.Column(db.Float, nullable=False)
+    booking_date = db.Column(db.DateTime, nullable=False, default=datetime.now)
+
+    def __repr__(self):
+        return f"<Order {self.order_id} by User {self.user_id}>"
