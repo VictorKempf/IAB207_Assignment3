@@ -1,5 +1,5 @@
 from . import db
-from datetime import datetime
+from datetime import datetime, timezone
 from flask_login import UserMixin
 
 # Define the User model
@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    date = db.Column(db.DateTime, default=datetime.now(datetime.timezone.utc))
+    date = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     description = db.Column(db.Text, nullable=False)
     # Add other fields or relationships if needed
 
@@ -22,7 +22,7 @@ class Event(db.Model):
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
-    date_posted = db.Column(db.DateTime, default=datetime.now(datetime.timezone.utc))
+    date_posted = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
     # Add other fields or relationships if needed
@@ -32,5 +32,5 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
-    order_date = db.Column(db.DateTime, default=datetime.now(datetime.timezone.utc))
+    order_date = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     # Add other fields if needed
