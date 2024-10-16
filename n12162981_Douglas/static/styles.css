@@ -1,0 +1,800 @@
+/* Importing the SUSE font */
+@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
+/* Applying font to all text */
+body {
+    font-family: 'SUSE', sans-serif;
+    color: #333; 
+    line-height: 1.6;
+    background-color:transparent ;
+}
+
+/* Define styles for headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'SUSE', sans-serif; /* Maintain consistency with the body font */
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2.5rem; 
+  font-weight: 700; 
+}
+
+h2 {
+  font-size: 2rem; 
+  font-weight: 700; 
+}
+
+h3 {
+  font-size: 1.75rem; 
+  font-weight: 600; 
+}
+
+h4 {
+  font-size: 1.5rem; 
+  font-weight: 600; 
+}
+
+h5 {
+  font-size: 1.25rem; 
+  font-weight: 500; 
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 500; 
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  h1 {
+      font-size: 2rem; /* Smaller size for tablets and below */
+  }
+
+  h2 {
+      font-size: 1.75rem; /* Smaller size for tablets and below */
+  }
+
+  h3 {
+      font-size: 1.5rem; /* Smaller size for tablets and below */
+  }
+
+  h4 {
+      font-size: 1.25rem; /* Smaller size for tablets and below */
+  }
+
+  h5 {
+      font-size: 1rem; /* Smaller size for tablets and below */
+  }
+
+  h6 {
+      font-size: 0.875rem; /* Smaller size for tablets and below */
+  }
+}
+
+/* Footer styling */
+footer {
+    background-color: #79886e; /* Applying your custom color */
+    color: #ffffff;
+}
+
+footer a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+footer a:hover {
+    color: #dddddd; /* Slight color change on hover */
+    text-decoration: underline;
+}
+
+/* Bottom copyright section styling */
+.footer-bottom {
+    background-color: rgba(0, 0, 0, 0.2); /* Adds a slight transparency for visual effect */
+}
+
+
+
+
+/* General container padding */
+.container-fluid {
+    padding: 10px; 
+}
+
+.container-fluid h3{
+    color: #79886e;
+}
+
+/* Padding for individual columns */
+.col-2 {
+    padding: 15px; 
+}
+
+/* Navbar*/
+/* Reduce padding of the navbar */
+.navbar {
+    padding-top: 1px;  /* Smaller top padding */
+    padding-bottom: 1px;  /* Smaller bottom padding */
+  }
+  
+  /* Keep the logo size, but remove excess padding */
+  .navbar img {
+    max-height: 150px; /* Maintain logo size */
+    margin: 0; /* Remove any margin if present */
+  }
+
+.search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-right: 5px;
+    width: 350px;
+  }
+
+  .form-select,
+  .form-control {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    border-radius: 0;
+  }
+
+  .form-select {
+    padding-left: 15px;
+    width: auto;
+    color: #333;
+  }
+
+  .form-control {
+    border-left: 1px solid #ddd;
+    color: #b1b1b1; /* Light gray text for placeholder */
+  }
+
+  .search-btn {
+    width: 40px;
+    height: 40px;
+    background-color: #79886e;
+    border-color: #79886e;
+    color: white;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+}
+
+.search-btn .bi {
+    color: white;
+    transition: color 0.3s; /* Smooth transition for icon color */
+}
+
+.search-btn:hover {
+    background-color: white;
+    border-color: white;
+    border-color: #79886e;
+    color: #79886e; /* Text color when hovered */
+}
+
+.search-btn:hover .bi {
+    color: #79886e; /* Icon color when hovered */
+}
+
+.search-margin {
+    margin-right: 10px; /* Adjust this value to move the dropdown */
+}
+
+/* User button styling */
+.user-btn {
+    width: 50px; /* Reduce the width to make it smaller */
+    height: 50px; /* Reduce height to match other buttons */
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
+    overflow: hidden;
+}
+
+/* Icon styling */
+.user-btn .bi {
+    color: #79886e;
+    font-size: 1.5rem; /* Adjust icon size to fit better */
+    transition: color 0.3s, transform 0.3s;
+}
+
+/* User button hover effect */
+.user-btn:hover {
+    background-color: transparent;
+    border: none;
+    color: #79886e;
+}
+
+/* Icon hover effect */
+.user-btn:hover .bi {
+    color: #79886e;
+    transform: scale(1.2);
+}
+
+
+/* Adjustments for the search container */
+.search-container {
+  max-width: 600px;
+}
+
+/* Event buttons */
+.event-btn {
+  margin-right: 10px;
+}
+
+.event-btn {
+    padding: 0.5rem 0.7rem; /* Reduced padding for smaller buttons */
+    font-size: 0.875rem; /* Smaller font size */
+    border: none;
+    border-radius: 0.25rem; /* Slightly rounded corners */
+    background-color: transparent; /* Transparent background */
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s, transform 0.3s; /* Smoother transitions */ 
+}
+
+/* Add spacing between the buttons */
+.event-btn + .event-btn {
+    margin-left: 1rem; /* Adjust this value to control the space between buttons */
+}
+
+.event-btn:hover {
+    background-color: #f0f0f0; /* Background color on hover */
+    border-radius: 0.45rem;
+    color: #79886e; /* Text color when hovered */
+    transform: scale(1.05); /* Slightly scale button on hover */
+}
+
+.event-btn:hover .bi {
+    color: #79886e; /* Icon color when hovered */
+    transform: scale(1.4); /* Scale icon larger */
+}
+
+
+
+
+/* Index.html*/
+
+/* Image carousel*/
+.carousel-container {
+  max-height: 450px; /* Adjust the height as needed */
+  overflow: hidden;
+}
+
+.carousel-item img {
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the container without distortion */
+}
+
+
+/* Circle style */
+.circle-wrapper {
+    text-align: center;
+    position: relative;
+  }
+  
+  .circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #79886e;
+  }
+  
+  .circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image stays within the circle */
+    border-radius: 50%; /* Makes image circular */
+  }
+  
+  /* Remove underline from links */
+  .circle-link {
+    text-decoration: none;
+    color: inherit; /* Keeps the original text color */
+    display: inline-block; /* Ensures text inside a block for alignment */
+    position: relative;
+  }
+  
+  /* Hover effect on text */
+  .circle-link p {
+    margin-top: 10px; /* Adjust spacing as needed */
+    transition: transform 0.3s ease, color 0.3s ease; /* Animation effect */
+  }
+  
+  .circle-link:hover p {
+    transform: scale(1.2); /* Grows the text slightly */
+    color: #79886e; /* Change text color on hover (optional) */
+  }
+
+  /* button showing status of events*/
+  .status-button {
+    border: 2px solid #79886e;
+    color: #79886e; /* White text color */
+    padding: 0rem 0.8rem; /* Padding inside the button */
+    border-radius: 0.50rem; /* Rounded corners */
+    font-size: 0.875rem; /* Font size for the button text */
+    margin-top: 0.5rem;
+  }
+  .status-button:hover {
+    background-color: #79886e;
+    color: #f0f0f0;
+  }
+
+  /* Link Styling */
+.view-more-link {
+  color: #79886e; /* Green color */
+  text-decoration: none; /* Remove underline */
+  position: relative; /* Positioning for the pop-up effect */
+  transition: color 0.3s; /* Smooth color transition */
+}
+
+/* Hover Effect */
+.view-more-link::after {
+  content: ''; /* Empty content for the pop-up */
+  position: absolute;
+  left: 0;
+  bottom: -5px; /* Position just below the link */
+  width: 100%;
+  height: 2px;
+  background-color: #79886e; /* Same green color for the pop-up effect */
+  transform: scaleX(0); /* Start with no visible effect */
+  transform-origin: bottom right; /* Scale from the right side */
+  transition: transform 0.3s; /* Smooth scaling transition */
+}
+
+/* Show Pop-up on Hover */
+.view-more-link:hover {
+  color: #79886e; /* Green on hover */
+}
+
+.view-more-link:hover::after {
+  transform: scaleX(1); /* Full width pop-up effect */
+  transform-origin: bottom left; /* Scale from the left side on hover */
+}
+
+
+/* Designing for the modal and all of the eventy boxes */
+/* Boxes for events */
+.card-img-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.card-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the entire container */
+  display: block; /* Remove any unwanted spacing */
+}
+
+.quick-view-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s, background-color 0.3s, color 0.3s;
+  background-color: #79886e;
+  border: none; /* Removing border */
+  color: #ffffff; /* Text color */
+  padding: 5px 5px; 
+  border-radius: 5px; 
+}
+
+.card-img-container:hover .quick-view-btn {
+  opacity: 1; /* Show button on hover */
+}
+
+.quick-view-btn:hover {
+  background-color: #ffffff;
+  color: #79886e;
+}
+
+
+  .scrolling-wrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 1rem;
+  }
+  
+  .artistContainer {
+    padding: 0rem; /* Padding inside the rectangle */
+    border-radius: 0.375rem; /* Rounded corners */
+    height: 250px; /* Fixed height for the rectangle */
+    display: inline-block; /* Ensure containers line up horizontally */
+    vertical-align: top; /* Align containers to the top */
+    width: 200px; /* Set a fixed width for horizontal scrolling */
+    margin-right: 1rem; /* Add space between artist boxes */
+    margin-bottom: 1rem; /* Space below each artist box */
+    box-shadow: 2px 5px 5px #49505775;
+  }
+  
+  .artistBox {
+    padding: 1rem; /* Padding inside the rectangle */
+    height: 250px; /* Fixed height for the rectangle */
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center;
+    justify-content: flex-start; /* Align children to the top */
+    margin-bottom: 10px;
+    background-color: #f8f9fa; /* Background color for better visibility */
+    border: 1px solid #dee2e6; /* Border for the box */
+    border-radius: 0.375rem; /* Rounded corners */
+  }
+  
+  .artist-btn {
+    width: 70px; /* Reduce the width to make it smaller */
+    height: 80px; /* Reduce height to match other buttons */
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
+    overflow: hidden;
+    margin-top: 5px; 
+  }
+  
+  /* Icon styling */
+  .artist-btn .bi {
+    color: #79886e;
+    font-size: 3rem; /* Adjust icon size to fit better */
+    transition: color 0.3s, transform 0.3s;
+  }
+  
+  /* User button hover effect */
+  .artist-btn:hover {
+    background-color: transparent;
+    border: none;
+    color: #79886e;
+  }
+  
+  /* Icon hover effect */
+  .artist-btn:hover .bi {
+    color: #79886e;
+    transform: scale(1.1);
+  }
+  
+  .follow-btn {
+    border: 2px solid #79886e;
+    color: #eff0ee; /* White text color */
+    background-color: #79886e;
+    padding: 0rem 0.8rem; /* Padding inside the button */
+    border-radius: 0.50rem; /* Rounded corners */
+    font-size: 0.875rem; /* Font size for the button text */
+    margin-top: 2rem;
+  }
+  
+  .follow-btn:hover {
+    background-color: #eff0ee; /* Darker background on hover */
+    color: #79886e;
+  }
+  
+
+
+
+  /* createEvent.html*/
+
+  
+  .header {
+    background-color: #a7b797;
+    padding: 20px;
+    text-align: left;
+    font-size: 2rem;
+    color: white;
+  }
+
+  .form-section {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .description-box {
+    border: 1px solid #ced4da;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .save-btn {
+    background-color: #a7b797;
+    color: white;
+  }
+
+  .custom-input {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+  }
+
+  .tickets-select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+  }
+
+  .calendar-icon {
+    position: relative;
+  }
+
+  .calendar-icon i {
+    position: absolute;
+    right: 10px;
+    top: 75%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
+  /* Adding a custom border to the textarea */
+  .custom-textarea {
+    border: 2px solid #ced4da;
+    border-radius: 8px; 
+    padding: 10px;
+  }
+
+.custom-input {
+  color: #212529; /* Dark text */
+}
+
+.custom-input::placeholder {
+  color: #6c757d; /* Placeholder color */
+}
+
+/* Ensure focus state text color remains readable */
+.custom-input:focus {
+  color: #212529;
+}
+
+.rectangle {
+  background-color: #f8f9fa; /* Light gray background for the rectangle */
+  border: 1px solid #dee2e6; /* Gray border */
+  border-radius: 0.375rem; /* Rounded corners */
+  height: 150px; /* Fixed height for the rectangle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0px;
+}
+
+
+/*eventDetails.html*/
+
+
+
+/*image as heading for the detail page*/
+.event-header-image {
+  width: 100%;
+  height: 200px; 
+  background-image: url(img/aranxa-esteve-pOXHU0UEDcg-unsplash.jpg);
+  background-size: cover; /* Ensure the image covers the entire div */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Preventing repeating the image */
+  margin: 0 !important;
+  padding: 0 !important;
+ 
+}
+
+.event-header-image img {
+  display: block; /* Remove extra space below the image */
+  width: 100%;    /* Ensure the image fits the container */
+  height: auto;   /* Maintain aspect ratio */
+}
+
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-header h1 {
+  font-size: 2.5rem;
+  color: #728e72;
+}
+
+.ticket-btn {
+  background-color: #728e72;
+  color: white;
+  padding: 10px 20px; /* Padding inside the button */
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  width: 200px; /* Fixed width */
+  height: 50px; /* Fixed height */
+  display: inline-flex; /* Adjust the layout */
+  align-items: center; /* Center text vertically */
+  justify-content: center; /* Center text horizontally */
+}
+
+.ticket-btn:hover {
+  background-color: #fdfdfd;
+  color: #79886e;
+  border-color: #79886e;
+}
+
+
+.event-details {
+  padding: 0 20px;
+}
+
+.artist-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  border: 1px;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.artist-info img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.follow-button {
+  background-color: white;
+  border: 2px solid #ddd;
+  padding: 5px 15px;
+  border-radius: 10px;
+}
+
+.follow-button:hover{
+  background-color: #6c757d;
+  border: 2px solid #5c5c5c;
+  color: #ededed;
+}
+
+
+
+/* Ensuring the comment section is responsive and scrollable */
+.comments-section {
+  max-width: 100%; /* Full width within its column */
+  max-height: 400px; /* Setting a maximum height for scrollable area */
+  overflow-y: auto; /* Adding vertical scrollbar*/
+  border: 1px solid #ddd; 
+  border-radius: 8px;
+}
+
+/* Custom styling for event header and alignment */
+.event-header h1 {
+    font-size: 2.5rem;
+}
+
+/*Fixing comment-section and its design*/
+.comment {
+  border-radius: 8px;
+  padding: 5px;
+  background-color: #fff;
+}
+
+/*Every other comment is in a different colour*/
+.comment:nth-child(even) {
+  background-color: #f5f5f5; /* Light grey for even comments */
+}
+
+.comment img {
+  border-radius: 50%;
+  width: 40px;
+}
+
+.comment div {
+  flex: 1;
+}
+
+.other-events {
+  margin-top: 50px;
+  padding: 0 20px;
+}
+
+.event-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.event-card img {
+  width: 100%;
+  border-radius: 10px;
+  height: 200px;
+  background-color: #ddd;
+}
+
+.event-card h5 {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+.event-card p {
+  font-size: 0.9rem;
+}
+
+
+
+/*MEDIA*/
+/*Making sure everything works as it should on smaller devices*/
+
+
+  /* Responsive behavior */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem; /* Smaller size for tablets and below */
+  }
+
+  h2 {
+      font-size: 1.75rem; /* Smaller size for tablets and below */
+  }
+
+  h3 {
+      font-size: 1.5rem; /* Smaller size for tablets and below */
+  }
+
+  h4 {
+      font-size: 1.25rem; /* Smaller size for tablets and below */
+  }
+
+  h5 {
+      font-size: 1rem; /* Smaller size for tablets and below */
+  }
+
+  h6 {
+      font-size: 0.875rem; /* Smaller size for tablets and below */
+  }
+    /* For medium screens, 50% width */
+    .col-md-4 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+    .search-container {
+      width: 300px; 
+  }
+  .carousel-container {
+    max-height: 250px; 
+    overflow: hidden;
+  }
+
+  }
+  
+  @media (max-width: 576px) {
+    h1 {
+      font-size: 1.75rem; /* Smaller size for mobile phones */
+  }
+
+  h2 {
+      font-size: 1.5rem; /* Smaller size for mobile phones */
+  }
+
+  h3 {
+      font-size: 1.25rem; /* Smaller size for mobile phones */
+  }
+
+  h4 {
+      font-size: 1rem; /* Smaller size for mobile phones */
+  }
+
+  h5 {
+      font-size: 0.875rem; /* Smaller size for mobile phones */
+  }
+
+  h6 {
+      font-size: 0.75rem; /* Smaller size for mobile phones */
+  }
+    /* For small screens, full width */
+    .col-sm-4 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    .search-container {
+      width: 100%; /* Full width for mobile phones */
+      max-width: 400px;
+  }
+
+  }
+  
+  
+  
+  

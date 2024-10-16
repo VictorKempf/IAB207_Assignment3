@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GreenGroove</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/styles.css"> <!-- Link to your external stylesheet -->
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <!-- Brand -->
+        <a class="navbar-brand" href="index.html">
+          <img src="static/img/GreenGroove_logo_green.png" alt="Header Image" class="img-fluid" style="max-height: 150px;">
+        </a>
+  
+        <!-- Toggle Button for Small Screens -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <!-- Collapsible Menu -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="navbar-nav w-100 d-flex align-items-center justify-content-between">
+            <!-- Search Container -->
+            <div class="search-container d-flex align-items-center flex-grow-1">
+              <i class="bi bi-geo-alt mx-2"></i>
+              <!-- Dropdown -->
+              <div class="dropdown me-2 d-none d-lg-block">
+                <button class="btn dropdown-toggle custom-dropdown-btn" type="button" id="locationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  Select a location
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="locationDropdown">
+                  <a class="dropdown-item" href="#">
+                    <i class="bi bi-geo"></i> Use my current location
+                  </a>     
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      <i class="bi bi-star"></i> Brisbane
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <input type="text" class="form-control bg-body-tertiary me-2 search-input" placeholder="Search events">
+              <!-- Search Button -->
+              <button type="button" class="btn btn-outline-secondary search-btn">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+            <!-- Navigation Links -->
+            <div class="d-flex align-items-center">
+              <a href="index.html" class="btn btn-outline-secondary event-btn me-2">Home</a>
+              <a href="#" class="btn btn-outline-secondary event-btn me-2">Find Event</a>
+              <a href="createEvent.html" class="btn btn-outline-secondary event-btn me-2">Create Event</a>
+              <a href="BookingHistory.html" class="btn btn-outline-secondary event-btn me-2">Booking History</a>
+              <button type="button" class="btn btn-outline-secondary user-btn">
+                <i class="bi bi-person-circle"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+<main>  
+  <div id="carouselAuto" class="carousel slide carousel-container" data-bs-ride="carousel">
+      <div class="carousel-inner">
+          <div class="carousel-item active">
+              <img src="static/img/greenGroove motto.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+              <img src="static/img/aranxa-esteve-pOXHU0UEDcg-unsplash.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+              <img src="static/img/globelet-reusable-SZ_K7wC54cs-unsplash.jpg" class="d-block w-100" alt="...">
+          </div>
+      </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row w-100 align-items-center">
+      <div class="col-12 text-center">
+        <h1>Explore the green scene: What's popular now!</h1>
+      </div>
+    </div>
+  </div>
+  <!-- Will create logos for genres if doing any further developing-->
+  <div class="container-fluid">
+    <div class="row text-center">
+      <!-- Column 1 -->
+      <div class="col-6 col-sm-3 col-md-4 col-lg-2 d-flex justify-content-center mb-3">
+        <div class="circle-wrapper">
+          <a href="#" class="circle-link">
+            <div class="circle">
+              
+            </div>
+            <p class="mt-2 text-center">Pop</p>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Column 2 -->
+      <div class="col-6 col-sm-3 col-md-4 col-lg-2 d-flex justify-content-center mb-3">
+        <div class="circle-wrapper">
+          <a href="#" class="circle-link">
+            <div class="circle">
+            
+            </div>
+            <p class="mt-2 text-center">Jazz</p>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Column 3 -->
+      <div class="col-6 col-sm-3 col-md-4 col-lg-2 d-flex justify-content-center mb-3">
+        <div class="circle-wrapper">
+          <a href="#" class="circle-link">
+            <div class="circle">
+              
+            </div>
+            <p class="mt-2 text-center">Rock</p>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Column 4 -->
+      <div class="col-6 col-sm-3 col-md-4 col-lg-2 d-flex justify-content-center mb-3">
+        <div class="circle-wrapper">
+          <a href="#" class="circle-link">
+            <div class="circle">
+              
+            </div>
+            <p class="mt-2 text-center">Classical</p>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Column 5 -->
+      <div class="col-6 col-sm-3 col-md-4 col-lg-2 d-flex justify-content-center mb-3">
+        <div class="circle-wrapper">
+          <a href="#" class="circle-link">
+            <div class="circle">
+              
+            </div>
+            <p class="mt-2 text-center">Electronic</p>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Column 6 -->
+      <div class="col-6 col-sm-3 col-md-4 col-lg-2 d-flex justify-content-center mb-3">
+        <div class="circle-wrapper">
+          <a href="#" class="circle-link">
+            <div class="circle">
+              
+            </div>
+            <p class="mt-2 text-center">Indie</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-auto pe-1">
+        <h3 class="mb-0">Popular events in:</h3>
+      </div>
+      <div class="col-auto ps-0">
+        <i class="bi bi-geo-alt" style="font-size: 1.5rem;"></i>
+      </div>
+      <div class="col-auto">
+        <h4 class="mb-0" style="margin-left: -1rem;">Brisbane</h4>    
+      </div>
+      <div class="col text-end">
+        <a href="#" class="view-more-link">view more </a>
+      </div>
+      
+    </div> 
+  </div>
+
+
+  <div class="container-fluid">
+    <div id="eventsContainer" class="row">
+        <!-- Event cards are generated here -->
+    </div>
+  </div>
+
+  <!-- Quick View Modal -->
+  <div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="quickViewModalLabel">Event Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- Event Image -->
+                    <div class="col-md-6 d-none d-md-block">
+                        <img src="static/img/aranxa-esteve-pOXHU0UEDcg-unsplash.jpg" id="eventImage" class="img-fluid" alt="Event Image">
+                        <!-- Event Description -->
+                        <div class="col-12">
+                            <p id="eventDescription" class="border p-3 mt-2" style="border-radius: 5px;">Join us for an unforgettable night at the Brisbane Beats Festival! Experience live performances from top artists, including The Sunshine Sounds. Enjoy food stalls, interactive art installations, and an amazing atmosphere right in the heart of Brisbane.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Event Information -->
+                        <h4 id="eventName">BrisBeats Festival</h4>
+                        <p id="artistName">The Sunshine Sounds</p>
+                        <p><strong>Status:</strong> <span id="eventStatus">Available</span></p>
+                        <p><strong>Venue:</strong> <span id="eventVenue">Brisbane Parklands</span></p>
+                        <p><strong>Date and Time:</strong> <span id="eventDateTime">Sat, 21.09.2024, 7:00 PM - 11:00 PM</span></p>
+                        <p><strong>Price:</strong> <span id="eventPrice">from $59</span></p>
+                        <div class="mb-3">
+                            <div class="dropdown mb-3">
+                                <label>Quantity</label>
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="quantityDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    0
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="quantityDropdown">
+                                    <li><a class="dropdown-item" href="#" data-value="1">1</a></li>
+                                    <li><a class="dropdown-item" href="#" data-value="2">2</a></li>
+                                    <li><a class="dropdown-item" href="#" data-value="3">3</a></li>
+                                    <li><a class="dropdown-item" href="#" data-value="4">4</a></li>
+                                    <li><a class="dropdown-item" href="#" data-value="5">5</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="alert alert-success" role="alert">
+                            This venue is partnered with GreenGroove! Enjoy a 10% discount when you choose digital tickets 
+                            and eco-friendly transport at checkout!
+                        </div>
+                        <!-- Buttons -->
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="eventDetails.html" class="btn btn-secondary">View More Details</a>
+                            <a href="#" class="btn btn-secondary" style="background-color: #79886e;">Go to Payment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+
+  <div class="container-fluid">
+    <div class="row text-center">
+      <div class="col-auto pe-1">
+        <h3 class="mb-0">Happening this week</h3>
+      </div>
+      <div class="col text-end">
+        <a href="#" class="view-more-link">view more </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Duplicate Events Container -->
+  <div class="container-fluid">
+    <div id="eventsContainer2" class="row">
+        <!-- Event cards for the second set are generated here -->
+    </div>
+  </div>
+
+  <!-- Duplicate Quick View Modal -->
+  <div class="modal fade" id="quickViewModal2" tabindex="-1" aria-labelledby="quickViewModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="quickViewModalLabel2">Event Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 d-none d-md-block">
+                        <img src="" id="eventImage2" class="img-fluid" alt="Event Image">
+                        <div class="col-12">
+                            <p id="eventDescription2" class="border p-3 mt-2" style="border-radius: 5px;">Event Description</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 id="eventName2">Event Name</h4>
+                        <p id="artistName2">Artist Name</p>
+                        <p><strong>Status:</strong> <span id="eventStatus2">Event Status</span></p>
+                        <p><strong>Venue:</strong> <span id="eventVenue2">Venue Name</span></p>
+                        <p><strong>Date and Time:</strong> <span id="eventDateTime2">Date and Time</span></p>
+                        <p><strong>Price:</strong> <span id="eventPrice2">Event Price</span></p>
+                        <div class="mb-3">
+                            <div class="dropdown mb-3">
+                                <label>Quantity</label>
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="quantityDropdown2" data-bs-toggle="dropdown" aria-expanded="false">
+                                    0
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="quantityDropdown2">
+                                    <li><a class="dropdown-item" href="#" data-value="1">1</a></li>
+                                    <li><a class="dropdown-item" href="#" data-value="2">2</a></li>
+                                    <li><a class="dropdown-item" href="#" data-value="3">3</a></li>
+                                    <li><a class="dropdown-item" href="#" data-value="4">4</a></li>
+                                    <li><a class="dropdown-item" href="#" data-value="5">5</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="alert alert-success" role="alert">
+                            This venue is partnered with GreenGroove! Enjoy a 10% discount when you choose digital tickets 
+                            and eco-friendly transport at checkout!
+                        </div>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="eventDetails.html" class="btn btn-secondary">View More Details</a>
+                            <a href="#" class="btn btn-secondary" style="background-color: #79886e;">Go to Payment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+  <div class="container-fluid">
+    <div class="row text-center">
+      <div class="col-auto pe-1">
+        <h3 class="mb-0">Artists to follow</h3>
+      </div>
+      <div class="col text-end">
+        <a href="#" class="view-more-link">view more </a>
+      </div>
+    </div>
+    <div class="scrolling-wrapper">
+      <div class="col-12 col-md-6 col-lg-4 col-xl-2 mb-3 artistContainer">
+        <div class="artistBox p-3 text-center">
+          <button type="button" class="btn btn-outline-secondary artist-btn">
+            <i class="bi bi-person-circle"></i>
+          </button>
+          <h5>Electric Vibes</h5>
+          <p><strong>Next concert:</strong><br>Sat, 21 Sept, 9:00PM</p>
+          <button class="follow-btn">Follow</button>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 col-xl-2 mb-3 artistContainer">
+        <div class="artistBox p-3 text-center">
+          <button type="button" class="btn btn-outline-secondary artist-btn">
+            <i class="bi bi-person-circle"></i>
+          </button>
+          <h5>DJ Pulse</h5>
+          <p><strong>Next concert:</strong><br>Thu, 19 Sept, 8:00PM</p>
+          <button class="follow-btn">Follow</button>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 col-xl-2 mb-3 artistContainer">
+        <div class="artistBox p-3 text-center">
+          <button type="button" class="btn btn-outline-secondary artist-btn">
+            <i class="bi bi-person-circle"></i>
+          </button>
+          <h5>Future Beats</h5>
+          <p><strong>Next concert:</strong><br>Sun, 15 Sept, 8:00PM</p>
+          <button class="follow-btn">Follow</button>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 col-xl-2 mb-3 artistContainer">
+        <div class="artistBox p-3 text-center">
+          <button type="button" class="btn btn-outline-secondary artist-btn">
+            <i class="bi bi-person-circle"></i>
+          </button>
+          <h5>Synthwave Dreams</h5>
+          <p><strong>Next concert:</strong><br>Tue, 17 Sept, 9:00PM</p>
+          <button class="follow-btn">Follow</button>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 col-xl-2 mb-3 artistContainer">
+        <div class="artistBox p-3 text-center">
+          <button type="button" class="btn btn-outline-secondary artist-btn">
+            <i class="bi bi-person-circle"></i>
+          </button>
+          <h5>Techno Harmony</h5>
+          <p><strong>Next concert:</strong><br>Wed, 18 Sept, 5:00PM</p>
+          <button class="follow-btn">Follow</button>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 col-xl-2 mb-3 artistContainer">
+        <div class="artistBox p-3 text-center">
+          <button type="button" class="btn btn-outline-secondary artist-btn">
+            <i class="bi bi-person-circle"></i>
+          </button>
+          <h5>Electronic Groove</h5>
+          <p><strong>Next concert:</strong><br>Fri, 20 Sept, 7:00PM</p>
+          <button class="follow-btn">Follow</button>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-4 col-xl-2 mb-3 artistContainer">
+        <div class="artistBox p-3 text-center">
+          <button type="button" class="btn btn-outline-secondary artist-btn">
+            <i class="bi bi-person-circle"></i>
+          </button>
+          <h5>Dance Energy</h5>
+          <p><strong>Next concert:</strong><br>Sat, 21 Sept, 9:00PM</p>
+          <button class="follow-btn">Follow</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="text-white text-center text-lg-start">
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                <img src="static/img/GreenGroove_logo_white.png" alt="GreenGroove logo" class="img-fluid" style="max-height: 200px;">
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase">About Us</h5>
+                <p>GreenGroove is the destination for sustainable music events. We in GreenGroove are dedicated to promote sustainable approaches as well as supporting charities though every event hosted. Join us for a greener music experience!</p>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Home</a></li>
+                    <li><a href="#" class="text-white">Services</a></li>
+                    <li><a href="#" class="text-white">Contact</a></li>
+                    <li><a href="#" class="text-white">Support</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Follow Us</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white"><i class="bi bi-facebook"></i> Facebook</a></li>
+                    <li><a href="#" class="text-white"><i class="bi bi-twitter"></i> Twitter</a></li>
+                    <li><a href="#" class="text-white"><i class="bi bi-instagram"></i> Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="text-center p-3 footer-bottom">
+        © 2024 GreenGroove. All rights reserved.
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
