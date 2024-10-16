@@ -124,7 +124,7 @@ function generateEventCards(containerId, eventSubset) {
                 </div>
                 <div class="row align-items-center">
                     <div class="col-6 text-start">
-                        <h4 class="mb-0"><a href="eventDetails.html" style="text-decoration: none; color: #333">${event.title}</a></h4>
+                        <h4 class="mb-0"><a href="{{ url_for('main.eventDetails') }}" style="text-decoration: none; color: #333">${event.title}</a></h4>
                     </div>
                     <div class="col-6 d-flex justify-content-end">
                         <button class="status-button">${event.status}</button>
