@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GreenGroove</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/styles.css"> <!-- Link to your external stylesheet -->
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+          <div class="container-fluid">
+            <!-- Brand -->
+            <a class="navbar-brand" href="index.html">
+              <img src="static/img/GreenGroove_logo_green.png" alt="Header Image" class="img-fluid" style="max-height: 150px;">
+            </a>
+      
+            <!-- Toggle Button for Small Screens -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+      
+            <!-- Collapsible Menu -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <div class="navbar-nav w-100 d-flex align-items-center justify-content-between">
+                <!-- Search Container -->
+                <div class="search-container d-flex align-items-center flex-grow-1">
+                  <i class="bi bi-geo-alt mx-2"></i>
+                  <!-- Dropdown -->
+                  <div class="dropdown me-2 d-none d-lg-block">
+                    <button class="btn dropdown-toggle custom-dropdown-btn" type="button" id="locationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      Select a location
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="locationDropdown">
+                      <a class="dropdown-item" href="#">
+                        <i class="bi bi-geo"></i> Use my current location
+                      </a>     
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          <i class="bi bi-star"></i> Brisbane
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <input type="text" class="form-control bg-body-tertiary me-2 search-input" placeholder="Search events">
+                  <!-- Search Button -->
+                  <button type="button" class="btn btn-outline-secondary search-btn">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+                <!-- Navigation Links -->
+                <div class="d-flex align-items-center">
+                  <a href="index.html" class="btn btn-outline-secondary event-btn me-2">Home</a>
+                  <a href="#" class="btn btn-outline-secondary event-btn me-2">Find Event</a>
+                  <a href="createEvent.html" class="btn btn-outline-secondary event-btn me-2">Create Event</a>
+                  <a href="BookingHistory.html" class="btn btn-outline-secondary event-btn me-2">Booking History</a>
+                  <button type="button" class="btn btn-outline-secondary user-btn">
+                    <i class="bi bi-person-circle"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+<main>
+  <!-- Image header for event -->
+  <div class="event-header-image mt-4"></div>
+
+  <div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Event Details Column -->
+        <div class="col-md-9">
+            <!-- Event Header -->
+            <div class="event-header mb-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>BrisBeats Festival</h1>
+                        <h5>The Sunshine Sounds</h5>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Event Description -->
+            <p class="mt-3">Join us for an unforgettable night at the Brisbane Beats Festival! Experience live performances from top artists, including The Sunshine Sounds. Enjoy food stalls, interactive art installations, and an amazing atmosphere right in the heart of Brisbane.</p>
+
+            <!-- Artist Info -->
+            <div class="artist-info d-flex align-items-center mt-3 p-2">
+                <img src="static/img/gabriel-barletta--lWcaUVJ39Y-unsplash.jpg" alt="Artist" class="img-fluid me-3">
+                <div>
+                    <span>By <a href="#" class="circle-link"><strong>The Sunshine Sounds</strong></a></span><br>
+                    <small>150k followers</small>
+                </div>
+                <button class="btn btn-secondary ms-auto">Following</button>
+            </div>
+
+            <!-- Location and Time -->
+            <div class="location-time mt-3 row">
+                <div class="col-md-4">
+                    <p><strong>Location</strong></p>
+                    <p>Brisbane Parklands</p>
+                </div>
+            
+                <div class="col-md-4">
+                    <p><strong>Date and Time</strong></p>
+                    <p>Sat, 21.09.2024, 7:00 PM - 11:00 PM</p>
+                </div>
+                <div class="col-md-4">
+                    <p><strong>Price</strong></p>
+                    <p>from $59</p>
+                </div>
+                
+                <div class="col-md-12 text-center mt-3">
+                    <button class="btn btn-primary ticket-btn">Get Tickets</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comments Column -->
+        <div class="col-md-3 col-sm-12">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <!-- Header -->
+                <h4 class="mb-0">Comments</h4>
+                
+                <!-- Button to Create Comment -->
+                <button type="button" class="btn btn-secondary">
+                    <i class="bi bi-plus-circle"></i>
+                </button>
+            </div>
+            <div class="comments-section">
+                <!-- Comment -->
+                <div class="comment d-flex align-items-start mb-3">
+                    <i class="bi bi-person" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <div>
+                        <strong>Emily_J</strong><br>
+                        <small>10.09.2024</small>
+                        <p>This festival looks amazing! Can't wait to see The Sunshine Sounds live!</p>
+                    </div>
+                </div>
+                <!-- Comment -->
+                <div class="comment d-flex align-items-start mb-3">
+                    <i class="bi bi-person" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <div>
+                        <strong>Mike_D</strong><br>
+                        <small>10.09.2024</small>
+                        <p>Brisbane Parklands is the perfect venue for this event. Excited to grab my tickets!</p>
+                    </div>
+                </div>
+                <!-- Comment -->
+                <div class="comment d-flex align-items-start mb-3">
+                    <i class="bi bi-person" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <div>
+                        <strong>Sarah_M</strong><br>
+                        <small>10.09.2024</small>
+                        <p>Just got my tickets! The lineup looks incredible. See you all there!</p>
+                    </div>
+                </div>
+                <!-- Comment -->
+                <div class="comment d-flex align-items-start">
+                    <i class="bi bi-person" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <div>
+                        <strong>Liam_W</strong><br>
+                        <small>10.09.2024</small>
+                        <p>Been waiting for an event like this in Brisbane. The Sunshine Sounds always put on a great show!</p>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="container-fluid">
+    <!-- Other Events Section -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="other-events">
+                <h4>Other events you might like</h4>
+                <div class="row">
+                    <!-- Event Card -->
+                    <div class="col-sm-6 col-md-3">
+                        <div class="event-card">
+                            <img src="static/img/hoang-anh-nguy-n-lWDF2MsHaHg-unsplash.jpg" alt="Event" class="img-fluid">
+                            <h5>Brisbane Jazz Night</h5>
+                            <p>A night of smooth jazz with local Brisbane artists. Perfect for a relaxing evening.</p>
+                            <p>From $20.00</p>
+                            <small>Jazz</small>
+                        </div>
+                    </div>
+                    <!-- Event Card -->
+                    <div class="col-sm-6 col-md-3">
+                        <div class="event-card">
+                            <img src="static/img/rocco-dipoppa-_uDj_lyPVpA-unsplash.jpg" alt="Event" class="img-fluid">
+                            <h5>Brisbane Rock Revival</h5>
+                            <p>Rock out with some of Brisbane’s best rock bands. High energy and great music!</p>
+                            <p>From $25.00</p>
+                            <small>Rock</small>
+                        </div>
+                    </div>
+                    <!-- Event Card -->
+                    <div class="col-sm-6 col-md-3">
+                        <div class="event-card">
+                            <img src="static/img/manuel-nageli-NsgsQjHA1mM-unsplash.jpg" alt="Event" class="img-fluid">
+                            <h5>Classical Music Concert</h5>
+                            <p>Enjoy an evening of classical music featuring renowned orchestras and soloists.</p>
+                            <p>From $20.00</p>
+                            <small>Classical</small>
+                        </div>
+                    </div>
+                    <!-- Event Card -->
+                    <div class="col-sm-6 col-md-3">
+                        <div class="event-card">
+                            <img src="static/img/aranxa-esteve-pOXHU0UEDcg-unsplash.jpg" alt="Event" class="img-fluid">
+                            <h5>Brisbane Music Festival</h5>
+                            <p>Join us for a day of diverse musical performances featuring local bands and international artists.</p>
+                            <p>From $25.00</p>
+                            <small>Music</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+<!-- Footer -->
+<footer class="text-white text-center text-lg-start">
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                <img src="static/img/GreenGroove_logo_white.png" alt="GreenGroove logo" class="img-fluid" style="max-height: 200px;">
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase">About Us</h5>
+                <p>GreenGroove is the destination for sustainable music events. We in GreenGroove are dedicated to promote sustainable approaches as well as supporting charities though every event hosted. Join us for a greener music experience!</p>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white">Home</a></li>
+                    <li><a href="#" class="text-white">Services</a></li>
+                    <li><a href="#" class="text-white">Contact</a></li>
+                    <li><a href="#" class="text-white">Support</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Follow Us</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white"><i class="bi bi-facebook"></i> Facebook</a></li>
+                    <li><a href="#" class="text-white"><i class="bi bi-twitter"></i> Twitter</a></li>
+                    <li><a href="#" class="text-white"><i class="bi bi-instagram"></i> Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="text-center p-3 footer-bottom">
+        © 2024 GreenGroove. All rights reserved.
+    </div>
+</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
