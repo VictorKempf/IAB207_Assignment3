@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Purchase Tickets</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Purchase Tickets</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="name">First Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" required>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity of Tickets</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Purchase</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap modal for purchase confirmation -->
+    <div class="modal" id="confirmationModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Purchase Confirmation</h5>
+          </div>
+          <div class="modal-body">
+            <p>Your purchase was successful!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
