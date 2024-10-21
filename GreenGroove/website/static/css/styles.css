@@ -567,7 +567,7 @@ footer a:hover {
 .event-header-image {
   width: 100%;
   height: 200px; 
-  background-image: url(img/aranxa-esteve-pOXHU0UEDcg-unsplash.jpg);
+  background-image: url("/static/img/aranxa-esteve-pOXHU0UEDcg-unsplash.jpg");
   background-size: cover; /* Ensure the image covers the entire div */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Preventing repeating the image */
