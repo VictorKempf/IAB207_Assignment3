@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Purchase Tickets</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+
+{% extends "base.html" %}
+
+{% block title %}Home - GreenGroove{% endblock %}
+
+{% block content %}
     <div class="container">
         <h1>Purchase Tickets</h1>
         <form method="POST">
@@ -40,5 +39,4 @@
         </div>
       </div>
     </div>
-</body>
-</html>
+    {% endblock %}

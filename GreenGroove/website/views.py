@@ -17,3 +17,7 @@ def BookingHistory():
 @main_bp.route('/eventDetails')
 def eventDetails():
     return render_template('eventDetails.html')
+
+@main_bp.route('/purchaseTickets')
+def purchaseTickets():
+    return render_template('purchaseTickets.html')
