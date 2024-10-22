@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     events = db.relationship('Event', backref='owner')
 
     def __repr__(self):
-        return f"<User {self.email}>"
+        return f"<User {self.email} ID {self.id}>"
     
 # Define the Event model
 class Event(db.Model):
