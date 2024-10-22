@@ -1,21 +1,44 @@
-{% include "base.html" %}
-{% from "bootstrap5/form.html" import render_form %}
-{% block body %}
+{% extends "base.html" %}
 
-<div class="page-header">
-    <h4>{{heading}}</h4>
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h4 class="card-title text-center mb-4">{{ heading }}</h4>
+                    <form method="POST" action="{{ url_for('auth.login') if heading == 'Login' else url_for('auth.register') }}">
+                        <input type="hidden" name="csrf_token" value="{{ form.csrf_token._value() }}">
+
+                        {% for field in form %}
+                        {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
+                                <div class="mb-3">
+                                    {{ field.label(class="form-label") }}
+                                    {{ field(class="form-control", placeholder=field.placeholder if field.placeholder else "") }}
+                                    {% if field.errors %}
+                                        <div class="text-danger">
+                                            {% for error in field.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="d-grid">
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                {% if heading == 'Login' %}
+                    <p>New user? <a href="{{ url_for('auth.register') }}">Click here</a> to register.</p>
+                {% elif heading == 'Register' %}
+                    <p>Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a>.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
-
-<!-- Form rendering is simple and easy if using WTForms and Bootstrap -->
-<div class="col-md-6">
-    {{render_form(form)}}
-</div>
-
-<!-- When you have Login form, then show the user a link to register -->
-{% if heading == 'Login' %}
-<div class="col-md-4">
-    <p>New user? <a href="{{url_for('register')}}">Click here</a> to register.</p>
-</div>
-{% endif %}
-
 {% endblock %}
