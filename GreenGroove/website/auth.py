@@ -48,7 +48,7 @@ def register():
         # Check if the email is already registered
         existing_user = db.session.scalar(db.select(User).where(User.email == email))
         if existing_user:
-            flash(('Email already registered. Please log in', 'warning'))
+            flash('Email already registered. Please log in', 'warning')
             return redirect(url_for('auth.login'))
         
         # Hash the password

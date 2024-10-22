@@ -14,7 +14,7 @@
                         {% if field.name != 'csrf_token' and field.type != 'SubmitField' %}
                                 <div class="mb-3">
                                     {{ field.label(class="form-label") }}
-                                    {{ field(class="form-control", placeholder=field.placeholder if field.placeholder else "") }}
+                                    {{ field(class="form-control custom-input", placeholder=field.placeholder if field.placeholder else "") }}
                                     {% if field.errors %}
                                         <div class="text-danger">
                                             {% for error in field.errors %}
