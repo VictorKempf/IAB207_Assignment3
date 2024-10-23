@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Home - GreenGroove{% endblock %}
+{% block title %}{{ event.event_name }} - GreenGroove{% endblock %}
 
 {% block content %}
   <!-- Image header for event -->
-  <div class="event-header-image mt-4"></div>
+  <div class="event-header-image mt-4" style="background-image: url('{{ url_for('static', filename=event.image_path) }}');"></div>
 
   <div class="container-fluid mt-4">
     <div class="row">
@@ -14,20 +14,20 @@
             <div class="event-header mb-3">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1>BrisBeats Festival</h1>
-                        <h5>The Sunshine Sounds</h5>
+                        <h1>{{ event.event_name }}</h1>
+                        <h5>{{ event.artist_name }}</h5>
                     </div>
                 </div>
             </div>
             
             <!-- Event Description -->
-            <p class="mt-3">Join us for an unforgettable night at the Brisbane Beats Festival! Experience live performances from top artists, including The Sunshine Sounds. Enjoy food stalls, interactive art installations, and an amazing atmosphere right in the heart of Brisbane.</p>
+            <p class="mt-3">{{ event.description }}</p>
 
             <!-- Artist Info -->
             <div class="artist-info d-flex align-items-center mt-3 p-2">
-                <img src="static/img/gabriel-barletta--lWcaUVJ39Y-unsplash.jpg" alt="Artist" class="img-fluid me-3">
+                <img src="{{ url_for('static', filename='img/gabriel-barletta--lWcaUVJ39Y-unsplash.jpg') }}" alt="Artist" class="img-fluid me-3">
                 <div>
-                    <span>By <a href="#" class="circle-link"><strong>The Sunshine Sounds</strong></a></span><br>
+                    <span>By <a href="#" class="circle-link"><strong>{{ event.artist_name }}</strong></a></span><br>
                     <small>150k followers</small>
                 </div>
                 <button class="btn btn-secondary ms-auto">Following</button>
@@ -37,16 +37,16 @@
             <div class="location-time mt-3 row">
                 <div class="col-md-4">
                     <p><strong>Location</strong></p>
-                    <p>Brisbane Parklands</p>
+                    <p>{{ event.venue }}</p>
                 </div>
             
                 <div class="col-md-4">
                     <p><strong>Date and Time</strong></p>
-                    <p>Sat, 21.09.2024, 7:00 PM - 11:00 PM</p>
+                    <p>{{ event.date.strftime('%a, %d.%m.%Y') }}, {{ event.start_time.strftime('%I:%M %p') }} - {{ event.end_time.strftime('%I:%M %p') }}</p>
                 </div>
                 <div class="col-md-4">
                     <p><strong>Price</strong></p>
-                    <p>from $59</p>
+                    <p>from ${{ event.price }}</p>
                 </div>
                 
                 <div class="col-md-12 text-center mt-3">
@@ -67,98 +67,44 @@
                 </button>
             </div>
             <div class="comments-section">
-                <!-- Comment -->
+                <!-- Example of dynamic comments (you'll need to implement actual comments fetching logic) -->
+                {% for comment in event.comments %}
                 <div class="comment d-flex align-items-start mb-3">
                     <i class="bi bi-person" style="font-size: 2rem; margin-bottom: 1rem;"></i>
                     <div>
-                        <strong>Emily_J</strong><br>
-                        <small>10.09.2024</small>
-                        <p>This festival looks amazing! Can't wait to see The Sunshine Sounds live!</p>
+                        <strong>{{ comment.user.first_name }} {{ comment.user.surname }}</strong><br>
+                        <small>{{ comment.timestamp.strftime('%d.%m.%Y') }}</small>
+                        <p>{{ comment.content }}</p>
                     </div>
                 </div>
-                <!-- Comment -->
-                <div class="comment d-flex align-items-start mb-3">
-                    <i class="bi bi-person" style="font-size: 2rem; margin-bottom: 1rem;"></i>
-                    <div>
-                        <strong>Mike_D</strong><br>
-                        <small>10.09.2024</small>
-                        <p>Brisbane Parklands is the perfect venue for this event. Excited to grab my tickets!</p>
-                    </div>
-                </div>
-                <!-- Comment -->
-                <div class="comment d-flex align-items-start mb-3">
-                    <i class="bi bi-person" style="font-size: 2rem; margin-bottom: 1rem;"></i>
-                    <div>
-                        <strong>Sarah_M</strong><br>
-                        <small>10.09.2024</small>
-                        <p>Just got my tickets! The lineup looks incredible. See you all there!</p>
-                    </div>
-                </div>
-                <!-- Comment -->
-                <div class="comment d-flex align-items-start">
-                    <i class="bi bi-person" style="font-size: 2rem; margin-bottom: 1rem;"></i>
-                    <div>
-                        <strong>Liam_W</strong><br>
-                        <small>10.09.2024</small>
-                        <p>Been waiting for an event like this in Brisbane. The Sunshine Sounds always put on a great show!</p>
-                    </div>
-                </div>
-               
+                {% endfor %}
             </div>
         </div>
     </div>
-    </div>
+  </div>
 
-    <div class="container-fluid">
-    <!-- Other Events Section -->
+  <!-- Other Events Section -->
+  <div class="container-fluid">
     <div class="row mt-4">
         <div class="col-md-12">
             <div class="other-events">
                 <h4>Other events you might like</h4>
                 <div class="row">
-                    <!-- Event Card -->
+                    <!-- Dynamically display other events (example, you can adjust based on your logic) -->
+                    {% for other_event in other_events %}
                     <div class="col-sm-6 col-md-3">
                         <div class="event-card">
-                            <img src="static/img/hoang-anh-nguy-n-lWDF2MsHaHg-unsplash.jpg" alt="Event" class="img-fluid">
-                            <h5>Brisbane Jazz Night</h5>
-                            <p>A night of smooth jazz with local Brisbane artists. Perfect for a relaxing evening.</p>
-                            <p>From $20.00</p>
-                            <small>Jazz</small>
+                            <img src="{{ url_for('static', filename=other_event.image_path) }}" alt="Event" class="img-fluid">
+                            <h5>{{ other_event.event_name }}</h5>
+                            <p>{{ other_event.description }}</p>
+                            <p>From ${{ other_event.price }}</p>
+                            <small>{{ other_event.genre }}</small>
                         </div>
                     </div>
-                    <!-- Event Card -->
-                    <div class="col-sm-6 col-md-3">
-                        <div class="event-card">
-                            <img src="static/img/rocco-dipoppa-_uDj_lyPVpA-unsplash.jpg" alt="Event" class="img-fluid">
-                            <h5>Brisbane Rock Revival</h5>
-                            <p>Rock out with some of Brisbane’s best rock bands. High energy and great music!</p>
-                            <p>From $25.00</p>
-                            <small>Rock</small>
-                        </div>
-                    </div>
-                    <!-- Event Card -->
-                    <div class="col-sm-6 col-md-3">
-                        <div class="event-card">
-                            <img src="static/img/manuel-nageli-NsgsQjHA1mM-unsplash.jpg" alt="Event" class="img-fluid">
-                            <h5>Classical Music Concert</h5>
-                            <p>Enjoy an evening of classical music featuring renowned orchestras and soloists.</p>
-                            <p>From $20.00</p>
-                            <small>Classical</small>
-                        </div>
-                    </div>
-                    <!-- Event Card -->
-                    <div class="col-sm-6 col-md-3">
-                        <div class="event-card">
-                            <img src="static/img/aranxa-esteve-pOXHU0UEDcg-unsplash.jpg" alt="Event" class="img-fluid">
-                            <h5>Brisbane Music Festival</h5>
-                            <p>Join us for a day of diverse musical performances featuring local bands and international artists.</p>
-                            <p>From $25.00</p>
-                            <small>Music</small>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    {% endblock %}
+  </div>
+{% endblock %}

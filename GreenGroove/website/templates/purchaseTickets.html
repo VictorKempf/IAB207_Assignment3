@@ -6,8 +6,8 @@
 {% block content %}
     <div class="container">
         <h1>Purchase Tickets</h1>
-        <form method="POST">
-            <div class="form-group">
+        <form method="POST" action="{{ url_for('purchase_tickets', event_id=event.id) }}">
+          <div class="form-group">
                 <label for="name">First Name</label>
                 <input type="text" class="form-control custom-input me-2" id="name" name="name" placeholder="{{ current_user.first_name }}" required>
             </div>
