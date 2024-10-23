@@ -121,141 +121,162 @@
   </div>
 
 
-  <div class="container-fluid">
-    <div id="eventsContainer" class="row">
-        <!-- Event cards are generated here -->
-    </div>
-  </div>
-
-  <!-- Quick View Modal -->
-  <div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="quickViewModalLabel">Event Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <!-- Event Image -->
-                    <div class="col-md-6 d-none d-md-block">
-                        <img src="static/img/aranxa-esteve-pOXHU0UEDcg-unsplash.jpg" id="eventImage" class="img-fluid" alt="Event Image">
-                        <!-- Event Description -->
-                        <div class="col-12">
-                            <p id="eventDescription" class="border p-3 mt-2" style="border-radius: 5px;">Join us for an unforgettable night at the Brisbane Beats Festival! Experience live performances from top artists, including The Sunshine Sounds. Enjoy food stalls, interactive art installations, and an amazing atmosphere right in the heart of Brisbane.</p>
+  <!-- Events listing -->
+  <div id="eventsContainer" class="container-fluid">
+    <div class="row">
+        {% if events %}
+            <!-- Slice the events list to show only 4 items -->
+            {% for event in events[:4] %}
+                <div class="col-md-3 mb-3">
+                    <div class="rectangle">
+                        <div class="card-img-container">
+                            <!-- Event Image -->
+                            <img src="{{ url_for('static', filename=event.image_path) }}" alt="{{ event.event_name }}">
+                            <button type="button" class="quick-view-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal" data-event-id="{{ event.id }}">
+                              Quick View
+                            </button>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <!-- Event Information -->
-                        <h4 id="eventName">BrisBeats Festival</h4>
-                        <p id="artistName">The Sunshine Sounds</p>
-                        <p><strong>Status:</strong> <span id="eventStatus">Available</span></p>
-                        <p><strong>Venue:</strong> <span id="eventVenue">Brisbane Parklands</span></p>
-                        <p><strong>Date and Time:</strong> <span id="eventDateTime">Sat, 21.09.2024, 7:00 PM - 11:00 PM</span></p>
-                        <p><strong>Price:</strong> <span id="eventPrice">from $59</span></p>
-                        <div class="mb-3">
-                            <div class="dropdown mb-3">
-                                <label>Quantity</label>
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="quantityDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    0
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="quantityDropdown">
-                                    <li><a class="dropdown-item" href="#" data-value="1">1</a></li>
-                                    <li><a class="dropdown-item" href="#" data-value="2">2</a></li>
-                                    <li><a class="dropdown-item" href="#" data-value="3">3</a></li>
-                                    <li><a class="dropdown-item" href="#" data-value="4">4</a></li>
-                                    <li><a class="dropdown-item" href="#" data-value="5">5</a></li>
-                                </ul>
-                            </div>
+                    <div class="row align-items-center">
+                        <div class="col-6 text-start">
+                            <!-- Event Name -->
+                            <h4 class="mb-0"><a href="{{ url_for('main.eventDetails', event_id=event.id) }}" style="text-decoration: none; color: #333">{{ event.event_name }}</a></h4>
                         </div>
-                        <div class="alert alert-success" role="alert">
-                            This venue is partnered with GreenGroove! Enjoy a 10% discount when you choose digital tickets 
-                            and eco-friendly transport at checkout!
+                        <div class="col-6 d-flex justify-content-end">
+                            <!-- Event Status -->
+                            <button class="status-button">{{ event.status }}</button>
                         </div>
-                        <!-- Buttons -->
-                        <div class="d-flex justify-content-between mt-3">
-                            <a href="{{ url_for('main.eventDetails') }}" class="btn btn-secondary">View More Details</a>
-                            <a href="#" class="btn btn-secondary" style="background-color: #79886e;">Go to Payment</a>
+                    </div>
+                    <div class="popular-events-container row align-items-center">
+                        <div class="col-10 text-start">
+                            <!-- Event Date and Time -->
+                            <p class="mb-0">{{ event.date.strftime('%a, %d.%m.%Y') }} {{ event.start_time.strftime('%I:%M %p') }} - {{ event.end_time.strftime('%I:%M %p') }}</p>
+                        </div>
+                        <div class="col-10 text-start">
+                            <!-- Event Venue -->
+                            <p class="mb-0" style="font-style: italic;">{{ event.venue }}</p>
+                        </div>
+                        <div class="col-10 text-start">
+                            <!-- Event Price -->
+                            <p class="mb-0">from ${{ event.price }}</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            {% endfor %}
+        {% else %}
+            <p>No events available at the moment.</p>
+        {% endif %}
     </div>
+</div>
+
+
+
+<div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="quickViewModalLabel">Event Details</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                  <!-- Event Image -->
+                  <div class="col-md-6 d-none d-md-block">
+                      <img src="" id="eventImage" class="img-fluid" alt="Event Image">
+                      <!-- Event Description -->
+                      <div class="col-12">
+                          <p id="eventDescription" class="border p-3 mt-2" style="border-radius: 5px;"></p>
+                      </div>
+                  </div>
+                  <div class="col-md-6">
+                      <!-- Event Information -->
+                      <h3 id="eventName"></h3>
+                      <p><strong>Status:</strong> <span id="eventStatus"></span></p>
+                      <p><strong>Venue:</strong> <span id="eventVenue"></span></p>
+                      <p><strong>Date and Time:</strong> <span id="eventDateTime"></span></p>
+                      <p><strong>Price:</strong> <span id="eventPrice"></span></p>
+                      <div class="alert alert-success" role="alert">
+                          This venue is partnered with GreenGroove! Enjoy a 10% discount when you choose digital tickets 
+                          and eco-friendly transport at checkout!
+                      </div>
+                      <!-- Buttons -->
+                      <div class="d-flex justify-content-between mt-3">
+                        <a href="#" class="btn btn-secondary" id="viewMoreLink">View More Details</a>
+                        <a href="#" class="btn btn-secondary" style="background-color: #79886e;">Go to Payment</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
   </div>
+</div>
+
+
+
+
 
 
 
   <div class="container-fluid">
     <div class="row text-center">
-      <div class="col-auto pe-1">
-        <h3 class="mb-0">Happening this week</h3>
-      </div>
-      <div class="col text-end">
-        <a href="#" class="view-more-link">view more </a>
-      </div>
+        <div class="col-auto pe-1">
+            <h3 class="mb-0">Happening this week</h3>
+        </div>
+        <div class="col text-end">
+            <a href="#" class="view-more-link">view more </a>
+        </div>
     </div>
-  </div>
+</div>
 
-  <!-- Duplicate Events Container -->
-  <div class="container-fluid">
-    <div id="eventsContainer2" class="row">
-        <!-- Event cards for the second set are generated here -->
-    </div>
-  </div>
-
-  <!-- Duplicate Quick View Modal -->
-  <div class="modal fade" id="quickViewModal2" tabindex="-1" aria-labelledby="quickViewModalLabel2" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="quickViewModalLabel2">Event Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6 d-none d-md-block">
-                        <img src="" id="eventImage2" class="img-fluid" alt="Event Image">
-                        <div class="col-12">
-                            <p id="eventDescription2" class="border p-3 mt-2" style="border-radius: 5px;">Event Description</p>
+<div id="weeklyEventsContainer" class="container-fluid">
+    <div class="row">
+        {% if events_this_week %}
+            <!-- Slice the events_this_week list to show only 4 items -->
+            {% for event in events_this_week[:4] %}
+                <div class="col-md-3 mb-3">
+                    <div class="rectangle">
+                        <div class="card-img-container">
+                            <!-- Event Image -->
+                            <img src="{{ url_for('static', filename=event.image_path) }}" alt="{{ event.event_name }}">
+                            <button type="button" class="quick-view-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal" data-event-id="{{ event.id }}">
+                                Quick View
+                            </button>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <h4 id="eventName2">Event Name</h4>
-                        <p id="artistName2">Artist Name</p>
-                        <p><strong>Status:</strong> <span id="eventStatus2">Event Status</span></p>
-                        <p><strong>Venue:</strong> <span id="eventVenue2">Venue Name</span></p>
-                        <p><strong>Date and Time:</strong> <span id="eventDateTime2">Date and Time</span></p>
-                        <p><strong>Price:</strong> <span id="eventPrice2">Event Price</span></p>
-                        <div class="mb-3">
-                            <div class="dropdown mb-3">
-                                <label>Quantity</label>
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="quantityDropdown2" data-bs-toggle="dropdown" aria-expanded="false">
-                                    0
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="quantityDropdown2">
-                                    <li><a class="dropdown-item" href="#" data-value="1">1</a></li>
-                                    <li><a class="dropdown-item" href="#" data-value="2">2</a></li>
-                                    <li><a class="dropdown-item" href="#" data-value="3">3</a></li>
-                                    <li><a class="dropdown-item" href="#" data-value="4">4</a></li>
-                                    <li><a class="dropdown-item" href="#" data-value="5">5</a></li>
-                                </ul>
-                            </div>
+                    <div class="row align-items-center">
+                        <div class="col-6 text-start">
+                            <!-- Event Name -->
+                            <h4 class="mb-0"><a href="{{ url_for('main.eventDetails', event_id=event.id) }}" style="text-decoration: none; color: #333">{{ event.event_name }}</a></h4>
                         </div>
-                        <div class="alert alert-success" role="alert">
-                            This venue is partnered with GreenGroove! Enjoy a 10% discount when you choose digital tickets 
-                            and eco-friendly transport at checkout!
+                        <div class="col-6 d-flex justify-content-end">
+                            <!-- Event Status -->
+                            <button class="status-button">{{ event.status }}</button>
                         </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <a href="{{ url_for('main.eventDetails') }}" class="btn btn-secondary">View More Details</a>
-                            <a href="#" class="btn btn-secondary" style="background-color: #79886e;">Go to Payment</a>
+                    </div>
+                    <div class="popular-events-container row align-items-center">
+                        <div class="col-10 text-start">
+                            <!-- Event Date and Time -->
+                            <p class="mb-0">{{ event.date.strftime('%a, %d.%m.%Y') }} {{ event.start_time.strftime('%I:%M %p') }} - {{ event.end_time.strftime('%I:%M %p') }}</p>
+                        </div>
+                        <div class="col-10 text-start">
+                            <!-- Event Venue -->
+                            <p class="mb-0" style="font-style: italic;">{{ event.venue }}</p>
+                        </div>
+                        <div class="col-10 text-start">
+                            <!-- Event Price -->
+                            <p class="mb-0">from ${{ event.price }}</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            {% endfor %}
+        {% else %}
+            <p>No events available this week.</p>
+        {% endif %}
     </div>
-  </div>
+</div>
+
+
+  
 
 
   <div class="container-fluid">
@@ -340,4 +361,58 @@
       </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const modalElement = document.getElementById('quickViewModal');
+    const modal = new bootstrap.Modal(modalElement); // Initialize Bootstrap Modal
+
+    // Add event listener to all "Quick View" buttons
+    document.querySelectorAll('.quick-view-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const eventId = this.getAttribute('data-event-id');  // Get the event ID from the button attribute
+            console.log(`Fetching details for event ID:`, eventId);  // For debugging
+
+            // Fetch event details
+            fetch(`/event/${eventId}/details`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(event => {
+                    console.log('Event data:', event);  // Log the event details
+
+                    // Populate modal content
+                    document.getElementById('eventName').textContent = event.event_name;
+                    document.getElementById('eventPrice').textContent = `from $${event.price}`;
+                    document.getElementById('eventDateTime').textContent = `${event.date} ${event.start_time} - ${event.end_time}`;
+                    document.getElementById('eventVenue').textContent = event.venue;
+                    document.getElementById('eventDescription').textContent = event.description;
+                    document.getElementById('eventImage').setAttribute('src', event.image_path);
+                    document.getElementById('eventStatus').textContent = event.status;
+
+                    // Set the "View More Details" button link
+                    document.getElementById('viewMoreLink').setAttribute('href', `/event/${eventId}`);
+                    
+                    // Set the "Go to Payment" button link
+                    document.getElementById('goToPayment').setAttribute('href', `/purchaseTickets/${eventId}`);
+
+                    // Show the modal
+                    modal.show();
+                })
+                .catch(error => {
+                    console.error('Error fetching event details:', error);
+                });
+        });
+    });
+});
+
+
+    </script>
+    
+
+    
+
 {% endblock %}

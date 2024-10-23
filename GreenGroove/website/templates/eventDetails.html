@@ -25,12 +25,12 @@
 
             <!-- Artist Info -->
             <div class="artist-info d-flex align-items-center mt-3 p-2">
-                <img src="{{ url_for('static', filename='img/gabriel-barletta--lWcaUVJ39Y-unsplash.jpg') }}" alt="Artist" class="img-fluid me-3">
+                <img src="{{ url_for('static', filename='img/gabriel-barletta--lWcaUVJ39Y-unsplash.jpg') }}" alt="Artist" class="img-fluid me-3" style="border-radius: 50px; width: 60px; height: 60px;">
                 <div>
                     <span>By <a href="#" class="circle-link"><strong>{{ event.artist_name }}</strong></a></span><br>
                     <small>150k followers</small>
                 </div>
-                <button class="btn btn-secondary ms-auto">Following</button>
+                <button class="btn btn-outline-secondary ms-auto">Following</button>
             </div>
 
             <!-- Location and Time -->
@@ -50,7 +50,7 @@
                 </div>
                 
                 <div class="col-md-12 text-center mt-3">
-                    <button class="btn btn-primary ticket-btn">Get Tickets</button>
+                    <a href="#" class="btn btn-primary ticket-btn">Get Tickets</a>
                 </div>
             </div>
         </div>
@@ -60,25 +60,40 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <!-- Header -->
                 <h4 class="mb-0">Comments</h4>
-                
-                <!-- Button to Create Comment -->
-                <button type="button" class="btn btn-secondary">
-                    <i class="bi bi-plus-circle"></i>
-                </button>
             </div>
-            <div class="comments-section">
-                <!-- Example of dynamic comments (you'll need to implement actual comments fetching logic) -->
-                {% for comment in event.comments %}
-                <div class="comment d-flex align-items-start mb-3">
-                    <i class="bi bi-person" style="font-size: 2rem; margin-bottom: 1rem;"></i>
-                    <div>
-                        <strong>{{ comment.user.first_name }} {{ comment.user.surname }}</strong><br>
-                        <small>{{ comment.timestamp.strftime('%d.%m.%Y') }}</small>
-                        <p>{{ comment.content }}</p>
+
+            <div class="comments-section" style="border-radius: 10px; padding: 15px; background-color: #f8f9fa;">
+                {% if event.comments %}
+                    {% for comment in event.comments %}
+                    <div class="comment d-flex align-items-start mb-3 p-2" style="border-bottom: 1px solid #e0e0e0;">
+                        <i class="bi bi-person" style="font-size: 2rem; margin-right: 10px; color: #6c757d;"></i>
+                        <div>
+                            <strong>{{ comment.user.first_name }} {{ comment.user.surname }}</strong><br>
+                            <small>{{ comment.timestamp.strftime('%d.%m.%Y') }}</small>
+                            <p style="margin-top: 5px;">{{ comment.content }}</p>
+                        </div>
                     </div>
-                </div>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <p class="text-center text-muted">No comments yet. Be the first to comment!</p>
+                {% endif %}
             </div>
+
+            <!-- Check if user is authenticated -->
+            {% if current_user.is_authenticated %}
+            <!-- Comment Form for logged-in users -->
+            <form method="POST" action="{{ url_for('main.eventDetails', event_id=event.id) }}" class="mt-3">
+                <div class="mb-3">
+                    <textarea class="form-control" name="comment" rows="3" placeholder="Add a comment..." required style="border-radius: 10px;"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100" style="border-radius: 25px;">Submit Comment</button>
+            </form>
+            {% else %}
+            <!-- Alert for non-logged-in users -->
+            <div class="alert alert-warning mt-3" role="alert">
+                You need to <a href="{{ url_for('auth.login') }}" class="alert-link">log in</a> to write a comment.
+            </div>
+            {% endif %}
         </div>
     </div>
   </div>
@@ -90,18 +105,21 @@
             <div class="other-events">
                 <h4>Other events you might like</h4>
                 <div class="row">
-                    <!-- Dynamically display other events (example, you can adjust based on your logic) -->
-                    {% for other_event in other_events %}
-                    <div class="col-sm-6 col-md-3">
-                        <div class="event-card">
-                            <img src="{{ url_for('static', filename=other_event.image_path) }}" alt="Event" class="img-fluid">
-                            <h5>{{ other_event.event_name }}</h5>
-                            <p>{{ other_event.description }}</p>
-                            <p>From ${{ other_event.price }}</p>
-                            <small>{{ other_event.genre }}</small>
+                    {% if other_events %}
+                        {% for other_event in other_events %}
+                        <div class="col-sm-6 col-md-3">
+                            <div class="event-card">
+                                <img src="{{ url_for('static', filename=other_event.image_path) }}" alt="Event" class="img-fluid" style="border-radius: 10px;">
+                                <h5>{{ other_event.event_name }}</h5>
+                                <p>{{ other_event.description }}</p>
+                                <p>From ${{ other_event.price }}</p>
+                                <small>{{ other_event.genre }}</small>
+                            </div>
                         </div>
-                    </div>
-                    {% endfor %}
+                        {% endfor %}
+                    {% else %}
+                        <p>No other events to show.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>

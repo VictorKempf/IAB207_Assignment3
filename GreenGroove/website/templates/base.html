@@ -63,7 +63,7 @@
                         <!-- Navigation Links -->
                         <div class="d-flex align-items-center">
                             <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary event-btn me-2">Home</a>
-                            <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary event-btn me-2">Find Event</a>
+                            <a href="{{ url_for('main.findEvents') }}" class="btn btn-outline-secondary event-btn me-2">Find Event</a>
                             <a href="{{ url_for('main.createEvent') }}" class="btn btn-outline-secondary event-btn me-2">Create Event</a>
                             <a href="{{ url_for('main.BookingHistory') }}" class="btn btn-outline-secondary event-btn me-2">Booking History</a>
                             {% if current_user.is_authenticated %}

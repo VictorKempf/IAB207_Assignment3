@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Home - GreenGroove{% endblock %}
+{% block title %}Create Event - GreenGroove{% endblock %}
 
 {% block content %}
     <div class="header text-start">
@@ -8,86 +8,87 @@
     </div>
     <div class="container-fluid">
         <div class="container mt-4">
-            <div class="row">
-            <!-- Left Column for Event Details -->
-            <div class="col-lg-6 col-md-12">
-                <div class="form-section">
-                <!-- Event Name -->
-                <div class="mb-3">
-                    <label for="eventName" class="form-label">Event name</label>
-                    <input type="text" class="form-control custom-input" id="eventName" placeholder="Event name">
-                </div>
-        
-                <!-- Artist Name -->
-                <div class="mb-3">
-                    <label for="artistName" class="form-label">Artist name</label>
-                    <input type="text" class="form-control custom-input" id="artistName" placeholder="Artist name">
-                </div>
-        
-                <!-- Venue -->
-                <div class="mb-3">
-                    <label for="venue" class="form-label">Venue</label>
-                    <input type="text" class="form-control custom-input" id="venue" placeholder="Venue">
-                </div>
-        
-                <!-- Date -->
-                <div class="mb-3 calendar-icon">
-                    <label for="date" class="form-label">Date</label>
-                    <input type="text" class="form-control custom-input" id="date" placeholder="dd/mm/yyyy">
-                    <i class="bi bi-calendar" id="calendarIcon"></i>
-                </div>
-        
-                <!-- Time -->
-                <div class="d-flex align-items-center mb-3">
-                    <input type="text" class="form-control custom-input me-2" placeholder="00:00">
-                    <span>→</span>
-                    <input type="text" class="form-control custom-input ms-2" placeholder="00:00">
-                </div>
-        
-                <!-- Tickets Available and Price -->
+            <form method="POST" enctype="multipart/form-data">  <!-- Ensure the form uses POST and supports file uploads -->
                 <div class="row">
-                    <div class="col-sm-6 mb-3">
-                        <label for="date" class="form-label">Tickets available for event</label>
-                        <input type="text" class="form-control custom-input" placeholder="Amount of tickets">
+                    <!-- Left Column for Event Details -->
+                    <div class="col-lg-6 col-md-12">
+                        <div class="form-section">
+                            <!-- Event Name -->
+                            <div class="mb-3">
+                                <label for="eventName" class="form-label">Event name</label>
+                                <input type="text" class="form-control custom-input" id="eventName" name="eventName" placeholder="Event name" required>
+                            </div>
+                    
+                            <!-- Artist Name -->
+                            <div class="mb-3">
+                                <label for="artistName" class="form-label">Artist name</label>
+                                <input type="text" class="form-control custom-input" id="artistName" name="artistName" placeholder="Artist name" required>
+                            </div>
+                    
+                            <!-- Venue -->
+                            <div class="mb-3">
+                                <label for="venue" class="form-label">Venue</label>
+                                <input type="text" class="form-control custom-input" id="venue" name="venue" placeholder="Venue" required>
+                            </div>
+                    
+                            <!-- Date -->
+                            <div class="mb-3 calendar-icon">
+                                <label for="date" class="form-label">Date</label>
+                                <input type="text" class="form-control custom-input" id="date" name="date" placeholder="dd/mm/yyyy" required>
+                            </div>
+                    
+                            <!-- Time -->
+                            <div class="d-flex align-items-center mb-3">
+                                <input type="text" class="form-control custom-input me-2" id="startTime" name="startTime" placeholder="00:00" required>
+                                <span>→</span>
+                                <input type="text" class="form-control custom-input ms-2" id="endTime" name="endTime" placeholder="00:00" required>
+                            </div>
+                    
+                            <!-- Tickets Available and Price -->
+                            <div class="row">
+                                <div class="col-sm-6 mb-3">
+                                    <label for="tickets" class="form-label">Tickets available for event</label>
+                                    <input type="number" class="form-control custom-input" id="tickets" name="tickets" placeholder="Amount of tickets" required>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label for="price" class="form-label">Price</label>
+                                    <input type="text" class="form-control custom-input" id="price" name="price" placeholder="$" required>
+                                </div>
+                            </div>
                         </div>
-                    <div class="col-sm-6 mb-3">
-                    <label for="date" class="form-label">Price</label>
-                    <input type="text" class="form-control custom-input" placeholder="$">
+                    </div>
+                
+                    <!-- Right Column for Image and Description -->
+                    <div class="col-lg-6 col-md-12 mt-4 mt-md-0">
+                        <div class="form-section">
+                            <!-- Image Upload with Preview -->
+                            <label for="eventImage" class="form-label">
+                                <h5>Upload image for event</h5>
+                            </label>
+                            <div class="d-flex align-items-center justify-content-center mb-3" id="imagePreview">
+                                <span>No image selected</span>
+                            </div>
+                    
+                            <div class="mb-3">
+                                <input class="form-control" type="file" id="eventImage" name="image" accept="image/*" onchange="previewImage(event)">
+                            </div>
+                        </div>
+                
+                        <!-- Description Textarea -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control custom-textarea" id="description" name="description" rows="5" placeholder="Enter event description" required></textarea>
+                        </div>
+
+                        <!-- Save event button -->
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center">
+                                <button type="submit" class="btn save-btn" style="width: auto;">Save Event</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                </div>
-            </div>
-        
-            <!-- Right Column for Image and Description -->
-            <div class="col-lg-6 col-md-12 mt-4 mt-md-0">
-                <div class="form-section">
-                <!-- Image Upload with Preview -->
-                <label for="eventImage" class="form-label">
-                    <h5>Upload image for event</h5>
-                </label>
-                <div class="d-flex align-items-center justify-content-center mb-3" id="imagePreview">
-                    <span>No image selected</span>
-                </div>
-        
-                <div class="mb-3">
-                    <input class="form-control" type="file" id="eventImage" accept="image/*" onchange="previewImage(event)">
-                </div>
-                </div>
-        
-                <!-- Description Textarea -->
-                <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea class="form-control custom-textarea" id="description" rows="5" placeholder="Enter event description"></textarea>
-                </div>
-                <!-- Save event button -->
-                <div class="row">
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <!-- Save Event Button -->
-                        <button class="btn save-btn" style="width: auto;">Save Event</button>
-                    </div>
-                </div>
-            </div>
-            </div>
+            </form>
         </div>
     </div>
-    {% endblock %}
+{% endblock %}

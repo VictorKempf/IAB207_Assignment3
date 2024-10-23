@@ -1,18 +1,100 @@
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
+import os
 import uuid
-from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
+from flask import Blueprint, abort, current_app, flash, redirect, render_template, request, url_for, jsonify
 from flask_login import current_user, login_required
-from website.models import User, Event, db, Order
+from werkzeug.utils import secure_filename
+from website.models import Comment, User, Event, db, Order
 
 main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
 def index():
-    return render_template('index.html')
+    # Get all events for the "Popular Events" section
+    events = Event.query.all()
 
-@main_bp.route('/createEvent')
+    # Get the current date and time
+    today = datetime.now()
+
+    # Calculate the date for 7 days from now
+    next_week = today + timedelta(days=7)
+
+    # Filter events that are happening this week
+    events_this_week = Event.query.filter(Event.date >= today, Event.date <= next_week).all()
+
+    print(events)  # To check popular events
+    print(events_this_week)  # To check events this week
+    
+    # Pass both event sets to the template
+    return render_template('index.html', events=events, events_this_week=events_this_week)
+
+
+@main_bp.route('/createEvent', methods=['GET', 'POST'])
 @login_required
 def createEvent():
+    if request.method == 'POST':
+        # Get form data from the request
+        event_name = request.form.get('eventName')
+        
+        # Check if an event with the same name already exists
+        existing_event = Event.query.filter_by(event_name=event_name).first()
+        if existing_event:
+            flash(f"An event with the name '{event_name}' already exists. Please choose a different name.", 'danger')
+            return redirect(url_for('main.createEvent'))
+
+        artist_name = request.form.get('artistName')
+        venue = request.form.get('venue')
+        description = request.form.get('description')
+        date_str = request.form.get('date')  # Get date as string from form
+        start_time_str = request.form.get('startTime')
+        end_time_str = request.form.get('endTime')
+        price = request.form.get('price')
+        ticket_amount = request.form.get('tickets')
+
+        # Convert date and time to Python objects (using DD/MM/YYYY format for the date)
+        event_date = datetime.strptime(date_str, '%d/%m/%Y').date()
+        start_time = datetime.strptime(start_time_str, '%H:%M').time()
+        end_time = datetime.strptime(end_time_str, '%H:%M').time()
+
+        # Handle image upload
+        image = request.files['image']
+        if image and image.filename != '':
+            filename = secure_filename(image.filename)
+
+            # Get the absolute path for the uploads folder
+            upload_folder = os.path.join(current_app.root_path, 'static', 'uploads')
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+
+            image_path = os.path.join(upload_folder, filename)
+            image.save(image_path)
+
+            image_url = f'uploads/{filename}'
+
+        else:
+            image_url = None  # No image uploaded
+
+        # Create new event and save it to the database, including owner_id
+        new_event = Event(
+            event_name=event_name,
+            artist_name=artist_name,
+            venue=venue,
+            description=description,
+            date=event_date,
+            start_time=start_time,
+            end_time=end_time,
+            price=price,
+            ticket_amount=ticket_amount,
+            image_path=image_url,
+            owner_id=current_user.id  # Set the owner_id to the current logged-in user's ID
+        )
+        
+        # Add and commit the event to the database
+        db.session.add(new_event)
+        db.session.commit()
+
+        return redirect(url_for('main.eventDetails', event_id=new_event.id))
+
     return render_template('createEvent.html')
 
 @main_bp.route('/BookingHistory')
@@ -20,9 +102,6 @@ def createEvent():
 def BookingHistory():
     return render_template('BookingHistory.html')
 
-@main_bp.route('/eventDetails')
-def eventDetails():
-    return render_template('eventDetails.html')
 
 @main_bp.route('/purchaseTickets/<int:event_id>', methods=['GET', 'POST'])
 @login_required
@@ -84,16 +163,52 @@ def confirmation(order_id):
                            event=event, 
                            order=order)
 
-@main_bp.route('/event/<int:event_id>')
-def event_details(event_id):
+@main_bp.route('/event/<int:event_id>', methods=['GET', 'POST'])
+def eventDetails(event_id):
     # Fetch the main event from the database
     event = Event.query.get_or_404(event_id)
+
+    # Handle POST request (form submission for comments)
+    if request.method == 'POST':
+        comment_content = request.form.get('comment')
+        if comment_content:
+            new_comment = Comment(
+                content=comment_content,
+                user_id=current_user.id,  # The ID of the logged-in user
+                event_id=event_id         # The ID of the current event
+            )
+            db.session.add(new_comment)
+            db.session.commit()
+            flash('Comment added successfully!', 'success')
+            return redirect(url_for('main.eventDetails', event_id=event_id))
 
     # Fetch other events (excluding the current event)
     other_events = Event.query.filter(Event.id != event_id).limit(4).all()
 
-    # Pass the main event and other events to the template
+    # Pass the main event and other events to the template for rendering the full page
     return render_template('eventDetails.html', event=event, other_events=other_events)
+
+@main_bp.route('/event/<int:event_id>/details', methods=['GET'])
+def get_event_details(event_id):
+    event = Event.query.get_or_404(event_id)
+    
+    # Log event details for debugging
+    print(f"Event fetched: {event.event_name}, {event.date}, {event.price}")
+    
+    return jsonify({
+        'event_name': event.event_name,
+        'price': event.price,
+        'date': event.date.strftime('%d.%m.%Y'),
+        'start_time': event.start_time.strftime('%I:%M %p'),
+        'end_time': event.end_time.strftime('%I:%M %p'),
+        'venue': event.venue,
+        'description': event.description,
+        'image_path': url_for('static', filename=event.image_path),
+        'status': event.status
+    })
+
+
+
 
 @main_bp.route('/check_data')
 def check_data():
@@ -115,7 +230,7 @@ def add_test_events():
             end_time=time(22, 0),
             ticket_amount=150,
             price=30.00,
-            image_path="path/to/jazz_event.jpg",
+            image_path="uploads/jazz_event.jpg",
             description="A night of smooth jazz with local artists.",
             owner_id=1
         ),
@@ -128,7 +243,7 @@ def add_test_events():
             end_time=time(23, 0),
             ticket_amount=200,
             price=50.00,
-            image_path="path/to/rock_event.jpg",
+            image_path="uploads/rock_event.jpg",
             description="Rock out with Brisbane's best bands.",
             owner_id=1
         ),
@@ -141,7 +256,7 @@ def add_test_events():
             end_time=time(22, 30),
             ticket_amount=100,
             price=40.00,
-            image_path="path/to/classical_event.jpg",
+            image_path="uploads/classical_event.jpg",
             description="An evening of classical music featuring renowned orchestras.",
             owner_id=1
         ),
@@ -154,7 +269,7 @@ def add_test_events():
             end_time=time(22, 0),
             ticket_amount=500,
             price=75.00,
-            image_path="path/to/festival_event.jpg",
+            image_path="uploads/festival_event.jpg",
             description="A full day of music performances featuring local and international artists.",
             owner_id=1
         ),
@@ -167,7 +282,7 @@ def add_test_events():
             end_time=time(22, 30),
             ticket_amount=120,
             price=45.00,
-            image_path="path/to/theatre_event.jpg",
+            image_path="uploads/theatre_event.jpg",
             description="A captivating theatre performance.",
             owner_id=1
         )
@@ -179,3 +294,17 @@ def add_test_events():
     db.session.commit()
 
     return "5 events added successfully."
+
+@main_bp.route('/findEvents')
+def findEvents():
+    # Query the database to get all events
+    events = Event.query.all()
+    
+    # Pass the events to the template
+    return render_template('findEvents.html', events=events)
+
+@main_bp.route('/show-events')
+def show_events():
+    events = Event.query.all()
+    event_list = [f"ID: {event.id}, Name: {event.event_name}" for event in events]
+    return "<br>".join(event_list)

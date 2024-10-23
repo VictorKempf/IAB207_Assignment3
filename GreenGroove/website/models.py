@@ -37,6 +37,8 @@ class Event(db.Model):
     image_path = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    status = db.Column(db.String(20), nullable=False, default='Open')  # Example: status can be 'Open', 'Cancelled', etc.
+
 
     orders = db.relationship('Order', backref='event')
     comments = db.relationship('Comment', backref='event')
