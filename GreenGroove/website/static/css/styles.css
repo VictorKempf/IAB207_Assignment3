@@ -6,6 +6,7 @@ body {
     color: #333; 
     line-height: 1.6;
     background-color:transparent ;
+    margin-top: 0;
 }
 
 /* Define styles for headings */
