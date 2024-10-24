@@ -308,13 +308,23 @@ def add_test_events():
 def findEvents():
     # Get the selected genre from the query parameter (if any)
     genre = request.args.get('genre')
-    
+
+    # Define the main genres
+    main_genres = ['Pop', 'Jazz', 'Rock', 'Classical', 'Electronic', 'Indie']
+
+    # Filtering logic
     if genre:
-        events = Event.query.filter_by(genre=genre).all()  # Filter by genre
+        if genre == "Other":
+            # Show events with genres not in the main list
+            events = Event.query.filter(~Event.genre.in_(main_genres)).all()
+        else:
+            # Show events matching the selected genre
+            events = Event.query.filter_by(genre=genre).all()
     else:
-        events = Event.query.all()  # If no genre is selected, show all events
-    
-    genres = ['Pop', 'Jazz', 'Rock', 'Classical', 'Electronic', 'Indie']  # Available genres
+        # If no genre is selected, show all events
+        events = Event.query.all()
+
+    genres = main_genres + ['Other']  # Add 'Other' as a category
     return render_template('findEvents.html', events=events, genres=genres)
 
 @main_bp.route('/show-events')
