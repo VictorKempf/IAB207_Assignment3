@@ -120,7 +120,7 @@ def purchase_tickets(event_id):
         # Check if quantity is valid
         if quantity <= 0:
             flash('Quantity must be greater than 0', 'danger')
-            return redirect(url_for('purchase_tickets', event_id=event_id))
+            return redirect(url_for('main.purchase_tickets', event_id=event_id))
 
         # Calculate total price
         total_price = event.price * quantity
@@ -143,11 +143,11 @@ def purchase_tickets(event_id):
         db.session.commit()
 
         # Redirect to confirmation page with the new order ID
-        return redirect(url_for('confirmation', order_id=new_order.id))
+        return redirect(url_for('main.confirmation', order_id=new_order.id))
 
     return render_template('purchaseTickets.html', event=event)
 
-main_bp.route('/confirmation/<int:order_id>')
+@main_bp.route('/confirmation/<int:order_id>')
 @login_required
 def confirmation(order_id):
     # Get the order by ID
@@ -165,6 +165,7 @@ def confirmation(order_id):
                            user=current_user, 
                            event=event, 
                            order=order)
+
 
 @main_bp.route('/event/<int:event_id>', methods=['GET', 'POST'])
 def eventDetails(event_id):

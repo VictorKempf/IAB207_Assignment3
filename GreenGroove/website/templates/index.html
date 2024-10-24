@@ -203,7 +203,7 @@
                       <!-- Buttons -->
                       <div class="d-flex justify-content-between mt-3">
                         <a href="#" class="btn btn-secondary" id="viewMoreLink">View More Details</a>
-                        <a href="#" class="btn btn-secondary" style="background-color: #79886e;">Get tickets</a>
+                        <a href="#" class="btn btn-secondary" id="getTicketsLink" style="background-color: #79886e;">Get tickets</a>
                       </div>
                   </div>
               </div>
@@ -211,10 +211,6 @@
       </div>
   </div>
 </div>
-
-
-
-
 
 
 
@@ -364,7 +360,7 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+   document.addEventListener('DOMContentLoaded', function () {
     const modalElement = document.getElementById('quickViewModal');
     const modal = new bootstrap.Modal(modalElement); // Initialize Bootstrap Modal
 
@@ -387,7 +383,7 @@
 
                     // Populate modal content
                     document.getElementById('eventName').textContent = event.event_name;
-                    document.getElementById('artistName').textContent = event.artist_name;  // Set artist name
+                    document.getElementById('artistName').textContent = event.artist_name;
                     document.getElementById('eventPrice').textContent = `from $${event.price}`;
                     document.getElementById('eventDateTime').textContent = `${event.date} ${event.start_time} - ${event.end_time}`;
                     document.getElementById('eventVenue').textContent = event.venue;
@@ -395,14 +391,9 @@
                     document.getElementById('eventImage').setAttribute('src', event.image_path);
                     document.getElementById('eventStatus').textContent = event.status;
 
-                    // Set the "View More Details" button link
+                    // Update the "View More Details" and "Get Tickets" links dynamically
                     document.getElementById('viewMoreLink').setAttribute('href', `/event/${eventId}`);
-                    
-                    // Set the "Go to Payment" button link
-                    document.getElementById('goToPayment').setAttribute('href', `/purchaseTickets/${eventId}`);
-
-                    // Show the modal
-                    modal.show();
+                    document.getElementById('getTicketsLink').setAttribute('href', `/purchaseTickets/${eventId}`);
                 })
                 .catch(error => {
                     console.error('Error fetching event details:', error);
@@ -410,7 +401,6 @@
         });
     });
 });
-
 
     </script>
     

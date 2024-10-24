@@ -32,6 +32,21 @@
                 </div>
                 <button class="btn btn-outline-secondary ms-auto">Following</button>
             </div>
+            <!-- Social Sharing Buttons -->
+            <div class="social-share d-flex mt-2">
+                <a href="#" 
+                target="_blank" class="btn btn-sm me-2 p-0">
+                    <i class="bi bi-facebook"></i> Share
+                </a>
+                <a href="#" 
+                target="_blank" class="btn btn-sm me-2 p-0">
+                    <i class="bi bi-twitter"></i> Tweet
+                </a>
+                <a href="#" 
+                target="_blank" class="btn btn-sm p-0">
+                    <i class="bi bi-instagram"></i> Share on Instagram
+                </a>
+            </div>
 
             <!-- Location and Time -->
             <div class="location-time mt-3 row">
@@ -50,8 +65,8 @@
                 </div>
                 
                 <div class="col-md-12 text-center mt-3">
-                    <a href="#" class="btn btn-primary ticket-btn">Get Tickets</a>
-                </div>
+                    <a href="{{ url_for('main.purchase_tickets', event_id=event.id) }}" class="btn btn-primary ticket-btn">Get Tickets</a>
+                </div>                
             </div>
         </div>
 

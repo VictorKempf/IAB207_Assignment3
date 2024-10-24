@@ -611,7 +611,8 @@ footer a:hover {
 .ticket-btn:hover {
   background-color: #fdfdfd;
   color: #79886e;
-  border-color: #79886e;
+  border: 1px solid #79886e;
+  transform: scale(1.05); /* making it slightly larger */
 }
 
 
