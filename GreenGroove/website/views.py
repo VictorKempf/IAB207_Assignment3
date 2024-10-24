@@ -50,6 +50,7 @@ def createEvent():
         end_time_str = request.form.get('endTime')
         price = request.form.get('price')
         ticket_amount = request.form.get('tickets')
+        genre = request.form.get('genre')  # Get genre from the form
 
         # Convert date and time to Python objects (using DD/MM/YYYY format for the date)
         event_date = datetime.strptime(date_str, '%d/%m/%Y').date()
@@ -74,7 +75,7 @@ def createEvent():
         else:
             image_url = None  # No image uploaded
 
-        # Create new event and save it to the database, including owner_id
+        # Create new event and save it to the database, including genre and owner_id
         new_event = Event(
             event_name=event_name,
             artist_name=artist_name,
@@ -86,6 +87,7 @@ def createEvent():
             price=price,
             ticket_amount=ticket_amount,
             image_path=image_url,
+            genre=genre,  # Save genre here
             owner_id=current_user.id  # Set the owner_id to the current logged-in user's ID
         )
         
@@ -96,6 +98,7 @@ def createEvent():
         return redirect(url_for('main.eventDetails', event_id=new_event.id))
 
     return render_template('createEvent.html')
+
 
 @main_bp.route('/BookingHistory')
 @login_required
@@ -207,9 +210,6 @@ def get_event_details(event_id):
         'status': event.status
     })
 
-
-
-
 @main_bp.route('/check_data')
 def check_data():
     # Check if there are any events
@@ -232,6 +232,7 @@ def add_test_events():
             price=30.00,
             image_path="uploads/jazz_event.jpg",
             description="A night of smooth jazz with local artists.",
+            genre="Jazz",  # Added genre
             owner_id=1
         ),
         Event(
@@ -245,6 +246,7 @@ def add_test_events():
             price=50.00,
             image_path="uploads/rock_event.jpg",
             description="Rock out with Brisbane's best bands.",
+            genre="Rock",  # Added genre
             owner_id=1
         ),
         Event(
@@ -258,6 +260,7 @@ def add_test_events():
             price=40.00,
             image_path="uploads/classical_event.jpg",
             description="An evening of classical music featuring renowned orchestras.",
+            genre="Classical",  # Added genre
             owner_id=1
         ),
         Event(
@@ -271,6 +274,7 @@ def add_test_events():
             price=75.00,
             image_path="uploads/festival_event.jpg",
             description="A full day of music performances featuring local and international artists.",
+            genre="Festival",  # Added genre
             owner_id=1
         ),
         Event(
@@ -284,6 +288,7 @@ def add_test_events():
             price=45.00,
             image_path="uploads/theatre_event.jpg",
             description="A captivating theatre performance.",
+            genre="Theatre",  # Added genre
             owner_id=1
         )
     ]
@@ -295,16 +300,23 @@ def add_test_events():
 
     return "5 events added successfully."
 
+
 @main_bp.route('/findEvents')
 def findEvents():
-    # Query the database to get all events
-    events = Event.query.all()
+    # Get the selected genre from the query parameter (if any)
+    genre = request.args.get('genre')
     
-    # Pass the events to the template
-    return render_template('findEvents.html', events=events)
+    if genre:
+        events = Event.query.filter_by(genre=genre).all()  # Filter by genre
+    else:
+        events = Event.query.all()  # If no genre is selected, show all events
+    
+    genres = ['Pop', 'Jazz', 'Rock', 'Classical', 'Electronic', 'Indie']  # Available genres
+    return render_template('findEvents.html', events=events, genres=genres)
 
 @main_bp.route('/show-events')
 def show_events():
     events = Event.query.all()
     event_list = [f"ID: {event.id}, Name: {event.event_name}" for event in events]
     return "<br>".join(event_list)
+

@@ -6,6 +6,21 @@
 <div class="container mt-4">
     <h2>Find Events</h2>
 
+    <!-- Genre Filter Dropdown -->
+    <form method="GET" action="{{ url_for('main.findEvents') }}">
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <label for="genre" class="form-label">Filter by Genre:</label>
+                <select id="genre" name="genre" class="form-select" onchange="this.form.submit()">
+                    <option value="">All Genres</option>
+                    {% for genre in genres %}
+                    <option value="{{ genre }}" {% if request.args.get('genre') == genre %}selected{% endif %}>{{ genre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </form>
+
     <div class="row">
         {% if events %}
             {% for event in events %}

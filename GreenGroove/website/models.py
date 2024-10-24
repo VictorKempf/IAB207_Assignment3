@@ -38,6 +38,7 @@ class Event(db.Model):
     description = db.Column(db.Text, nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     status = db.Column(db.String(20), nullable=False, default='Open')  # Example: status can be 'Open', 'Cancelled', etc.
+    genre = db.Column(db.String(50), nullable=False)  # New genre field
 
 
     orders = db.relationship('Order', backref='event')
