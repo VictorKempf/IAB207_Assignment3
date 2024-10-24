@@ -72,6 +72,7 @@ def createEvent():
 
             image_url = f'uploads/{filename}'
 
+
         else:
             image_url = None  # No image uploaded
 
@@ -232,7 +233,7 @@ def add_test_events():
             end_time=time(22, 0),
             ticket_amount=150,
             price=30.00,
-            image_path="uploads/jazz_event.jpg",
+            image_path="uploads/hoang-anh-nguy-n-lWDF2MsHaHg-unsplash.jpg",
             description="A night of smooth jazz with local artists.",
             genre="Jazz",  # Added genre
             owner_id=1
@@ -246,7 +247,7 @@ def add_test_events():
             end_time=time(23, 0),
             ticket_amount=200,
             price=50.00,
-            image_path="uploads/rock_event.jpg",
+            image_path="uploads/adam-fugere-CR0B52XXfUs-unsplash.jpg",
             description="Rock out with Brisbane's best bands.",
             genre="Rock",  # Added genre
             owner_id=1
@@ -260,7 +261,7 @@ def add_test_events():
             end_time=time(22, 30),
             ticket_amount=100,
             price=40.00,
-            image_path="uploads/classical_event.jpg",
+            image_path="uploads/manuel-nageli-NsgsQjHA1mM-unsplash.jpg",
             description="An evening of classical music featuring renowned orchestras.",
             genre="Classical",  # Added genre
             owner_id=1
@@ -274,7 +275,7 @@ def add_test_events():
             end_time=time(22, 0),
             ticket_amount=500,
             price=75.00,
-            image_path="uploads/festival_event.jpg",
+            image_path="uploads/hanny-naibaho-aWXVxy8BSzc-unsplash.jpg",
             description="A full day of music performances featuring local and international artists.",
             genre="Festival",  # Added genre
             owner_id=1
@@ -288,7 +289,7 @@ def add_test_events():
             end_time=time(22, 30),
             ticket_amount=120,
             price=45.00,
-            image_path="uploads/theatre_event.jpg",
+            image_path="uploads/martin-robles-EKpByvjvioU-unsplash.jpg",
             description="A captivating theatre performance.",
             genre="Theatre",  # Added genre
             owner_id=1

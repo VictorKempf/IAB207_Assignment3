@@ -651,15 +651,55 @@ footer a:hover {
 }
 
 
-
-/* Ensuring the comment section is responsive and scrollable */
 .comments-section {
-  max-width: 100%; /* Full width within its column */
-  max-height: 400px; /* Setting a maximum height for scrollable area */
-  overflow-y: auto; /* Adding vertical scrollbar*/
-  border: 1px solid #ddd; 
-  border-radius: 8px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
 }
+
+.comment-box {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-icon {
+  font-size: 1.8rem;
+  color: #79886e;
+}
+
+.comment-content {
+  color: #333;
+  font-size: 1rem;
+}
+
+.custom-comment-input {
+  border-radius: 10px;
+  border: 1px solid #79886e;
+  padding: 10px;
+  background-color: #f4f5f7;
+}
+
+.custom-submit-btn {
+  background-color: #79886e;
+  color: white;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+}
+
+.custom-submit-btn:hover {
+  background-color: #6a7b5f;
+}
+
+.alert {
+  background-color: #fffae6;
+  border-color: #ffdd57;
+  color: #856404;
+}
+
 
 /* Custom styling for event header and alignment */
 .event-header h1 {
