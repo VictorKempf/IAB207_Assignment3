@@ -30,7 +30,7 @@
       <!-- Column 1 -->
       <div class="col-6 col-sm-3 col-md-4 col-lg-2 d-flex justify-content-center mb-3">
         <div class="circle-wrapper">
-          <a href="#" class="circle-link">
+          <a href="{{ url_for('main.findEvents', genre='Pop') }}" class="circle-link">
             <div class="circle">
                 <img src="static/img/pop_icon.png" alt="Pop" class="circle-image">
             </div>      
@@ -42,9 +42,9 @@
       <!-- Column 2 -->
       <div class="col-6 col-sm-3 col-md-4 col-lg-2 d-flex justify-content-center mb-3">
         <div class="circle-wrapper">
-          <a href="#" class="circle-link">
+          <a href="{{ url_for('main.findEvents', genre='Jazz') }}" class="circle-link">
             <div class="circle">
-              <img src="static/img/jazz_icon.png" alt="Pop" class="circle-image">
+              <img src="static/img/jazz_icon.png" alt="Jazz" class="circle-image">
           </div> 
             <p class="mt-2 text-center">Jazz</p>
           </a>
@@ -54,9 +54,9 @@
       <!-- Column 3 -->
       <div class="col-6 col-sm-3 col-md-4 col-lg-2 d-flex justify-content-center mb-3">
         <div class="circle-wrapper">
-          <a href="#" class="circle-link">
+          <a href="{{ url_for('main.findEvents', genre='Rock') }}" class="circle-link">
             <div class="circle">
-              <img src="static/img/rock_icon.png" alt="Pop" class="circle-image">
+              <img src="static/img/rock_icon.png" alt="Rock" class="circle-image">
           </div> 
             <p class="mt-2 text-center">Rock</p>
           </a>
@@ -66,9 +66,9 @@
       <!-- Column 4 -->
       <div class="col-6 col-sm-3 col-md-4 col-lg-2 d-flex justify-content-center mb-3">
         <div class="circle-wrapper">
-          <a href="#" class="circle-link">
+          <a href="{{ url_for('main.findEvents', genre='Classical') }}" class="circle-link">
             <div class="circle">
-              <img src="static/img/classical_icon.png" alt="Pop" class="circle-image">
+              <img src="static/img/classical_icon.png" alt="Classical" class="circle-image">
           </div> 
             <p class="mt-2 text-center">Classical</p>
           </a>
@@ -78,9 +78,9 @@
       <!-- Column 5 -->
       <div class="col-6 col-sm-3 col-md-4 col-lg-2 d-flex justify-content-center mb-3">
         <div class="circle-wrapper">
-          <a href="#" class="circle-link">
+          <a href="{{ url_for('main.findEvents', genre='Electronic') }}" class="circle-link">
             <div class="circle">
-              <img src="static/img/electronic_icon.png" alt="Pop" class="circle-image">
+              <img src="static/img/electronic_icon.png" alt="Electronic" class="circle-image">
           </div> 
             <p class="mt-2 text-center">Electronic</p>
           </a>
@@ -90,9 +90,9 @@
       <!-- Column 6 -->
       <div class="col-6 col-sm-3 col-md-4 col-lg-2 d-flex justify-content-center mb-3">
         <div class="circle-wrapper">
-          <a href="#" class="circle-link">
+          <a href="{{ url_for('main.findEvents', genre='Indie') }}" class="circle-link">
             <div class="circle">
-              <img src="static/img/indie_icon.png" alt="Pop" class="circle-image">
+              <img src="static/img/indie_icon.png" alt="Indie" class="circle-image">
           </div> 
             <p class="mt-2 text-center">Indie</p>
           </a>
