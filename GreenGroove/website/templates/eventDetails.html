@@ -128,7 +128,11 @@
                         <div class="col-sm-6 col-md-3">
                             <div class="event-card">
                                 <img src="{{ url_for('static', filename=other_event.image_path) }}" alt="Event" class="img-fluid" style="border-radius: 10px;">
-                                <h5>{{ other_event.event_name }}</h5>
+                                <h5>
+                                    <a href="{{ url_for('main.eventDetails', event_id=other_event.id) }}" style="text-decoration: none; color: inherit;">
+                                      {{ other_event.event_name }}
+                                    </a>
+                                  </h5>
                                 <p>{{ other_event.description }}</p>
                                 <p>From ${{ other_event.price }}</p>
                                 <small>{{ other_event.genre }}</small>
