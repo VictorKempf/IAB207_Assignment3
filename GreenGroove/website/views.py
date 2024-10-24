@@ -200,6 +200,7 @@ def get_event_details(event_id):
     
     return jsonify({
         'event_name': event.event_name,
+        'artist_name': event.artist_name,  # Include artist name
         'price': event.price,
         'date': event.date.strftime('%d.%m.%Y'),
         'start_time': event.start_time.strftime('%I:%M %p'),

@@ -191,6 +191,7 @@
                   <div class="col-md-6">
                       <!-- Event Information -->
                       <h3 id="eventName"></h3>
+                      <p id="artistName" class="text-muted"></p> <!-- Placeholder for artist name -->
                       <p><strong>Status:</strong> <span id="eventStatus"></span></p>
                       <p><strong>Venue:</strong> <span id="eventVenue"></span></p>
                       <p><strong>Date and Time:</strong> <span id="eventDateTime"></span></p>
@@ -386,6 +387,7 @@
 
                     // Populate modal content
                     document.getElementById('eventName').textContent = event.event_name;
+                    document.getElementById('artistName').textContent = event.artist_name;  // Set artist name
                     document.getElementById('eventPrice').textContent = `from $${event.price}`;
                     document.getElementById('eventDateTime').textContent = `${event.date} ${event.start_time} - ${event.end_time}`;
                     document.getElementById('eventVenue').textContent = event.venue;
