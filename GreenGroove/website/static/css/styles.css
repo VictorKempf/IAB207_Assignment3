@@ -700,19 +700,27 @@ footer a:hover {
   height: 50px;
 }
 
-.follow-button {
-  background-color: white;
-  border: 2px solid #ddd;
+/* Basic button styling */
+.follow-btn-container .btn {
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
   padding: 5px 15px;
-  border-radius: 10px;
 }
 
-.follow-button:hover{
-  background-color: #6c757d;
-  border: 2px solid #5c5c5c;
-  color: #ededed;
+/* When the checkbox is checked, update text and style */
+#followToggle:checked + .btn {
+  content: "Following";
+  background-color: #79886e; /* Change color to indicate "Following" */
+  color: white;
 }
 
+/* Text content change based on checked state */
+#followToggle:not(:checked) + .btn::before {
+  content: "Follow";
+}
+#followToggle:checked + .btn::before {
+  content: "Following";
+}
 
 .comments-section {
     background-color: #f8f9fa;
