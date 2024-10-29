@@ -27,6 +27,7 @@ class Event(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     event_name = db.Column(db.String(100), unique=True, nullable=False)
+    artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), nullable=False)
     venue = db.Column(db.String(100), nullable=False)
     date = db.Column(db.Date, nullable=False)
     start_time = db.Column(db.Time, nullable=False)
@@ -39,6 +40,7 @@ class Event(db.Model):
     status = db.Column(db.String(20), nullable=False, default='Open')  # Example: status can be 'Open', 'Cancelled', etc.
     genre = db.Column(db.String(50), nullable=False)  # New genre field
 
+    artist = db.relationship('Artist', back_populates='events')
     orders = db.relationship('Order', backref='event')
     comments = db.relationship('Comment', backref='event')
 
@@ -72,3 +74,18 @@ class Order(db.Model):
 
     def __repr__(self):
         return f"<Order {self.order_id} by User {self.user_id}>"
+
+# Define the Artist model
+class Artist(db.Model):
+    __tablename__ = 'artists'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    genre = db.Column(db.String(50), nullable=False)
+    bio = db.Column(db.Text, nullable=True)
+    image_path = db.Column(db.String(255), nullable=True)
+    
+    events = db.relationship('Event', back_populates='artist', lazy=True)
+
+    def __repr__(self):
+        return f"<Artist {self.name}>"

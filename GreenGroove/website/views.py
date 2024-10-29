@@ -4,7 +4,7 @@ import uuid
 from flask import Blueprint, abort, current_app, flash, redirect, render_template, request, url_for, jsonify
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
-from website.models import Comment, User, Event, db, Order
+from website.models import Comment, Artist, User, Event, db, Order
 
 main_bp = Blueprint('main', __name__)
 
@@ -57,6 +57,12 @@ def createEvent():
         start_time = datetime.strptime(start_time_str, '%H:%M').time()
         end_time = datetime.strptime(end_time_str, '%H:%M').time()
 
+        # Find the artist by name
+        artist = Artist.query.filter_by(name=artist_name).first()
+        if not artist:
+            flash(f"Artist '{artist_name}' not found.", 'danger')
+            return redirect(url_for('main.createEvent'))
+
         # Handle image upload
         image = request.files['image']
         if image and image.filename != '':
@@ -79,7 +85,7 @@ def createEvent():
         # Create new event and save it to the database, including genre and owner_id
         new_event = Event(
             event_name=event_name,
-            artist_name=artist_name,
+            artist_id=artist.id,
             venue=venue,
             description=description,
             date=event_date,
@@ -202,7 +208,7 @@ def get_event_details(event_id):
     
     return jsonify({
         'event_name': event.event_name,
-        'artist_name': event.artist_name,  # Include artist name
+        'artist_name': event.artist.name,
         'price': event.price,
         'date': event.date.strftime('%d.%m.%Y'),
         'start_time': event.start_time.strftime('%I:%M %p'),
