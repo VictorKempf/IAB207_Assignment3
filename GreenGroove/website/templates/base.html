@@ -67,19 +67,23 @@
                             <a href="{{ url_for('main.createEvent') }}" class="btn btn-outline-secondary event-btn me-2">Create Event</a>
                             <a href="{{ url_for('main.BookingHistory') }}" class="btn btn-outline-secondary event-btn me-2">Booking History</a>
                             {% if current_user.is_authenticated %}
-                            <a href="#" class="btn btn-outline-secondary user-btn d-flex flex-column align-items-center">
+                            <!-- User Info Button -->
+                            <a href="#" class="btn btn-outline-secondary user-info-btn d-flex flex-column align-items-center me-2">
                                 <i class="bi bi-person-circle mb-1" style="font-size: 1.5rem;"></i>
                                 <span>{{ current_user.first_name }}</span>
                             </a>
-                            <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-secondary user-btn">
+                            <!-- Logout Button -->
+                            <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-secondary logout-btn">
                                 Logout
                             </a>
                             {% else %}
-                            <a href="{{ url_for('auth.login') }}" class="btn btn-outline-secondary user-btn me-2">
-                            Login
+                            <!-- Login Button -->
+                            <a href="{{ url_for('auth.login') }}" class="btn btn-outline-secondary login-btn me-2">
+                                Login
                             </a>
-                            <a href="{{ url_for('auth.register') }}" class="btn btn-outline-secondary user-btn">
-                            Register
+                            <!-- Register Button -->
+                            <a href="{{ url_for('auth.register') }}" class="btn btn-outline-secondary register-btn">
+                                Register
                             </a>
                             {% endif %}
                         </div>
