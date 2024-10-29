@@ -250,3 +250,15 @@ def show_events():
     event_list = [f"ID: {event.id}, Name: {event.event_name}" for event in events]
     return "<br>".join(event_list)
 
+@main_bp.app_errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@main_bp.app_errorhandler(500)
+def internal_server_error(e):
+    return render_template('500.html'), 500
+
+@main_bp.route('/trigger-500')
+def trigger_500():
+    # Deliberately raise an exception to trigger a 500 error
+    raise Exception("This is a test 500 error!")

@@ -1,0 +1,20 @@
+<!-- templates/404.html -->
+{% extends "base.html" %}
+
+{% block title %}
+    Page Not Found - GreenGroove
+{% endblock %}
+
+{% block content %}
+<div class="error-page-container">
+    <div class="error-page text-center">
+        <i class="bi bi-exclamation-triangle display-1 text-warning mb-4"></i>
+        <h1 class="display-4">404</h1>
+        <p class="lead">Oops! The page you're looking for doesn't exist.</p>
+        <div class="mt-4">
+            <a href="{{ url_for('main.index') }}" class="btn btn-primary me-2">Return Home</a>
+            <a href="{{ url_for('main.findEvents') }}" class="btn btn-secondary">Find Events</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

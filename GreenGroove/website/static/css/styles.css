@@ -906,5 +906,44 @@ font-size: 0.9rem;
   }
   
   
-  
+  /* styles.css */
+
+/* Styles for Error Pages */
+.error-page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh; /* Adjusted from 100vh to 80vh for less height */
+  justify-content: center; /* Vertically centers the content */
+  align-items: center; /* Horizontally centers the content */
+  padding: 2rem 1rem; /* Adds padding for better spacing */
+}
+
+.error-page {
+  max-width: 600px; /* Limits the width for better readability */
+  width: 100%;
+  background-color: #f8f9fa; /* Light gray background */
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .error-page-container {
+      min-height: 70vh; /* Further reduce height on smaller screens */
+  }
+
+  .error-page {
+      padding: 1.5rem;
+  }
+
+  .error-page h1.display-4 {
+      font-size: 3rem; /* Slightly smaller heading on mobile */
+  }
+
+  .error-page p.lead {
+      font-size: 1.25rem; /* Slightly smaller text on mobile */
+  }
+}
+
   
