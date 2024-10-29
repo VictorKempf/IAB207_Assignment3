@@ -27,7 +27,6 @@ class Event(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     event_name = db.Column(db.String(100), unique=True, nullable=False)
-    artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'), nullable=False)
     venue = db.Column(db.String(100), nullable=False)
     date = db.Column(db.Date, nullable=False)
     start_time = db.Column(db.Time, nullable=False)
@@ -42,7 +41,6 @@ class Event(db.Model):
 
     orders = db.relationship('Order', backref='event')
     comments = db.relationship('Comment', backref='event')
-    artist = db.relationship('Artist', back_populates='events')
 
     def __repr__(self):
         return f"<Event {self.event_name}>"
