@@ -132,7 +132,7 @@
                                     </a>
                                   </h5>
                                 <p>{{ other_event.description }}</p>
-                                <p>From ${{ other_event.price }}</p>
+                                <p>From ${{ '%.2f' | format(event.price) }}</p> 
                                 <small>{{ other_event.genre }}</small>
                             </div>
                         </div>
