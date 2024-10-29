@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}{{ artist.name }} - GreenGroove{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Artist Information Section -->
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <img src="{{ url_for('static', filename=artist.image_path) }}" alt="{{ artist.name }}" class="img-fluid" style="border-radius: 10px;">
+        </div>
+        <div class="col-md-8">
+            <h1>{{ artist.name }}</h1>
+            <h5>Genre: {{ artist.genre }}</h5>
+            <p>{{ artist.bio }}</p>
+        </div>
+    </div>
+
+    <!-- Events by the Artist -->
+    <div class="mt-5">
+        <h3>Events by {{ artist.name }}</h3>
+        <div class="row">
+            {% if events %}
+                {% for event in events %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="{{ url_for('static', filename=event.image_path) }}" class="card-img-top" alt="{{ event.event_name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ event.event_name }}</h5>
+                                <p class="card-text"><strong>Date:</strong> {{ event.date.strftime('%a, %d %b %Y') }}</p>
+                                <p class="card-text"><strong>Time:</strong> {{ event.start_time.strftime('%I:%M %p') }} - {{ event.end_time.strftime('%I:%M %p') }}</p>
+                                <p class="card-text"><strong>Venue:</strong> {{ event.venue }}</p>
+                                <p class="card-text"><strong>Price:</strong> ${{ '%.2f' | format(event.price) }}</p>
+                                <a href="{{ url_for('main.eventDetails', event_id=event.id) }}" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-muted">No upcoming events for this artist.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
