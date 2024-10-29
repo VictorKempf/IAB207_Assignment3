@@ -14,7 +14,7 @@
             <div class="d-flex justify-content-between event-header align-items-center mb-3">
                 <div>
                     <h1>{{ event.event_name }}</h1>
-                    <h5>{{ event.artist_name }}</h5>
+                    <h5>{{ event.artist.name }}</h5>
                 </div>
                 <!-- Status Button aligned to the right -->
                 <button class="status-button" style="font-size: 1.0rem; padding: 5px 20px;">{{ event.status }}</button>
@@ -26,7 +26,7 @@
             <div class="artist-info d-flex align-items-center mt-3 p-2">
                 <img src="{{ url_for('static', filename='img/gabriel-barletta--lWcaUVJ39Y-unsplash.jpg') }}" alt="Artist" class="img-fluid me-3" style="border-radius: 50px; width: 60px; height: 60px;">
                 <div>
-                    <span>By <a href="#" class="circle-link"><strong>{{ event.artist_name }}</strong></a></span><br>
+                    <span>By <a href="#" class="circle-link"><strong>{{ event.artist.name }}</strong></a></span><br>
                     <small>150k followers</small>
                 </div>
                 <label class="follow-btn-container">
@@ -136,8 +136,8 @@
                                     </a>
                                   </h5>
                                 <p>{{ other_event.description }}</p>
-                                <p>From ${{ '%.2f' | format(event.price) }}</p> 
-                                <small>{{ other_event.genre }}</small>
+                                <p>From ${{ '%.2f' | format(other_event.price) }}</p> 
+                                <small>{{ other_event.artist.name }} - {{ other_event.genre }}</small>
                             </div>
                         </div>
                         {% endfor %}
