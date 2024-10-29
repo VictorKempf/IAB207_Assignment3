@@ -85,7 +85,7 @@ class Artist(db.Model):
     bio = db.Column(db.Text, nullable=True)
     image_path = db.Column(db.String(255), nullable=True)
     
-    events = db.relationship('Event', backref='artist', lazy=True)
+    events = db.relationship('Event', back_populates='artist', lazy=True)
 
 
     def __repr__(self):
