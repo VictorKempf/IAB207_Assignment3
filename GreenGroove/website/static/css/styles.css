@@ -376,13 +376,35 @@ footer a:hover {
 
   /* button showing status of events*/
   .status-button {
-    border: 2px solid #79886e;
-    color: #79886e; /* White text color */
-    padding: 0rem 0.8rem; /* Padding inside the button */
-    border-radius: 0.50rem; /* Rounded corners */
-    font-size: 0.875rem; /* Font size for the button text */
-    margin-top: 0.5rem;
-  }
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.85em;
+    text-align: center;
+    display: inline-block;
+}
+
+/* Status-specific styles */
+.status-button.open {
+    color: #28a745;
+    border: 1px solid #28a745;
+}
+
+.status-button.inactive {
+    color: #6c757d;
+    border: 1px solid #6c757d;
+}
+
+.status-button.sold-out {
+    color: #dc3545;
+    border: 1px solid #dc3545;
+}
+
+.status-button.cancelled {
+    color: #343a40;
+    border: 1px solid #343a40;
+}
+
 
 
   /* Link Styling */
@@ -887,6 +909,7 @@ font-size: 0.9rem;
   text-decoration: none;
   font-size: 1em;
 }
+
 .btn-primary {
   background-color: #a4a4a4; 
   color: #fefefe;

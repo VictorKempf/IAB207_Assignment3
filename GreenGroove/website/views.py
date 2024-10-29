@@ -23,6 +23,11 @@ def index():
     # Filter events that are happening this week
     events_this_week = Event.query.filter(Event.date >= today, Event.date <= next_week).all()
 
+    # Update status for all events before rendering
+    for event in events + events_this_week:
+        event.update_status()  # Ensure each event's status is up-to-date
+    db.session.commit()  # Save any changes to the database
+
     print(events)  # To check popular events
     print(events_this_week)  # To check events this week
     

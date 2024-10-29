@@ -44,6 +44,23 @@ class Event(db.Model):
     orders = db.relationship('Order', backref='event')
     comments = db.relationship('Comment', backref='event')
 
+     # Status constants
+    OPEN = "Open"
+    INACTIVE = "Inactive"
+    SOLD_OUT = "Sold Out"
+    CANCELLED = "Cancelled"
+
+    def update_status(self):
+        if self.status != Event.CANCELLED:  # Skip update if the event is manually cancelled
+            current_time = datetime.now()
+            if self.date < current_time.date():
+                self.status = Event.INACTIVE  # Set to 'Inactive' if the event date has passed
+            elif self.ticket_amount <= 0:
+                self.status = Event.SOLD_OUT  # Set to 'Sold Out' if no tickets are available
+            else:
+                self.status = Event.OPEN  # Set to 'Open' if tickets are available and date is in the future
+
+
     def __repr__(self):
         return f"<Event {self.event_name}>"
 
