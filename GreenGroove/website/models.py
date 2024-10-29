@@ -74,19 +74,3 @@ class Order(db.Model):
 
     def __repr__(self):
         return f"<Order {self.order_id} by User {self.user_id}>"
-    
-# Define the Artist model
-class Artist(db.Model):
-    __tablename__ = 'artists'
-    
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    genre = db.Column(db.String(50), nullable=False)
-    bio = db.Column(db.Text, nullable=True)
-    image_path = db.Column(db.String(255), nullable=True)
-    
-    events = db.relationship('Event', back_populates='artist', lazy=True)
-
-
-    def __repr__(self):
-        return f"<Artist {self.name}>"
