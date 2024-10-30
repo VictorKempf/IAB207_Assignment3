@@ -419,3 +419,21 @@ def edit_event(event_id):
     
     # For GET request, render the edit form with current event data
     return render_template('EditEvent.html', event=event)
+
+@main_bp.route('/search', methods=['GET'])
+def search():
+    query = request.args.get('q', '').strip()
+    if not query:
+        flash('Please enter a search term.', 'warning')
+        return redirect(url_for('main.index'))
+
+    # Join the Event and Artist tables
+    events = Event.query.options(joinedload(Event.artist)).filter(
+        (Event.event_name.ilike(f'%{query}%')) |
+        (Event.description.ilike(f'%{query}%')) |
+        (Event.venue.ilike(f'%{query}%')) |
+        (Event.genre.ilike(f'%{query}%')) |
+        (Artist.name.ilike(f'%{query}%'))
+    ).join(Artist).all()
+
+    return render_template('search_results.html', events=events, query=query)
