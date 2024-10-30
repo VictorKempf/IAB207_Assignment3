@@ -31,10 +31,18 @@
 
             <!-- Artist Info -->
             <div class="artist-info d-flex align-items-center mt-3 p-2">
-                <img src="{{ url_for('static', filename='img/gabriel-barletta--lWcaUVJ39Y-unsplash.jpg') }}" alt="Artist" class="img-fluid me-3" style="border-radius: 50px; width: 60px; height: 60px;">
+                 <!-- Artist Image with fallback to default -->
+                    <img src="{{ url_for('static', filename=event.artist.image_path if event.artist.image_path else 'img/default_artist.png') }}" 
+                    alt="{{ event.artist.name }}" 
+                    class="img-fluid me-3 zoomed-image" 
+                    style="border-radius: 50%; width: 60px; height: 60px;">
+
                 <div>
-                    <span>By <a href="#" class="circle-link"><strong>{{ event.artist.name }}</strong></a></span><br>
-                    <small>150k followers</small>
+                <!-- Link to Artist Profile with Artist's Name -->
+                <span>By <a href="{{ url_for('main.artist_info', artist_id=event.artist.id) }}" class="circle-link">
+                    <strong>{{ event.artist.name }}</strong>
+                </a></span><br>
+                <small>150K followers</small>
                 </div>
                 <label class="follow-btn-container">
                     <input type="checkbox" id="followToggle" hidden>

@@ -419,6 +419,19 @@ footer a:hover {
     border: 1px solid #f17006;
 }
 
+.sold-out-button {
+  color: #6c757d; /* Standard grey color */
+  background-color: #e9ecef; /* Light grey background */
+  border-color: #ced4da; /* Light grey border */
+}
+
+.sold-out-button:hover {
+  color: white; /* White text on hover */
+  background-color: #dc3545; /* Red background on hover */
+  border-color: #dc3545; /* Red border on hover */
+  cursor: not-allowed; /* Indicates it's disabled */
+}
+
 
 
   /* Link Styling */
@@ -563,6 +576,13 @@ footer a:hover {
     color: #79886e;
     transform: scale(1.1);
   }
+
+  .zoomed-image {
+    object-fit: cover;          /* Ensures the image covers the area fully */
+    object-position: center;     /* Centers the image */
+    width: 80px;
+    height: 80px;
+}
   
   .follow-btn {
     border: 2px solid #79886e;
