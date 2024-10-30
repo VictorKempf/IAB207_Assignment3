@@ -848,25 +848,34 @@ font-size: 0.9rem;
 
 /*findEvent.html*/
 /* Make the container a flexbox grid */
-.findEvent-card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 20px; /* Adjust gap between cards */
-}
-
-/* Ensure each card has the same height and width */
+/* Container Flexbox Grid */
+/* Ensure each card has consistent height and width */
 .findEvent-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 350px;
-  height: 450px; /* Set a fixed height */
+  width: 100%;  /* Full width in column */
+  height: 100%; /* Flexible height */
   border: 1px solid #e0e0e0;
   border-radius: 3px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px; /* Add extra space between rows */
 }
+
+/* Add padding at the bottom of the container */
+.container.mt-4 {
+  padding-bottom: 40px;
+}
+
+/* Add gap between cards in flexbox */
+.findEvent-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 30px;
+}
+
 
 /* Style the card image to have a consistent size */
 .findEvent-card img {
@@ -882,6 +891,13 @@ font-size: 0.9rem;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
+}
+
+/* Consistent image height if using a specific class */
+.findEvent-card-img-top {
+  height: 180px;
+  object-fit: cover;
+  width: 100%;
 }
 
 /* Adjust spacing of content inside card */
@@ -909,6 +925,7 @@ font-size: 0.9rem;
   text-decoration: none;
   font-size: 1em;
 }
+
 
 .btn-primary {
   background-color: #a4a4a4; 

@@ -23,27 +23,35 @@
         </div>
     </form>
 
-    <div class="row">
+    <div class="row g-4">
         {% if events %}
             {% for event in events %}
                 <div class="col-sm-12 col-md-6 col-lg-4 d-flex align-items-stretch">
-                    <div class="findEvent-card mb-4">
+                    <div class="findEvent-card d-flex flex-column">
                         <!-- Display Event Image if it exists -->
                         {% if event.image_path %}
                             <img src="{{ url_for('static', filename=event.image_path) }}" class="findEvent-card-img-top img-fluid" alt="{{ event.event_name }}">
                         {% else %}
                             <img src="{{ url_for('static', filename='img/default_event.png') }}" class="findEvent-card-img-top img-fluid" alt="Default Event Image">
                         {% endif %}
-
+    
                         <div class="findEvent-card-body d-flex flex-column">
-                            <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
                                 <h5 class="findEvent-card-title mb-0">{{ event.event_name }}</h5>
                                 <!-- Event Status -->
                                 <span class="status-button {{ event.status | lower }}">{{ event.status }}</span>
-                            </div>                            
+                            </div>
+                            
                             <p class="findEvent-card-text">{{ event.description[:100] }}...</p>
                             <p><strong>Venue:</strong> {{ event.venue }}</p>
                             <p><strong>Date:</strong> {{ event.date.strftime('%d/%m/%Y') }}</p>
+                            <p><strong>Price:</strong> ${{ '%.2f' | format(event.price) }}</p>
+    
+                            <!-- Add a "Limited Seats" message if tickets are below a certain threshold (optional) -->
+                            {% if event.ticket_amount < 10 and event.status == 'Open' %}
+                                <p class="text-danger"><strong>Limited Tickets Available!</strong></p>
+                            {% endif %}
+    
                             <a href="{{ url_for('main.eventDetails', event_id=event.id) }}" class="btn btn-primary mt-auto">View Details</a>
                         </div>
                     </div>
@@ -52,6 +60,7 @@
         {% else %}
             <p>No events found. Please check back later.</p>
         {% endif %}
-    </div>
+    </div>    
 </div>
 {% endblock %}
+
