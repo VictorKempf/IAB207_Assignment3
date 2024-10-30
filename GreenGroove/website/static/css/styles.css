@@ -456,6 +456,13 @@ footer a:hover {
   display: block; /* Remove any unwanted spacing */
 }
 
+.card-img-top {
+  height: 300px; /* Set a consistent height */
+  object-fit: cover; /* Ensures the image fills the area proportionally */
+  width: 100%; /* Ensures the image takes up the full width of the card */
+}
+
+
 .quick-view-btn {
   position: absolute;
   bottom: 10px;
