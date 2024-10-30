@@ -150,6 +150,19 @@ footer a:hover {
     border-left: 1px solid #ddd;
     color: #b1b1b1; /* Light gray text for placeholder */
   }
+/* Add a border to the select input */
+.form-control#genre {
+  border: 1px solid #ced4da; /* Adjust color as needed */
+  border-radius: 5px; /* Optional: make the border rounded */
+  padding: 0.375rem 0.75rem; /* Adjust padding for a more consistent look */
+  color: #495057; /* Text color */
+}
+
+/* Optional: Add focus styling */
+.form-control#genre:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
 
   .search-btn {
     width: 40px;
