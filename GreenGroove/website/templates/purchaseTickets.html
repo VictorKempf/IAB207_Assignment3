@@ -1,24 +1,39 @@
 {% extends "base.html" %}
 
-{% block title %}Home - GreenGroove{% endblock %}
+{% block title %}Purchase Tickets - GreenGroove{% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1>Purchase Tickets</h1>
-        <form method="POST" action="{{ url_for('main.purchase_tickets', event_id=event.id) }}">
-            <div class="form-group">
-                <label for="name">First Name</label>
-                <input type="text" class="form-control custom-input me-2" id="name" name="name" placeholder="{{ current_user.first_name }}" required>
+        <h1>Purchase Tickets for {{ event.event_name }}</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Event Image -->
+                <img src="{{ url_for('static', filename=event.image_path) }}" alt="{{ event.event_name }}" class="img-fluid">
             </div>
-            <div class="form-group">
-                <label for="lastname">Last Name</label>
-                <input type="text" class="form-control custom-input me-2" id="lastname" name="lastname" placeholder="{{ current_user.surname }}" required>
+            <div class="col-md-6">
+                <!-- Event Details -->
+                <p><strong>Artist:</strong> {{ event.artist.name }}</p>
+                <p><strong>Date:</strong> {{ event.date.strftime('%d-%m-%Y') }}</p>
+                <p><strong>Time:</strong> {{ event.start_time.strftime('%H:%M') }} - {{ event.end_time.strftime('%H:%M') }}</p>
+                <p><strong>Venue:</strong> {{ event.venue }}</p>
+                <p><strong>Price per Ticket:</strong> ${{ '%.2f' | format(event.price) }}</p>
+
+                <form method="POST" action="{{ url_for('main.purchase_tickets', event_id=event.id) }}">
+                    <div class="form-group">
+                        <label for="name">First Name</label>
+                        <input type="text" class="form-control custom-input me-2" id="name" name="name" value="{{ current_user.first_name }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" class="form-control custom-input me-2" id="lastname" name="lastname" value="{{ current_user.surname }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity of Tickets</label>
+                        <input type="number" class="form-control custom-input me-2" id="quantity" name="quantity" min="1" max="{{ event.ticket_amount }}" value="1" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Purchase</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="quantity">Quantity of Tickets</label>
-                <input type="number" class="form-control custom-input me-2" id="quantity" name="quantity" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Purchase</button>
-        </form>
+        </div>
     </div>
 {% endblock %}

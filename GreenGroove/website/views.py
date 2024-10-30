@@ -126,8 +126,11 @@ def createEvent():
 @main_bp.route('/BookingHistory')
 @login_required
 def BookingHistory():
+    # Get all orders made by the current user
+    user_orders = Order.query.filter_by(user_id=current_user.id).all()
+    # Get events created by the user
     user_events = Event.query.filter_by(owner_id=current_user.id).all()
-    return render_template('BookingHistory.html', events=user_events)
+    return render_template('BookingHistory.html', orders=user_orders, events=user_events)
 
 @main_bp.route('/artist/<int:artist_id>')
 def artist_info(artist_id):
