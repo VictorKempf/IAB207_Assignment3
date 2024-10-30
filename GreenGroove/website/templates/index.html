@@ -303,11 +303,14 @@
                   <div class="artistBox">
                       <!-- Link to artist information page -->
                       <a href="{{ url_for('main.artist_info', artist_id=entry.artist.id) }}" class="text-decoration-none artistLink">
+                          <!-- Circular container for artist image -->
                           <div class="artist-icon-container">
-                              <i class="bi bi-person-circle artist-icon"></i>
+                              <img src="{{ url_for('static', filename=entry.artist.image_path if entry.artist.image_path else 'img/default_artist.png') }}" alt="{{ entry.artist.name }}">
                           </div>
+                          <!-- Artist name and genre -->
                           <h5 class="artist-name">{{ entry.artist.name }}</h5>
                           <p class="artist-genre"><strong>Genre:</strong> {{ entry.artist.genre }}</p>
+                          <!-- Next event details -->
                           {% if entry.next_event %}
                               <p class="next-event"><strong>Next concert:</strong><br>{{ entry.next_event.date.strftime('%a, %d %b %Y') }}, {{ entry.next_event.start_time.strftime('%I:%M %p') }}</p>
                           {% else %}

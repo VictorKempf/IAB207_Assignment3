@@ -547,17 +547,27 @@ footer a:hover {
   text-align: center;                /* Centers text within the box */
 }
 
-/* Styling for the artist profile icon button */
-.artistBox .artist-btn {
-  width: 50px;                       /* Fixed width */
-  height: 50px;                      /* Fixed height */
-  margin-bottom: 10px;               /* Space below icon */
-  background-color: transparent;     /* Transparent background */
-  border: none;                      /* Removes default button border */
-  display: flex;                     /* Centers icon inside */
-  align-items: center;
-  justify-content: center;
+/* Container for the artist icon to make it circular and centered */
+.artist-icon-container {
+  width: 80px;                    /* Set a fixed width for the circular image container */
+  height: 80px;                   /* Set a fixed height for the circular image container */
+  border-radius: 50%;             /* Makes the container circular */
+  overflow: hidden;               /* Ensures the image stays within the circle */
+  display: flex;                  /* Centers the image */
+  align-items: center;            /* Vertically center the image */
+  justify-content: center;        /* Horizontally center the image */
+  margin: 0 auto 10px auto;       /* Center-align the circular container within artistBox */
 }
+
+/* Style for the image itself to ensure it fills the container and remains centered */
+.artist-icon-container img {
+  width: 100%;                    /* Image covers full width of container */
+  height: 100%;                   /* Image covers full height of container */
+  object-fit: cover;              /* Ensures the image covers the entire container */
+  display: block;                 /* Removes any extra spacing below the image */
+}
+
+
 
 /* Styling for the artist name */
 .artistBox h5 {
