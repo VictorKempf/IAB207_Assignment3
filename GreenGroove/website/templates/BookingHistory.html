@@ -44,7 +44,27 @@
             </div>
           </div>
         </div>
-    
+      </div>
+      <!-- Created Events Section -->
+      {% if events %}
+      <h2 class="text-center mt-5">Created Events</h2>
+      <div class="row">
+        {% for event in events %}
+          <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+              <img src="{{ url_for('static', filename=event.image_path) }}" class="card-img-top" alt="{{ event.event_name }} Image">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ event.event_name }}</h5>
+                <p class="card-text"><strong>Date:</strong> {{ event.date.strftime('%B %d, %Y') }}</p>
+                <a href="{{ url_for('main.edit_event', event_id=event.id) }}" class="btn btn-primary mt-auto">Edit</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div> <!-- End of Created Events Row -->
+      {% endif %}
+
+        
       </div>
     </div>
     {% endblock %}

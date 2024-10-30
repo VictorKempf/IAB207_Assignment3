@@ -126,7 +126,8 @@ def createEvent():
 @main_bp.route('/BookingHistory')
 @login_required
 def BookingHistory():
-    return render_template('BookingHistory.html')
+    user_events = Event.query.filter_by(owner_id=current_user.id).all()
+    return render_template('BookingHistory.html', events=user_events)
 
 @main_bp.route('/artist/<int:artist_id>')
 def artist_info(artist_id):
@@ -313,3 +314,38 @@ def internal_server_error(e):
 def trigger_500():
     # Deliberately raise an exception to trigger a 500 error
     raise Exception("This is a test 500 error!")
+
+@main_bp.route('/edit_event/<int:event_id>', methods=['GET', 'POST'])
+@login_required
+def edit_event(event_id):
+    # Retrieve the event by ID
+    event = Event.query.get_or_404(event_id)
+    
+    # Ensure the current user is the owner of the event
+    if event.owner_id != current_user.id:
+        flash('You do not have permission to edit this event.', 'danger')
+        return redirect(url_for('main.booking_history'))
+    
+    if request.method == 'POST':
+        # Update event details from form data
+        event.event_name = request.form.get('event_name')
+        event.artist_name = request.form.get('artist_name')
+        event.venue = request.form.get('venue')
+        event.date = request.form.get('date')
+        event.start_time = request.form.get('start_time')
+        event.end_time = request.form.get('end_time')
+        event.ticket_amount = request.form.get('ticket_amount')
+        event.price = request.form.get('price')
+        event.genre = request.form.get('genre')
+        event.description = request.form.get('description')
+        
+        # Handle image upload if necessary (optional)
+        # Example: if 'image' in request.files:
+        #            handle_image_upload(request.files['image'], event)
+        
+        # Commit changes to the database
+        db.session.commit()
+        flash('Event updated successfully!', 'success')
+        return redirect(url_for('main.booking_history'))
+    
+    return render_template('EditEvent.html', event=event)
