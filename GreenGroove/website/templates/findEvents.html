@@ -41,6 +41,7 @@
                                 <span class="status-button 
                                 {% if event.status == 'Sold Out' %}sold-out
                                 {% elif event.status == 'Inactive' %}inactive
+                                {% elif event.status == 'Cancelled' %}cancelled
                                 {% elif event.status == 'Open' %}open{% endif %}">
                                 {{ event.status }}
                                 </span>     
