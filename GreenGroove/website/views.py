@@ -324,28 +324,97 @@ def edit_event(event_id):
     # Ensure the current user is the owner of the event
     if event.owner_id != current_user.id:
         flash('You do not have permission to edit this event.', 'danger')
-        return redirect(url_for('main.booking_history'))
+        return redirect(url_for('main.BookingHistory'))
     
     if request.method == 'POST':
-        # Update event details from form data
-        event.event_name = request.form.get('event_name')
-        event.artist_name = request.form.get('artist_name')
-        event.venue = request.form.get('venue')
-        event.date = request.form.get('date')
-        event.start_time = request.form.get('start_time')
-        event.end_time = request.form.get('end_time')
-        event.ticket_amount = request.form.get('ticket_amount')
-        event.price = request.form.get('price')
-        event.genre = request.form.get('genre')
-        event.description = request.form.get('description')
+        # Get form data from the request
+        event_name = request.form.get('eventName').strip()
+        artist_name = request.form.get('artistName').strip()
+        venue = request.form.get('venue').strip()
+        description = request.form.get('description').strip()
+        date_str = request.form.get('date').strip()  # Get date as string from form
+        start_time_str = request.form.get('startTime').strip()
+        end_time_str = request.form.get('endTime').strip()
+        price_str = request.form.get('price').strip()
+        ticket_amount_str = request.form.get('tickets').strip()
+        genre = request.form.get('genre').strip()  # Get genre from the form
+
+        # Validate required fields
+        if not all([event_name, artist_name, venue, description, date_str, start_time_str, end_time_str, price_str, ticket_amount_str, genre]):
+            flash('All fields are required.', 'danger')
+            return redirect(url_for('main.edit_event', event_id=event_id))
         
-        # Handle image upload if necessary (optional)
-        # Example: if 'image' in request.files:
-        #            handle_image_upload(request.files['image'], event)
+        # Convert date and time to Python objects (using DD/MM/YYYY format for the date)
+        try:
+            event_date = datetime.strptime(date_str, '%d/%m/%Y').date()
+            start_time = datetime.strptime(start_time_str, '%H:%M').time()
+            end_time = datetime.strptime(end_time_str, '%H:%M').time()
+        except ValueError:
+            flash('Invalid date or time format. Please use DD/MM/YYYY for date and HH:MM for time.', 'danger')
+            return redirect(url_for('main.edit_event', event_id=event_id))
+        
+        # Validate and convert price and ticket_amount
+        try:
+            price = float(price_str)
+            ticket_amount = int(ticket_amount_str)
+            if price < 0:
+                raise ValueError("Price cannot be negative.")
+            if ticket_amount < 1:
+                raise ValueError("Ticket amount must be at least 1.")
+        except ValueError as ve:
+            flash(f'Invalid input for price or ticket amount: {ve}', 'danger')
+            return redirect(url_for('main.edit_event', event_id=event_id))
+        
+        # Find the artist by name
+        artist = Artist.query.filter_by(name=artist_name).first()
+        if not artist:
+            flash(f"Artist '{artist_name}' not found.", 'danger')
+            return redirect(url_for('main.edit_event', event_id=event_id))
+        
+        # Handle image upload
+        image = request.files.get('image')
+        if image and image.filename != '':
+            filename = secure_filename(image.filename)
+
+            # Get the absolute path for the uploads folder
+            upload_folder = os.path.join(current_app.root_path, 'static', 'uploads')
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+
+            image_path = os.path.join(upload_folder, filename)
+            try:
+                image.save(image_path)
+                event.image_path = f'uploads/{filename}'
+            except Exception as e:
+                flash('Failed to upload image. Please try again.', 'danger')
+                current_app.logger.error(f"Image upload error: {e}")
+                return redirect(url_for('main.edit_event', event_id=event_id))
+        
+        # Update event details
+        event.event_name = event_name
+        event.artist_id = artist.id
+        event.venue = venue
+        event.description = description
+        event.date = event_date
+        event.start_time = start_time
+        event.end_time = end_time
+        event.price = price
+        event.ticket_amount = ticket_amount
+        event.genre = genre
+
+        # Update event status based on new date and ticket amount
+        event.update_status()
         
         # Commit changes to the database
-        db.session.commit()
-        flash('Event updated successfully!', 'success')
-        return redirect(url_for('main.booking_history'))
+        try:
+            db.session.commit()
+            flash('Event updated successfully!', 'success')
+            return redirect(url_for('main.BookingHistory'))
+        except Exception as e:
+            db.session.rollback()
+            flash('An error occurred while updating the event. Please try again.', 'danger')
+            current_app.logger.error(f"Error updating event: {e}")
+            return redirect(url_for('main.edit_event', event_id=event_id))
     
+    # For GET request, render the edit form with current event data
     return render_template('EditEvent.html', event=event)

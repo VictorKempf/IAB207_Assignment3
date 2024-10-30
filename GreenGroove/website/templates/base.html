@@ -65,7 +65,7 @@
                             <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary event-btn me-2">Home</a>
                             <a href="{{ url_for('main.findEvents') }}" class="btn btn-outline-secondary event-btn me-2">Find Event</a>
                             <a href="{{ url_for('main.createEvent') }}" class="btn btn-outline-secondary event-btn me-2">Create Event</a>
-                            <a href="{{ url_for('main.BookingHistory') }}" class="btn btn-outline-secondary event-btn me-2">Booking History</a>
+                            <a href="{{ url_for('main.BookingHistory') }}" class="btn btn-outline-secondary event-btn me-2">Event History</a>
                             {% if current_user.is_authenticated %}
                             <!-- User Info Button -->
                             <a href="#" class="btn btn-outline-secondary user-info-btn d-flex flex-column align-items-center me-2">
@@ -134,7 +134,7 @@
                         <li><a href="{{ url_for('main.index') }}" class="text-white">Home</a></li>
                         <li><a href="{{ url_for('main.findEvents') }}" class="text-white">Find Event</a></li>
                         <li><a href="{{ url_for('main.createEvent') }}" class="text-white">Create Event</a></li>
-                        <li><a href="{{ url_for('main.BookingHistory') }}" class="text-white">Booking History</a></li>
+                        <li><a href="{{ url_for('main.BookingHistory') }}" class="text-white">Event History</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-2 col-md-6 mb-4 mb-md-0">

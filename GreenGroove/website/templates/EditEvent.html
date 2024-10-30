@@ -1,12 +1,114 @@
 <!-- templates/EditEvent.html -->
 {% extends "base.html" %}
 
-{% block title %}
-    Edit Event - GreenGroove
-{% endblock %}
+{% block title %}Edit Event - GreenGroove{% endblock %}
 
 {% block content %}
-    <div>
-        <h2>Edit Event</h2>
+    <div class="header text-start">
+        <h2>EDIT EVENT</h2>
+    </div>
+    <div class="container-fluid">
+        <div class="container mt-4">
+            <form method="POST" enctype="multipart/form-data">  <!-- Ensure the form uses POST and supports file uploads -->
+                <div class="row">
+                    <!-- Left Column for Event Details -->
+                    <div class="col-lg-6 col-md-12">
+                        <div class="form-section">
+                            <!-- Event Name -->
+                            <div class="mb-3">
+                                <label for="eventName" class="form-label">Event name</label>
+                                <input type="text" class="form-control custom-input" id="eventName" name="eventName" placeholder="Event name" value="{{ event.event_name }}" required>
+                            </div>
+                    
+                            <!-- Artist Name -->
+                            <div class="mb-3">
+                                <label for="artistName" class="form-label">Artist name</label>
+                                <input type="text" class="form-control custom-input" id="artistName" name="artistName" placeholder="Artist name" value="{{ event.artist.name }}" required>
+                            </div>
+                    
+                            <!-- Venue -->
+                            <div class="mb-3">
+                                <label for="venue" class="form-label">Venue</label>
+                                <input type="text" class="form-control custom-input" id="venue" name="venue" placeholder="Venue" value="{{ event.venue }}" required>
+                            </div>
+                            <!-- Genre -->
+                            <div class="mb-3">
+                                <label for="genre" class="form-label">Genre</label>
+                                <select class="form-control" id="genre" name="genre" required>
+                                    <option value="Pop" {% if event.genre == 'Pop' %}selected{% endif %}>Pop</option>
+                                    <option value="Jazz" {% if event.genre == 'Jazz' %}selected{% endif %}>Jazz</option>
+                                    <option value="Rock" {% if event.genre == 'Rock' %}selected{% endif %}>Rock</option>
+                                    <option value="Classical" {% if event.genre == 'Classical' %}selected{% endif %}>Classical</option>
+                                    <option value="Electronic" {% if event.genre == 'Electronic' %}selected{% endif %}>Electronic</option>
+                                    <option value="Indie" {% if event.genre == 'Indie' %}selected{% endif %}>Indie</option>
+                                    <option value="Other" {% if event.genre == 'Other' %}selected{% endif %}>Other</option>
+                                </select>
+                            </div>
+                    
+                            <!-- Date -->
+                            <div class="mb-3">
+                                <label for="date" class="form-label">Date</label>
+                                <input type="text" class="form-control custom-input" id="date" name="date" placeholder="dd/mm/yyyy" value="{{ event.date.strftime('%d/%m/%Y') }}" required>
+                            </div>
+                    
+                            <!-- Time -->
+                            <div class="d-flex align-items-center mb-3">
+                                <input type="text" class="form-control custom-input me-2" id="startTime" name="startTime" placeholder="00:00" value="{{ event.start_time.strftime('%H:%M') }}" required>
+                                <span>→</span>
+                                <input type="text" class="form-control custom-input ms-2" id="endTime" name="endTime" placeholder="00:00" value="{{ event.end_time.strftime('%H:%M') }}" required>
+                            </div>
+                    
+                            <!-- Tickets Available and Price -->
+                            <div class="row">
+                                <div class="col-sm-6 mb-3">
+                                    <label for="tickets" class="form-label">Tickets available for event</label>
+                                    <input type="number" class="form-control custom-input" id="tickets" name="tickets" placeholder="Amount of tickets" value="{{ event.ticket_amount }}" required>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <label for="price" class="form-label">Price</label>
+                                    <input type="text" class="form-control custom-input" id="price" name="price" placeholder="$" value="{{ event.price }}" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Right Column for Image and Description -->
+                    <div class="col-lg-6 col-md-12 mt-4 mt-md-0">
+                        <div class="form-section">
+                            <!-- Image Upload with Preview -->
+                            <label for="eventImage" class="form-label">
+                                <h5>Upload image for event</h5>
+                            </label>
+                            <div class="d-flex align-items-center justify-content-center mb-3" id="imagePreview">
+                                {% if event.image_path %}
+                                    <img src="{{ url_for('static', filename=event.image_path) }}" alt="Event Image" class="img-thumbnail" style="max-width: 200px;">
+                                {% else %}
+                                    <span>No image selected</span>
+                                {% endif %}
+                            </div>
+                    
+                            <div class="mb-3">
+                                <input class="form-control" type="file" id="eventImage" name="image" accept="image/*" onchange="previewImage(event)">
+                                <small class="form-text text-muted">Leave blank to keep the current image.</small>
+                            </div>
+                        </div>
+                
+                        <!-- Description Textarea -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control custom-textarea" id="description" name="description" rows="5" placeholder="Enter event description" required>{{ event.description }}</textarea>
+                        </div>
+
+                        <!-- Save event button -->
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center">
+                                <button type="submit" class="btn save-btn" style="width: auto;">Save Changes</button>
+                                <a href="{{ url_for('main.BookingHistory') }}" class="btn btn-secondary ms-2">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 {% endblock %}
