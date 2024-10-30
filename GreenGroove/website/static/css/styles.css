@@ -189,13 +189,11 @@ footer a:hover {
     color: #79886e; /* Icon color when hovered */
 }
 
-.search-margin {
-    margin-right: 10px; /* Adjust this value to move the dropdown */
-}
 
 /* Adjustments for the search container */
 .search-container {
   max-width: 600px;
+  padding-left: 7px;
 }
 
 /* Event buttons */
@@ -389,6 +387,7 @@ footer a:hover {
 
   /* button showing status of events*/
   .status-button {
+    margin-top: 5px;
     padding: 4px 8px;
     border-radius: 4px;
     font-weight: bold;
