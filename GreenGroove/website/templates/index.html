@@ -226,27 +226,27 @@
 
 
 
-  <div class="container-fluid">
-    <div class="row text-center">
-        <div class="col-auto pe-1">
-            <h3 class="mb-0">Happening this week</h3>
-        </div>
-        <div class="col text-end">
-            <a href="{{ url_for('main.findEvents') }}" class="view-more-link">view more </a>
-        </div>
-    </div>
+<div class="container-fluid">
+  <div class="row text-center">
+      <div class="col-auto pe-1">
+          <h3 class="mb-0">Happening this week</h3>
+      </div>
+      <div class="col text-end">
+          <a href="{{ url_for('main.findEvents') }}" class="view-more-link">view more </a>
+      </div>
+  </div>
 </div>
 
 <div id="weeklyEventsContainer" class="container-fluid">
   <div class="row">
       {% if events_this_week %}
-          <!-- Slice the events_this_week list to show only 4 items -->
-          {% for event in events_this_week[:4] %}
-              <div class="col-md-3 mb-3">
+          <!-- Loop through events and display with responsive columns -->
+          {% for event in events_this_week %}
+              <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
                   <div class="rectangle">
                       <div class="card-img-container">
                           <!-- Event Image -->
-                          <img src="{{ url_for('static', filename=event.image_path) }}" alt="{{ event.event_name }}">
+                          <img src="{{ url_for('static', filename=event.image_path) }}" alt="{{ event.event_name }}" class="img-fluid">
                           <button type="button" class="quick-view-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal" data-event-id="{{ event.id }}">
                               Quick View
                           </button>
@@ -255,33 +255,26 @@
                   <div class="row align-items-center">
                       <div class="col-6 text-start">
                           <!-- Event Name -->
-                          <h4 class="mb-0"><a href="{{ url_for('main.eventDetails', event_id=event.id) }}" style="text-decoration: none; color: #333">{{ event.event_name }}</a></h4>
+                          <h4 class="mb-0"><a href="{{ url_for('main.eventDetails', event_id=event.id) }}" class="event-name-link">{{ event.event_name }}</a></h4>
                       </div>
                       <div class="col-6 d-flex justify-content-end">
                           <!-- Event Status -->
-                          <span class="status-button 
-                                {% if event.status == 'Sold Out' %}sold-out
-                                {% elif event.status == 'Inactive' %}inactive
-                                {% elif event.status == 'Cancelled' %}cancelled
-                                {% elif event.status == 'Open' %}open{% endif %}">
-                                {{ event.status }}
-                                </span>                      
-                        </div>
+                          <span class="status-button {{ event.status | lower }}">{{ event.status }}</span>
+                      </div>
                   </div>
-                  <div class="popular-events-container row align-items-center">
-                      <div class="col-10 text-start">
+                  <div class="event-details-container row align-items-center">
+                      <div class="col-12 text-start">
                           <!-- Event Date and Time -->
                           <p class="mb-0">{{ event.date.strftime('%a, %d.%m.%Y') }} {{ event.start_time.strftime('%I:%M %p') }} - {{ event.end_time.strftime('%I:%M %p') }}</p>
                       </div>
-                      <div class="col-10 text-start">
+                      <div class="col-12 text-start">
                           <!-- Event Venue -->
-                          <p class="mb-0" style="font-style: italic;">{{ event.venue }}</p>
+                          <p class="mb-0 venue">{{ event.venue }}</p>
                       </div>
-                      <div class="col-10 text-start">
+                      <div class="col-12 text-start">
                           <!-- Event Price -->
-                          <p class="mb-0">from ${{ '%.2f' | format(event.price) }}</p>
+                          <p class="mb-0 price">from ${{ '%.2f' | format(event.price) }}</p>
                       </div>
-                      <!-- Limited Tickets Warning -->
                       {% if event.ticket_amount < 10 and event.status == 'Open' %}
                           <div class="col-12 text-start">
                               <p class="text-danger mb-0"><strong>Limited Tickets Available!</strong></p>
@@ -295,6 +288,7 @@
       {% endif %}
   </div>
 </div>
+
 
 
   
