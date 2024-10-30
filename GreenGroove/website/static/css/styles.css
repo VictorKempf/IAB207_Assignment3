@@ -766,27 +766,52 @@ footer a:hover {
 }
 
 .comments-section {
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  /* Removed max-height from here */
+}
+
+.comments-container {
+  max-height: 400px; /* Adjust the height as needed */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .comment-box {
-    background-color: #ffffff;
-    border-radius: 10px;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .user-icon {
-    font-size: 1.8rem;
-    color: #79886e;
+  font-size: 1.8rem;
+  color: #79886e;
 }
 
 .comment-content {
-    color: #333;
-    font-size: 1rem;
+  color: #333;
+  font-size: 1rem;
 }
+
+/* Optional: Hide scrollbar for WebKit browsers */
+.comments-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.comments-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.comments-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.comments-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 
 .custom-comment-input {
     border-radius: 10px;
