@@ -104,6 +104,12 @@
                             <div class="col-md-12 d-flex justify-content-center">
                                 <button type="submit" class="btn save-btn" style="width: auto;">Save Changes</button>
                                 <a href="{{ url_for('main.BookingHistory') }}" class="btn btn-secondary ms-2">Cancel</a>
+                                
+                                <!-- New Cancel Event Button -->
+                                <button type="submit" name="cancel_event" class="btn btn-danger ms-2" onclick="return confirm('Are you sure you want to cancel this event?');">
+                                    Cancel Event
+                                </button>
+                            
                             </div>
                         </div>
                     </div>
