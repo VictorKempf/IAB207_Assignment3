@@ -511,94 +511,137 @@ footer a:hover {
   color: #79886e;
 }
 
+/* Wrapper for horizontal scrolling */
+.scrolling-wrapper {
+    overflow-x: auto;          /* Allows horizontal scrolling */
+    white-space: nowrap;       /* Keeps items from wrapping to a new line */
+    padding: 1rem;             /* Adds padding around the scrolling area */
+    display: flex;             /* Displays items in a row */
+    gap: 15px;                 /* Space between artist boxes */
+}
 
-  .scrolling-wrapper {
-    overflow-x: auto;
-    white-space: nowrap;
-    padding: 1rem;
-  }
-  
-  .artistContainer {
-    padding: 0rem; /* Padding inside the rectangle */
-    border-radius: 0.375rem; /* Rounded corners */
-    height: 250px; /* Fixed height for the rectangle */
-    display: inline-block; /* Ensure containers line up horizontally */
-    vertical-align: top; /* Align containers to the top */
-    width: 200px; /* Set a fixed width for horizontal scrolling */
-    margin-right: 1rem; /* Add space between artist boxes */
-    margin-bottom: 1rem; /* Space below each artist box */
-    box-shadow: 2px 5px 5px #49505775;
-  }
-  
-  .artistBox {
-    padding: 1rem; /* Padding inside the rectangle */
-    height: 250px; /* Fixed height for the rectangle */
-    display: flex;
-    flex-direction: column; /* Stack children vertically */
-    align-items: center;
-    justify-content: flex-start; /* Align children to the top */
-    margin-bottom: 10px;
-    background-color: #f8f9fa; /* Background color for better visibility */
-    border: 1px solid #dee2e6; /* Border for the box */
-    border-radius: 0.375rem; /* Rounded corners */
-  }
-  
-  .artist-btn {
-    width: 70px; /* Reduce the width to make it smaller */
-    height: 80px; /* Reduce height to match other buttons */
-    border: none;
-    background-color: transparent;
-    display: flex;
+/* Styling for each artist container */
+.artistContainer {
+    padding: 0rem;              /* Removes inner padding */
+    border-radius: 0.375rem;     /* Rounds corners */
+    height: 270px;              /* Sets a fixed height for the container */
+    display: inline-block;      /* Allows horizontal stacking */
+    vertical-align: top;        /* Aligns containers to the top */
+    width: 200px;               /* Fixed width for consistent box size */
+    margin-right: 1rem;         /* Space between artist boxes horizontally */
+    margin-bottom: 1rem;        /* Space below each artist box */
+    box-shadow: 2px 5px 5px #49505775; /* Adds shadow for depth */
+}
+
+/* Inner box for each artist */
+.artistBox {
+    padding: 1rem;                     /* Padding inside the box */
+    height: 270px;                     /* Fixed height for uniformity */
+    width: 180px;                      /* Width slightly smaller than container */
+    display: flex;                     /* Enables flex properties */
+    flex-direction: column;            /* Stacks children vertically */
+    align-items: center;               /* Centers items horizontally */
+    justify-content: space-between;    /* Space out items within the box */
+    background-color: #f8f9fa;         /* Light background color */
+    border: 1px solid #dee2e6;         /* Adds a border for definition */
+    border-radius: 0.375rem;           /* Rounded corners */
+    overflow: hidden;                  /* Ensures content stays within box */
+    text-align: center;                /* Centers text within the box */
+}
+
+/* Styling for the artist profile icon button */
+.artistBox .artist-btn {
+    width: 50px;                       /* Fixed width */
+    height: 50px;                      /* Fixed height */
+    margin-bottom: 10px;               /* Space below icon */
+    background-color: transparent;     /* Transparent background */
+    border: none;                      /* Removes default button border */
+    display: flex;                     /* Centers icon inside */
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
-    overflow: hidden;
-    margin-top: 5px; 
-  }
-  
-  /* Icon styling */
-  .artist-btn .bi {
-    color: #79886e;
-    font-size: 3rem; /* Adjust icon size to fit better */
-    transition: color 0.3s, transform 0.3s;
-  }
-  
-  /* User button hover effect */
-  .artist-btn:hover {
+}
+
+/* Truncate artist name if too long and allow word wrapping */
+.artistBox h5 {
+  font-size: 0.9rem;              /* Slightly reduce font size for better fit */
+  font-weight: bold;              /* Bold for emphasis */
+  margin: 0.5rem 0;               /* Spacing above and below */
+  overflow: hidden;               /* Hide overflowed text */
+  text-overflow: ellipsis;        /* Adds '...' for overflowed text */
+  white-space: normal;            /* Allows text to wrap onto the next line */
+  max-height: 2.6em;              /* Limits height to two lines */
+  line-height: 1.3;               /* Space between lines */
+  text-align: center;             /* Center-align text */
+}
+
+/* Styling for genre and event details with word wrapping */
+.artistBox p {
+  font-size: 0.8rem;               /* Smaller font size for details */
+  margin: 0.25rem 0;               /* Space between text lines */
+  line-height: 1.2;                /* Line height for readability */
+  white-space: normal;             /* Allow text wrapping */
+  word-wrap: break-word;           /* Breaks long words if necessary */
+  text-align: center;              /* Center-align text */
+}
+
+/* Additional styling for next event details */
+.artistBox .next-event {
+  font-size: 0.75rem;              /* Smaller font size for event details */
+  color: #555;                     /* Grey color for subtle emphasis */
+  line-height: 1.1;                /* Line height for readability */
+  max-height: 2.6em;               /* Limit to two lines if needed */
+  overflow: hidden;                /* Hide overflow */
+  text-overflow: ellipsis;         /* Adds '...' for overflowed text */
+  text-align: center;              /* Center-align text */
+}
+
+/* Icon styling within the button */
+.artist-btn .bi {
+    color: #79886e;                    /* Icon color */
+    font-size: 3rem;                   /* Adjust icon size */
+    transition: color 0.3s, transform 0.3s; /* Smooth transition on hover */
+}
+
+/* Hover effect for user button */
+.artist-btn:hover {
     background-color: transparent;
     border: none;
     color: #79886e;
-  }
-  
-  /* Icon hover effect */
-  .artist-btn:hover .bi {
-    color: #79886e;
-    transform: scale(1.1);
-  }
-
-  .zoomed-image {
-    object-fit: cover;          /* Ensures the image covers the area fully */
-    object-position: center;     /* Centers the image */
-    width: 80px;
-    height: 80px;
 }
-  
-  .follow-btn {
-    border: 2px solid #79886e;
-    color: #eff0ee; /* White text color */
-    background-color: #79886e;
-    padding: 0rem 0.8rem; /* Padding inside the button */
-    border-radius: 0.50rem; /* Rounded corners */
-    font-size: 0.875rem; /* Font size for the button text */
-    margin-top: 2rem;
-  }
-  
-  .follow-btn:hover {
-    background-color: #eff0ee; /* Darker background on hover */
-    color: #79886e;
-  }
-  
 
+/* Hover effect for the icon */
+.artist-btn:hover .bi {
+    color: #79886e;                    /* Icon color on hover */
+    transform: scale(1.1);             /* Slightly enlarges icon on hover */
+}
+
+/* Styling for artist profile image */
+.zoomed-image {
+    object-fit: cover;                 /* Ensures the image covers the area fully */
+    object-position: center;           /* Centers the image */
+    width: 80px;                       /* Fixed width for image */
+    height: 80px;                      /* Fixed height for image */
+}
+
+/* Follow button styling */
+.follow-btn {
+    border: 2px solid #79886e;         /* Border color for button */
+    color: #eff0ee;                    /* Text color */
+    background-color: #79886e;         /* Background color */
+    padding: 0rem 0.8rem;              /* Padding inside the button */
+    border-radius: 0.50rem;            /* Rounded corners */
+    font-size: 0.875rem;               /* Font size for the button text */
+    margin-top: auto;                  /* Pushes button to the bottom */
+    text-align: center;                /* Centers text in the button */
+    width: 100%;                       /* Full width within the box */
+    display: block;                    /* Ensures block-level appearance */
+}
+
+/* Follow button hover effect */
+.follow-btn:hover {
+    background-color: #eff0ee;         /* Background color on hover */
+    color: #79886e;                    /* Text color on hover */
+}
 
 
   /* createEvent.html*/
