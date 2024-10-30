@@ -40,20 +40,45 @@ def create_app():
 
 # Function to add test events if not already present
 def add_test_events_if_not_exist():
-    from .models import Event
+    from .models import Event, Artist
+    if Artist.query.first() is None:
+        add_sample_artists()  # Add sample artists if none exist
     if Event.query.first() is None:
         add_test_events()  # Add test events if no events are present
 
+def add_sample_artists():
+    from .models import Artist, db
+
+    # Sample artist data
+    artists = [
+        Artist(name="Smooth Jazz Band", genre="Jazz", bio="A smooth jazz band for evening vibes.", image_path="uploads/jazz_band.jpg"),
+        Artist(name="Revival Band", genre="Rock", bio="Reviving the best of rock music.", image_path="uploads/rock_band.jpg"),
+        Artist(name="Brisbane Symphony Orchestra", genre="Classical", bio="Renowned orchestra performing classical pieces.", image_path="uploads/orchestra.jpg"),
+        Artist(name="Various Artists", genre="Festival", bio="A mix of local and international artists.", image_path="uploads/festival.jpg"),
+        Artist(name="Brisbane Theatre Group", genre="Theatre", bio="Professional theatre group in Brisbane.", image_path="uploads/theatre_group.jpg")
+    ]
+
+    for artist in artists:
+        db.session.add(artist)
+    db.session.commit()
+
 def add_test_events():
     from datetime import datetime, time
-    from .models import Event, db
+    from .models import Event, Artist, db
+
+    # Retrieve artists by name to get their IDs
+    jazz_band = Artist.query.filter_by(name="Smooth Jazz Band").first()
+    rock_band = Artist.query.filter_by(name="Revival Band").first()
+    orchestra = Artist.query.filter_by(name="Brisbane Symphony Orchestra").first()
+    various_artists = Artist.query.filter_by(name="Various Artists").first()
+    theatre_group = Artist.query.filter_by(name="Brisbane Theatre Group").first()
 
     events = [
         Event(
             event_name="Brisbane Jazz Night",
-            artist_name="Smooth Jazz Band",
+            artist_id=jazz_band.id,
             venue="Brisbane City Hall",
-            date=datetime(2024, 11, 5),
+            date=datetime(2024, 12, 5),
             start_time=time(18, 0),
             end_time=time(22, 0),
             ticket_amount=150,
@@ -65,9 +90,9 @@ def add_test_events():
         ),
         Event(
             event_name="Brisbane Rock Revival",
-            artist_name="Revival Band",
+            artist_id=rock_band.id,
             venue="Brisbane Stadium",
-            date=datetime(2024, 10, 30),
+            date=datetime(2024, 11, 8),
             start_time=time(19, 0),
             end_time=time(23, 0),
             ticket_amount=200,
@@ -79,7 +104,7 @@ def add_test_events():
         ),
         Event(
             event_name="Classical Music Concert",
-            artist_name="Brisbane Symphony Orchestra",
+            artist_id=orchestra.id,
             venue="Brisbane Opera House",
             date=datetime(2024, 12, 1),
             start_time=time(20, 0),
@@ -93,9 +118,9 @@ def add_test_events():
         ),
         Event(
             event_name="Brisbane Music Festival",
-            artist_name="Various Artists",
+            artist_id=various_artists.id,
             venue="Brisbane Parklands",
-            date=datetime(2024, 9, 21),
+            date=datetime(2025, 1, 21),
             start_time=time(12, 0),
             end_time=time(22, 0),
             ticket_amount=500,
@@ -107,9 +132,9 @@ def add_test_events():
         ),
         Event(
             event_name="Theatre Night",
-            artist_name="Brisbane Theatre Group",
+            artist_id=theatre_group.id,
             venue="Brisbane Theatre",
-            date=datetime(2024, 11, 15),
+            date=datetime(2024, 11, 4),
             start_time=time(19, 0),
             end_time=time(22, 30),
             ticket_amount=120,
@@ -124,3 +149,4 @@ def add_test_events():
     for event in events:
         db.session.add(event)
     db.session.commit()
+

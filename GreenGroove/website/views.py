@@ -4,7 +4,8 @@ import uuid
 from flask import Blueprint, abort, current_app, flash, redirect, render_template, request, url_for, jsonify
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
-from website.models import Comment, User, Event, db, Order
+from website.models import Comment, Artist, User, Event, db, Order
+from sqlalchemy.orm import joinedload
 
 main_bp = Blueprint('main', __name__)
 
@@ -22,11 +23,26 @@ def index():
     # Filter events that are happening this week
     events_this_week = Event.query.filter(Event.date >= today, Event.date <= next_week).all()
 
+    # Update status for all events before rendering
+    for event in events + events_this_week:
+        event.update_status()  # Ensure each event's status is up-to-date
+    db.session.commit()  # Save any changes to the database
+
     print(events)  # To check popular events
     print(events_this_week)  # To check events this week
     
-    # Pass both event sets to the template
-    return render_template('index.html', events=events, events_this_week=events_this_week)
+     # Get artists and their next upcoming event
+    artists_next_event = []
+    for artist in Artist.query.all():
+        # Query the next event for each artist
+        next_event = Event.query.filter(Event.artist_id == artist.id, Event.date >= today).order_by(Event.date).first()
+        artists_next_event.append({
+            'artist': artist,
+            'next_event': next_event
+        })
+
+    # Pass both event sets and artists next event to the template
+    return render_template('index.html', events=events, events_this_week=events_this_week, artists_next_event=artists_next_event)
 
 
 @main_bp.route('/createEvent', methods=['GET', 'POST'])
@@ -57,6 +73,12 @@ def createEvent():
         start_time = datetime.strptime(start_time_str, '%H:%M').time()
         end_time = datetime.strptime(end_time_str, '%H:%M').time()
 
+        # Find the artist by name
+        artist = Artist.query.filter_by(name=artist_name).first()
+        if not artist:
+            flash(f"Artist '{artist_name}' not found.", 'danger')
+            return redirect(url_for('main.createEvent'))
+
         # Handle image upload
         image = request.files['image']
         if image and image.filename != '':
@@ -79,7 +101,7 @@ def createEvent():
         # Create new event and save it to the database, including genre and owner_id
         new_event = Event(
             event_name=event_name,
-            artist_name=artist_name,
+            artist_id=artist.id,
             venue=venue,
             description=description,
             date=event_date,
@@ -107,11 +129,30 @@ def BookingHistory():
     user_events = Event.query.filter_by(owner_id=current_user.id).all()
     return render_template('BookingHistory.html', events=user_events)
 
+@main_bp.route('/artist/<int:artist_id>')
+def artist_info(artist_id):
+    # Query to get the artist and their associated events
+    artist = Artist.query.options(joinedload(Artist.events)).get(artist_id)
+    
+    # If artist not found, return 404
+    if not artist:
+        abort(404)
+
+    # Get all events by this artist
+    events = artist.events  # Since we used joinedload, events should be preloaded
+
+    # Render the artist information page
+    return render_template('artistInfo.html', artist=artist, events=events)
 
 @main_bp.route('/purchaseTickets/<int:event_id>', methods=['GET', 'POST'])
 @login_required
 def purchase_tickets(event_id):
     event = Event.query.get_or_404(event_id)
+
+    # Prevent ticket purchase if the event is cancelled, inactive, or sold out
+    if event.status in ['Cancelled', 'Inactive', 'Sold Out']:
+        flash('Tickets cannot be purchased for this event as it is either cancelled, inactive, or sold out.', 'danger')
+        return redirect(url_for('main.eventDetails', event_id=event.id))
 
     if request.method == 'POST':
         # Get form data
@@ -119,9 +160,12 @@ def purchase_tickets(event_id):
         last_name = request.form.get('lastname')
         quantity = int(request.form.get('quantity'))
 
-        # Check if quantity is valid
+        # Check if quantity is valid and does not exceed available tickets
         if quantity <= 0:
             flash('Quantity must be greater than 0', 'danger')
+            return redirect(url_for('main.purchase_tickets', event_id=event_id))
+        elif quantity > event.ticket_amount:
+            flash(f'Only {event.ticket_amount} tickets are available.', 'danger')
             return redirect(url_for('main.purchase_tickets', event_id=event_id))
 
         # Calculate total price
@@ -140,7 +184,14 @@ def purchase_tickets(event_id):
             booking_date=datetime.now()
         )
 
-        # Save the order in the database
+        # Update the ticket amount
+        event.ticket_amount -= quantity
+
+        # Check if event should be marked as sold out
+        if event.ticket_amount <= 0:
+            event.status = 'Sold Out'
+
+        # Save the order and event status in the database
         db.session.add(new_order)
         db.session.commit()
 
@@ -203,7 +254,7 @@ def get_event_details(event_id):
     
     return jsonify({
         'event_name': event.event_name,
-        'artist_name': event.artist_name,  # Include artist name
+        'artist_name': event.artist.name,
         'price': event.price,
         'date': event.date.strftime('%d.%m.%Y'),
         'start_time': event.start_time.strftime('%I:%M %p'),

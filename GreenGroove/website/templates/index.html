@@ -144,7 +144,7 @@
                         </div>
                         <div class="col-6 d-flex justify-content-end">
                             <!-- Event Status -->
-                            <button class="status-button">{{ event.status }}</button>
+                            <span class="status-button {{ event.status | lower }}">{{ event.status }}</span>                        
                         </div>
                     </div>
                     <div class="popular-events-container row align-items-center">
@@ -241,15 +241,15 @@
                         </div>
                     </div>
                     <div class="row align-items-center">
-                        <div class="col-6 text-start">
-                            <!-- Event Name -->
-                            <h4 class="mb-0"><a href="{{ url_for('main.eventDetails', event_id=event.id) }}" style="text-decoration: none; color: #333">{{ event.event_name }}</a></h4>
-                        </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <!-- Event Status -->
-                            <button class="status-button">{{ event.status }}</button>
-                        </div>
-                    </div>
+                      <div class="col-6 text-start">
+                          <!-- Event Name -->
+                          <h4 class="mb-0"><a href="{{ url_for('main.eventDetails', event_id=event.id) }}" style="text-decoration: none; color: #333">{{ event.event_name }}</a></h4>
+                      </div>
+                      <div class="col-6 d-flex justify-content-end">
+                          <!-- Event Status -->
+                          <span class="status-button {{ event.status | lower }}">{{ event.status }}</span>                        
+                      </div>
+                  </div>
                     <div class="popular-events-container row align-items-center">
                         <div class="col-10 text-start">
                             <!-- Event Date and Time -->
@@ -276,88 +276,33 @@
   
 
 
-  <div class="container-fluid">
-    <div class="row text-center">
-      <div class="col-auto pe-1">
-        <h3 class="mb-0">Artists to follow</h3>
+<div class="container-fluid">
+  <div class="row text-center">
+      <h3 class="mb-0">Artists to follow</h3>
+      <div class="scrolling-wrapper">
+          {% for entry in artists_next_event %}
+              <div class="col-12 col-md-6 col-lg-4 col-xl-2 mb-3 artistContainer">
+                  <div class="artistBox p-3 text-center">
+                      <!-- Link to artist information page -->
+                      <a href="{{ url_for('main.artist_info', artist_id=entry.artist.id) }}" class="text-decoration-none" style="color: inherit;">
+                          <button type="button" class="btn btn-outline-secondary artist-btn">
+                              <i class="bi bi-person-circle"></i>
+                          </button>
+                          <h5>{{ entry.artist.name }}</h5>
+                          <p><strong>Genre:</strong> {{ entry.artist.genre }}</p>
+                      </a>
+                      {% if entry.next_event %}
+                          <p><strong>Next concert:</strong><br>{{ entry.next_event.date.strftime('%a, %d %b %Y') }}, {{ entry.next_event.start_time.strftime('%I:%M %p') }}</p>
+                      {% else %}
+                          <p><em>No upcoming events</em></p>
+                      {% endif %}
+                      <button class="follow-btn">Follow</button>
+                  </div>
+              </div>
+          {% endfor %}
       </div>
-      <div class="col text-end">
-        <a href="#" class="view-more-link">view more </a>
-      </div>
-    </div>
-    <div class="scrolling-wrapper">
-      <div class="col-12 col-md-6 col-lg-4 col-xl-2 mb-3 artistContainer">
-        <div class="artistBox p-3 text-center">
-          <button type="button" class="btn btn-outline-secondary artist-btn">
-            <i class="bi bi-person-circle"></i>
-          </button>
-          <h5>Electric Vibes</h5>
-          <p><strong>Next concert:</strong><br>Sat, 21 Sept, 9:00PM</p>
-          <button class="follow-btn">Follow</button>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 col-xl-2 mb-3 artistContainer">
-        <div class="artistBox p-3 text-center">
-          <button type="button" class="btn btn-outline-secondary artist-btn">
-            <i class="bi bi-person-circle"></i>
-          </button>
-          <h5>DJ Pulse</h5>
-          <p><strong>Next concert:</strong><br>Thu, 19 Sept, 8:00PM</p>
-          <button class="follow-btn">Follow</button>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 col-xl-2 mb-3 artistContainer">
-        <div class="artistBox p-3 text-center">
-          <button type="button" class="btn btn-outline-secondary artist-btn">
-            <i class="bi bi-person-circle"></i>
-          </button>
-          <h5>Future Beats</h5>
-          <p><strong>Next concert:</strong><br>Sun, 15 Sept, 8:00PM</p>
-          <button class="follow-btn">Follow</button>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 col-xl-2 mb-3 artistContainer">
-        <div class="artistBox p-3 text-center">
-          <button type="button" class="btn btn-outline-secondary artist-btn">
-            <i class="bi bi-person-circle"></i>
-          </button>
-          <h5>Synthwave Dreams</h5>
-          <p><strong>Next concert:</strong><br>Tue, 17 Sept, 9:00PM</p>
-          <button class="follow-btn">Follow</button>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 col-xl-2 mb-3 artistContainer">
-        <div class="artistBox p-3 text-center">
-          <button type="button" class="btn btn-outline-secondary artist-btn">
-            <i class="bi bi-person-circle"></i>
-          </button>
-          <h5>Techno Harmony</h5>
-          <p><strong>Next concert:</strong><br>Wed, 18 Sept, 5:00PM</p>
-          <button class="follow-btn">Follow</button>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 col-xl-2 mb-3 artistContainer">
-        <div class="artistBox p-3 text-center">
-          <button type="button" class="btn btn-outline-secondary artist-btn">
-            <i class="bi bi-person-circle"></i>
-          </button>
-          <h5>Electronic Groove</h5>
-          <p><strong>Next concert:</strong><br>Fri, 20 Sept, 7:00PM</p>
-          <button class="follow-btn">Follow</button>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 col-xl-2 mb-3 artistContainer">
-        <div class="artistBox p-3 text-center">
-          <button type="button" class="btn btn-outline-secondary artist-btn">
-            <i class="bi bi-person-circle"></i>
-          </button>
-          <h5>Dance Energy</h5>
-          <p><strong>Next concert:</strong><br>Sat, 21 Sept, 9:00PM</p>
-          <button class="follow-btn">Follow</button>
-        </div>
-      </div>
-    </div>
   </div>
+</div>
 
   <script>
    document.addEventListener('DOMContentLoaded', function () {
