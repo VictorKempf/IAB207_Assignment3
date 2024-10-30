@@ -28,6 +28,7 @@
                                 </span>     
                             </div>
                             <p class="findEvent-card-text">{{ event.description[:100] }}...</p>
+                            <p><strong>Artist:</strong> {{ event.artist.name }}</p>
                             <p><strong>Venue:</strong> {{ event.venue }}</p>
                             <p><strong>Date:</strong> {{ event.date.strftime('%d/%m/%Y') }}</p>
                             <p><strong>Price:</strong> ${{ '%.2f' | format(event.price) }}</p>
