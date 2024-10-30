@@ -148,15 +148,23 @@ def artist_info(artist_id):
 def purchase_tickets(event_id):
     event = Event.query.get_or_404(event_id)
 
+    # Prevent ticket purchase if the event is cancelled, inactive, or sold out
+    if event.status in ['Cancelled', 'Inactive', 'Sold Out']:
+        flash('Tickets cannot be purchased for this event as it is either cancelled, inactive, or sold out.', 'danger')
+        return redirect(url_for('main.eventDetails', event_id=event.id))
+
     if request.method == 'POST':
         # Get form data
         first_name = request.form.get('name')
         last_name = request.form.get('lastname')
         quantity = int(request.form.get('quantity'))
 
-        # Check if quantity is valid
+        # Check if quantity is valid and does not exceed available tickets
         if quantity <= 0:
             flash('Quantity must be greater than 0', 'danger')
+            return redirect(url_for('main.purchase_tickets', event_id=event_id))
+        elif quantity > event.ticket_amount:
+            flash(f'Only {event.ticket_amount} tickets are available.', 'danger')
             return redirect(url_for('main.purchase_tickets', event_id=event_id))
 
         # Calculate total price
@@ -175,7 +183,14 @@ def purchase_tickets(event_id):
             booking_date=datetime.now()
         )
 
-        # Save the order in the database
+        # Update the ticket amount
+        event.ticket_amount -= quantity
+
+        # Check if event should be marked as sold out
+        if event.ticket_amount <= 0:
+            event.status = 'Sold Out'
+
+        # Save the order and event status in the database
         db.session.add(new_order)
         db.session.commit()
 

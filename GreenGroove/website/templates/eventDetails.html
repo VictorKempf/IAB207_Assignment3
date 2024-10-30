@@ -67,8 +67,14 @@
                     <p> ${{ '%.2f' | format(event.price) }}</p>
                 </div>
                 <div class="col-md-12 text-center mt-3">
-                    <a href="{{ url_for('main.purchase_tickets', event_id=event.id) }}" class="btn btn-primary ticket-btn">Get Tickets</a>
-                </div>                
+                    {% if event.status == 'Open' %}
+                        <a href="{{ url_for('main.purchase_tickets', event_id=event.id) }}" class="btn btn-primary">Buy Tickets</a>
+                    {% else %}
+                        <button class="btn btn-secondary" disabled>
+                            {{ 'Event Cancelled' if event.status == 'Cancelled' else 'Event Inactive' if event.status == 'Inactive' else 'Sold Out' }}
+                        </button>
+                    {% endif %}
+                </div>              
             </div>
         </div>
 
