@@ -32,34 +32,16 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div class="navbar-nav w-100 d-flex align-items-center justify-content-between">
                         <!-- Search Container -->
-                        <div class="search-container d-flex align-items-center flex-grow-1">
-                            <i class="bi bi-geo-alt mx-2"></i>
-                            <!-- Dropdown -->
-                            <div class="dropdown me-2 d-none d-lg-block">
-                                <button class="btn dropdown-toggle custom-dropdown-btn" type="button" id="locationDropdown"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    Select a location
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="locationDropdown">
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="bi bi-geo"></i> Use my current location
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="bi bi-star"></i> Brisbane
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <input type="text" class="form-control bg-body-tertiary me-2 search-input"
-                                placeholder="Search events">
-                            <!-- Search Button -->
-                            <button type="button" class="btn btn-outline-secondary search-btn">
-                                <i class="bi bi-search"></i>
-                            </button>
-                        </div>
+                        <!-- Search Container -->
+                <form action="{{ url_for('main.search') }}" method="GET" class="search-container d-flex align-items-center flex-grow-1">
+                    <!-- Dropdown and other elements -->
+                    <input type="text" name="q" class="form-control bg-body-tertiary me-2 search-input" placeholder="Search events">
+                    <!-- Search Button -->
+                    <button type="submit" class="btn btn-outline-secondary search-btn">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+
                         <!-- Navigation Links -->
                         <div class="d-flex align-items-center">
                             <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary event-btn me-2">Home</a>
