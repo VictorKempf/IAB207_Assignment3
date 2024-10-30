@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     street_address = db.Column(db.String(100), nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
 
-    orders = db.relationship('Order', backref='user')
+    orders = db.relationship('Order', back_populates='user')
     comments = db.relationship('Comment', backref='user')
     events = db.relationship('Event', backref='owner')
 
@@ -41,7 +41,7 @@ class Event(db.Model):
     genre = db.Column(db.String(50), nullable=False)  # New genre field
 
     artist = db.relationship('Artist', back_populates='events')
-    orders = db.relationship('Order', backref='event')
+    orders = db.relationship('Order', back_populates='event')
     comments = db.relationship('Comment', backref='event')
 
      # Status constants
@@ -88,6 +88,10 @@ class Order(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     total_price = db.Column(db.Float, nullable=False)
     booking_date = db.Column(db.DateTime, nullable=False, default=datetime.now)
+
+    # Relationships
+    user = db.relationship('User', back_populates='orders')
+    event = db.relationship('Event', back_populates='orders')
 
     def __repr__(self):
         return f"<Order {self.order_id} by User {self.user_id}>"

@@ -38,8 +38,13 @@
                         <div class="findEvent-card-body d-flex flex-column">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <h5 class="findEvent-card-title mb-0">{{ event.event_name }}</h5>
-                                <!-- Event Status -->
-                                <span class="status-button {{ event.status | lower }}">{{ event.status }}</span>
+                                <span class="status-button 
+                                {% if event.status == 'Sold Out' %}sold-out
+                                {% elif event.status == 'Inactive' %}inactive
+                                {% elif event.status == 'Cancelled' %}cancelled
+                                {% elif event.status == 'Open' %}open{% endif %}">
+                                {{ event.status }}
+                                </span>     
                             </div>
                             
                             <p class="findEvent-card-text">{{ event.description[:100] }}...</p>
@@ -53,6 +58,13 @@
                             {% endif %}
     
                             <a href="{{ url_for('main.eventDetails', event_id=event.id) }}" class="btn btn-primary mt-auto">View Details</a>
+                            {% if event.status == 'Open' %}
+                                <a href="{{ url_for('main.purchase_tickets', event_id=event.id) }}" class="btn btn-primary mt-auto">Get Tickets</a>
+                            {% else %}
+                                <button class="btn btn-secondary mt-auto" disabled>
+                                    {{ 'Event Cancelled' if event.status == 'Cancelled' else 'Event Inactive' if event.status == 'Inactive' else 'Sold Out' }}
+                                </button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

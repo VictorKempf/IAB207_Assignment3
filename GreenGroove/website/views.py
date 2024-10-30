@@ -51,50 +51,46 @@ def createEvent():
     if request.method == 'POST':
         # Get form data from the request
         event_name = request.form.get('eventName')
-        
-        # Check if an event with the same name already exists
-        existing_event = Event.query.filter_by(event_name=event_name).first()
-        if existing_event:
-            flash(f"An event with the name '{event_name}' already exists. Please choose a different name.", 'danger')
-            return redirect(url_for('main.createEvent'))
-
         artist_name = request.form.get('artistName')
         venue = request.form.get('venue')
         description = request.form.get('description')
-        date_str = request.form.get('date')  # Get date as string from form
+        date_str = request.form.get('date')
         start_time_str = request.form.get('startTime')
         end_time_str = request.form.get('endTime')
         price = request.form.get('price')
         ticket_amount = request.form.get('tickets')
         genre = request.form.get('genre')  # Get genre from the form
 
+        # Check if an event with the same name already exists
+        existing_event = Event.query.filter_by(event_name=event_name).first()
+        if existing_event:
+            flash(f"An event with the name '{event_name}' already exists. Please choose a different name.", 'danger')
+            # Render the template with the filled form data to avoid reset
+            return render_template('createEvent.html')
+
         # Convert date and time to Python objects (using DD/MM/YYYY format for the date)
         event_date = datetime.strptime(date_str, '%d/%m/%Y').date()
         start_time = datetime.strptime(start_time_str, '%H:%M').time()
         end_time = datetime.strptime(end_time_str, '%H:%M').time()
 
-        # Find the artist by name
+        # Find or create the artist by name and genre
         artist = Artist.query.filter_by(name=artist_name).first()
         if not artist:
-            flash(f"Artist '{artist_name}' not found.", 'danger')
-            return redirect(url_for('main.createEvent'))
+            # Create a new artist if not found
+            artist = Artist(name=artist_name, genre=genre)
+            db.session.add(artist)
+            db.session.commit()
 
         # Handle image upload
         image = request.files['image']
         if image and image.filename != '':
             filename = secure_filename(image.filename)
-
-            # Get the absolute path for the uploads folder
             upload_folder = os.path.join(current_app.root_path, 'static', 'uploads')
             if not os.path.exists(upload_folder):
                 os.makedirs(upload_folder)
-
             image_path = os.path.join(upload_folder, filename)
             image.save(image_path)
-
             image_url = f'uploads/{filename}'
-
-
         else:
             image_url = None  # No image uploaded
 
@@ -110,8 +106,8 @@ def createEvent():
             price=price,
             ticket_amount=ticket_amount,
             image_path=image_url,
-            genre=genre,  # Save genre here
-            owner_id=current_user.id  # Set the owner_id to the current logged-in user's ID
+            genre=genre,
+            owner_id=current_user.id
         )
         
         # Add and commit the event to the database
@@ -123,11 +119,16 @@ def createEvent():
     return render_template('createEvent.html')
 
 
+
+
 @main_bp.route('/BookingHistory')
 @login_required
 def BookingHistory():
+    # Get all orders made by the current user
+    user_orders = Order.query.filter_by(user_id=current_user.id).all()
+    # Get events created by the user
     user_events = Event.query.filter_by(owner_id=current_user.id).all()
-    return render_template('BookingHistory.html', events=user_events)
+    return render_template('BookingHistory.html', orders=user_orders, events=user_events)
 
 @main_bp.route('/artist/<int:artist_id>')
 def artist_info(artist_id):
