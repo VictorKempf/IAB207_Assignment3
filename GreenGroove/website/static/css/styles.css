@@ -396,13 +396,14 @@ footer a:hover {
 }
 
 .status-button.sold-out {
-    color: #dc3545;
-    border: 1px solid #dc3545;
+  color: #dc3545;             /* Red text */
+  border: 1px solid #dc3545;  /* Red border */
+  font-weight: bold;
 }
 
 .status-button.cancelled {
-    color: #343a40;
-    border: 1px solid #343a40;
+    color: #f17006;
+    border: 1px solid #f17006;
 }
 
 

@@ -124,49 +124,55 @@
   <!-- Events listing -->
   <div id="eventsContainer" class="container-fluid">
     <div class="row">
-        {% if events %}
-            <!-- Slice the events list to show only 4 items -->
-            {% for event in events[:4] %}
-                <div class="col-md-3 mb-3">
-                    <div class="rectangle">
-                        <div class="card-img-container">
-                            <!-- Event Image -->
-                            <img src="{{ url_for('static', filename=event.image_path) }}" alt="{{ event.event_name }}">
-                            <button type="button" class="quick-view-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal" data-event-id="{{ event.id }}">
-                              Quick View
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <div class="col-6 text-start">
-                            <!-- Event Name -->
-                            <h4 class="mb-0"><a href="{{ url_for('main.eventDetails', event_id=event.id) }}" style="text-decoration: none; color: #333">{{ event.event_name }}</a></h4>
-                        </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <!-- Event Status -->
-                            <span class="status-button {{ event.status | lower }}">{{ event.status }}</span>                        
-                        </div>
-                    </div>
-                    <div class="popular-events-container row align-items-center">
-                        <div class="col-10 text-start">
-                            <!-- Event Date and Time -->
-                            <p class="mb-0">{{ event.date.strftime('%a, %d.%m.%Y') }} {{ event.start_time.strftime('%I:%M %p') }} - {{ event.end_time.strftime('%I:%M %p') }}</p>
-                        </div>
-                        <div class="col-10 text-start">
-                            <!-- Event Venue -->
-                            <p class="mb-0" style="font-style: italic;">{{ event.venue }}</p>
-                        </div>
-                        <div class="col-10 text-start">
-                            <!-- Event Price -->
-                            <p class="mb-0">from ${{ '%.2f' | format(event.price) }}</p>                          
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>No events available at the moment.</p>
-        {% endif %}
-    </div>
+      {% if events %}
+          <!-- Slice the events list to show only 4 items -->
+          {% for event in events[:4] %}
+              <div class="col-md-3 mb-3">
+                  <div class="rectangle">
+                      <div class="card-img-container">
+                          <!-- Event Image -->
+                          <img src="{{ url_for('static', filename=event.image_path) }}" alt="{{ event.event_name }}">
+                          <button type="button" class="quick-view-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal" data-event-id="{{ event.id }}">
+                            Quick View
+                          </button>
+                      </div>
+                  </div>
+                  <div class="row align-items-center">
+                      <div class="col-6 text-start">
+                          <!-- Event Name -->
+                          <h4 class="mb-0"><a href="{{ url_for('main.eventDetails', event_id=event.id) }}" style="text-decoration: none; color: #333">{{ event.event_name }}</a></h4>
+                      </div>
+                      <div class="col-6 d-flex justify-content-end">
+                          <!-- Event Status -->
+                          <span class="status-button {{ event.status | lower }}">{{ event.status }}</span>                        
+                      </div>
+                  </div>
+                  <div class="popular-events-container row align-items-center">
+                      <div class="col-10 text-start">
+                          <!-- Event Date and Time -->
+                          <p class="mb-0">{{ event.date.strftime('%a, %d.%m.%Y') }} {{ event.start_time.strftime('%I:%M %p') }} - {{ event.end_time.strftime('%I:%M %p') }}</p>
+                      </div>
+                      <div class="col-10 text-start">
+                          <!-- Event Venue -->
+                          <p class="mb-0" style="font-style: italic;">{{ event.venue }}</p>
+                      </div>
+                      <div class="col-10 text-start">
+                          <!-- Event Price -->
+                          <p class="mb-0">from ${{ '%.2f' | format(event.price) }}</p>
+                      </div>
+                      <!-- Limited Tickets Warning -->
+                      {% if event.ticket_amount < 10 and event.status == 'Open' %}
+                          <div class="col-12 text-start">
+                              <p class="text-danger mb-0"><strong>Limited Tickets Available!</strong></p>
+                          </div>
+                      {% endif %}
+                  </div>
+              </div>
+          {% endfor %}
+      {% else %}
+          <p>No events available at the moment.</p>
+      {% endif %}
+  </div>
 </div>
 
 
@@ -226,50 +232,57 @@
 </div>
 
 <div id="weeklyEventsContainer" class="container-fluid">
-    <div class="row">
-        {% if events_this_week %}
-            <!-- Slice the events_this_week list to show only 4 items -->
-            {% for event in events_this_week[:4] %}
-                <div class="col-md-3 mb-3">
-                    <div class="rectangle">
-                        <div class="card-img-container">
-                            <!-- Event Image -->
-                            <img src="{{ url_for('static', filename=event.image_path) }}" alt="{{ event.event_name }}">
-                            <button type="button" class="quick-view-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal" data-event-id="{{ event.id }}">
-                                Quick View
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
+  <div class="row">
+      {% if events_this_week %}
+          <!-- Slice the events_this_week list to show only 4 items -->
+          {% for event in events_this_week[:4] %}
+              <div class="col-md-3 mb-3">
+                  <div class="rectangle">
+                      <div class="card-img-container">
+                          <!-- Event Image -->
+                          <img src="{{ url_for('static', filename=event.image_path) }}" alt="{{ event.event_name }}">
+                          <button type="button" class="quick-view-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal" data-event-id="{{ event.id }}">
+                              Quick View
+                          </button>
+                      </div>
+                  </div>
+                  <div class="row align-items-center">
                       <div class="col-6 text-start">
                           <!-- Event Name -->
                           <h4 class="mb-0"><a href="{{ url_for('main.eventDetails', event_id=event.id) }}" style="text-decoration: none; color: #333">{{ event.event_name }}</a></h4>
                       </div>
                       <div class="col-6 d-flex justify-content-end">
                           <!-- Event Status -->
-                          <span class="status-button {{ event.status | lower }}">{{ event.status }}</span>                        
-                      </div>
+                          <span class="status-button {% if event.status == 'Sold Out' %}sold-out{% endif %}">
+                            {{ event.status }}
+                        </span>                            </div>
                   </div>
-                    <div class="popular-events-container row align-items-center">
-                        <div class="col-10 text-start">
-                            <!-- Event Date and Time -->
-                            <p class="mb-0">{{ event.date.strftime('%a, %d.%m.%Y') }} {{ event.start_time.strftime('%I:%M %p') }} - {{ event.end_time.strftime('%I:%M %p') }}</p>
-                        </div>
-                        <div class="col-10 text-start">
-                            <!-- Event Venue -->
-                            <p class="mb-0" style="font-style: italic;">{{ event.venue }}</p>
-                        </div>
-                        <div class="col-10 text-start">
-                            <!-- Event Price -->
-                            <p class="mb-0">from ${{ '%.2f' | format(event.price) }}</p>
+                  <div class="popular-events-container row align-items-center">
+                      <div class="col-10 text-start">
+                          <!-- Event Date and Time -->
+                          <p class="mb-0">{{ event.date.strftime('%a, %d.%m.%Y') }} {{ event.start_time.strftime('%I:%M %p') }} - {{ event.end_time.strftime('%I:%M %p') }}</p>
+                      </div>
+                      <div class="col-10 text-start">
+                          <!-- Event Venue -->
+                          <p class="mb-0" style="font-style: italic;">{{ event.venue }}</p>
+                      </div>
+                      <div class="col-10 text-start">
+                          <!-- Event Price -->
+                          <p class="mb-0">from ${{ '%.2f' | format(event.price) }}</p>
+                      </div>
+                      <!-- Limited Tickets Warning -->
+                      {% if event.ticket_amount < 10 and event.status == 'Open' %}
+                          <div class="col-12 text-start">
+                              <p class="text-danger mb-0"><strong>Limited Tickets Available!</strong></p>
                           </div>
-                    </div>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>No events available this week.</p>
-        {% endif %}
-    </div>
+                      {% endif %}
+                  </div>
+              </div>
+          {% endfor %}
+      {% else %}
+          <p>No events available this week.</p>
+      {% endif %}
+  </div>
 </div>
 
 
@@ -305,7 +318,7 @@
 </div>
 
   <script>
-   document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     const modalElement = document.getElementById('quickViewModal');
     const modal = new bootstrap.Modal(modalElement); // Initialize Bootstrap Modal
 
@@ -336,9 +349,23 @@
                     document.getElementById('eventImage').setAttribute('src', event.image_path);
                     document.getElementById('eventStatus').textContent = event.status;
 
-                    // Update the "View More Details" and "Get Tickets" links dynamically
+                    // Update the "View More Details" link dynamically
                     document.getElementById('viewMoreLink').setAttribute('href', `/event/${eventId}`);
-                    document.getElementById('getTicketsLink').setAttribute('href', `/purchaseTickets/${eventId}`);
+                    
+                    // Update the "Get Tickets" link dynamically and disable if necessary
+                    const getTicketsLink = document.getElementById('getTicketsLink');
+                    getTicketsLink.setAttribute('href', `/purchaseTickets/${eventId}`);
+                    
+                    // Check event status and disable "Get Tickets" if necessary
+                    if (['Cancelled', 'Inactive', 'Sold Out'].includes(event.status)) {
+                        getTicketsLink.classList.add('disabled'); // Adds Bootstrap "disabled" class
+                        getTicketsLink.style.pointerEvents = 'none'; // Prevents clicking
+                        getTicketsLink.textContent = event.status; // Display status instead of "Get Tickets"
+                    } else {
+                        getTicketsLink.classList.remove('disabled');
+                        getTicketsLink.style.pointerEvents = 'auto';
+                        getTicketsLink.textContent = 'Get Tickets'; // Reset button text
+                    }
                 })
                 .catch(error => {
                     console.error('Error fetching event details:', error);
@@ -346,6 +373,7 @@
         });
     });
 });
+
 
     </script>
     
