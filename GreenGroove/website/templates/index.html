@@ -253,9 +253,8 @@
                       </div>
                       <div class="col-6 d-flex justify-content-end">
                           <!-- Event Status -->
-                          <span class="status-button {% if event.status == 'Sold Out' %}sold-out{% endif %}">
-                            {{ event.status }}
-                        </span>                            </div>
+                          <span class="status-button {{ event.status | lower }}">{{ event.status }}</span>                        
+                        </div>
                   </div>
                   <div class="popular-events-container row align-items-center">
                       <div class="col-10 text-start">
