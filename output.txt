@@ -1,0 +1,105 @@
+Helena Douglas (4):
+      Uploaded html
+      Delete n12162981_Douglas directory
+      Uploaded HTML-files
+      uploaded script
+
+MagnusKielland (15):
+      Updated models.py
+      Merge pull request #1 from VictorKempf/database
+      Implemented user login and user registration. Also implemented base.html for holding the code for footer and header
+      Merge pull request #2 from VictorKempf/userRegistration
+      Fixed error message when user already exists and adjusted some styling
+      Added error handling for error 404 and 500
+      Merge branch 'main' of https://github.com/VictorKempf/IAB207_Assignment3
+      Fixed login/register and user/logout styling and layout
+      Merge branch 'main' of https://github.com/VictorKempf/IAB207_Assignment3
+      Added a Created Event section that shows under booking history if the logged in user has created an event
+      Merge branch 'main' of https://github.com/VictorKempf/IAB207_Assignment3
+      Added the ability to edit an event created by the logged in user
+      Merge branch 'main' of https://github.com/VictorKempf/IAB207_Assignment3
+      Added a cancel event button on the edit event page. Fixed error message when incorrect login. Added status display on event history for created events.
+      Merge branch 'main' of https://github.com/VictorKempf/IAB207_Assignment3
+
+VictorKempf (18):
+      Initial commit
+      Add files via upload
+      Delete GreenGroove directory
+      Add files via upload
+      Commiting first working thing
+      Fixed references to htmls, js, css
+      Merge branch 'main' of https://github.com/VictorKempf/IAB207_Assignment3
+      Update models.cpython-313.pyc
+      Changed the rest of the pages to use base template
+      restricted pages and form
+      Merge branch 'main' of https://github.com/VictorKempf/IAB207_Assignment3
+      fixed issue in db that causes crash on launch
+      Added functionality for purchasing tickets and for viewing users booking history
+      Merge branch 'main' of https://github.com/VictorKempf/IAB207_Assignment3
+      Added search bar functionality and search result page
+      Merge branch 'main' of https://github.com/VictorKempf/IAB207_Assignment3
+      Added scrollable comments section.
+      Merge branch 'main' of https://github.com/VictorKempf/IAB207_Assignment3
+
+helenadouglas (40):
+      Fixed href for logo to go back to home page
+      create pruchaseTicket html and fix in error in terminal
+      logos for categories
+      basic page for purchase tickets (need styling and more details)
+      fixed image for event details
+      some fixes here and there
+      Big update
+      Genre filtering in findEvents
+      categories go to filtered list of events
+      placed artists in quick view
+      view more buttons
+      purchase tickets fixed
+      added images to test data
+      fixes
+      fixes here and there
+      layout of cards fix
+      updates
+      Other category
+      small issues
+      updates
+      decimal change
+      findEvents link fixed
+      small fixes
+      Fixed status buttons
+      status fix
+      more status fixes
+      Fix for sold out status
+      Merge branch 'main' of https://github.com/VictorKempf/IAB207_Assignment3
+      Update views.cpython-312.pyc
+      img fix on events created
+      event status fix
+      artist fix
+      border around genre
+      favicon added
+      Merge branch 'main' of https://github.com/VictorKempf/IAB207_Assignment3
+      added artist in event cards
+      small fixes
+      Merge branch 'main' of https://github.com/VictorKempf/IAB207_Assignment3
+      Removed previous dropdown things
+      FIxes to responsiveness and navbar collapse
+
+junisoreng (18):
+      Changed time in models.py
+      changed time again
+      Added the Artist Model in models.py
+      Added a link between events and artists
+      Debugging and updates in models.py to make the relationship between artist and event work
+      Revert "Added the Artist Model in models.py"
+      Sorted some issues with the link between artist and event
+      Added sample artists and added them to the test events
+      Added artist names to event details
+      Uploaded artist photos
+      Changed event dates
+      Added dynamically loaded artists into index and made artist info site
+      ArtistBox on index
+      Index merge for artist box
+      Merge branch 'main' of https://github.com/VictorKempf/IAB207_Assignment3
+      Fixed text overflowing in artist box
+      Made the events more responsive to screen size
+      Linked the actual artist photos with the follow artists cards
+
