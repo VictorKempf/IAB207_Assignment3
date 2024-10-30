@@ -1,17 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdownItems = document.querySelectorAll('.dropdown-item');
-    const dropdownButton = document.getElementById('locationDropdown');
-    
-    dropdownItems.forEach(item => {
-        item.addEventListener('click', function() {
-            // Update the dropdown button text
-            const selectedValue = this.textContent.trim();
-            dropdownButton.textContent = selectedValue;
-        });
-    });
-});
-
-
 
 /* To preview image when creating event */
 function previewImage(event) {
@@ -29,18 +15,5 @@ function previewImage(event) {
     }
   }
 
-// JavaScript to update dropdown button with selected value
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.dropdown-item').forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevent default link behavior
-            const selectedValue = this.getAttribute('data-value');
-            // Update the button text with the selected value for both dropdowns
-            document.querySelectorAll('[id^=quantityDropdown]').forEach(button => {
-                button.textContent = `${selectedValue}`;
-            });
-        });
-    });
-});
 
   
