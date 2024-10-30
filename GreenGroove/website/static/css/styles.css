@@ -396,13 +396,14 @@ footer a:hover {
 }
 
 .status-button.sold-out {
-    color: #dc3545;
-    border: 1px solid #dc3545;
+  color: #dc3545;             /* Red text */
+  border: 1px solid #dc3545;  /* Red border */
+  font-weight: bold;
 }
 
 .status-button.cancelled {
-    color: #343a40;
-    border: 1px solid #343a40;
+    color: #f17006;
+    border: 1px solid #f17006;
 }
 
 
@@ -454,6 +455,13 @@ footer a:hover {
   object-fit: cover; /* Ensure the image covers the entire container */
   display: block; /* Remove any unwanted spacing */
 }
+
+.card-img-top {
+  height: 300px; /* Set a consistent height */
+  object-fit: cover; /* Ensures the image fills the area proportionally */
+  width: 100%; /* Ensures the image takes up the full width of the card */
+}
+
 
 .quick-view-btn {
   position: absolute;

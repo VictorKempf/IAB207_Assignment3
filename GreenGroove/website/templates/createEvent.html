@@ -8,7 +8,7 @@
     </div>
     <div class="container-fluid">
         <div class="container mt-4">
-            <form method="POST" enctype="multipart/form-data">  <!-- Ensure the form uses POST and supports file uploads -->
+            <form method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <!-- Left Column for Event Details -->
                     <div class="col-lg-6 col-md-12">
@@ -16,56 +16,57 @@
                             <!-- Event Name -->
                             <div class="mb-3">
                                 <label for="eventName" class="form-label">Event name</label>
-                                <input type="text" class="form-control custom-input" id="eventName" name="eventName" placeholder="Event name" required>
+                                <input type="text" class="form-control custom-input" id="eventName" name="eventName" placeholder="Event name" value="{{ request.form.get('eventName', '') }}" required>
                             </div>
                     
                             <!-- Artist Name -->
                             <div class="mb-3">
                                 <label for="artistName" class="form-label">Artist name</label>
-                                <input type="text" class="form-control custom-input" id="artistName" name="artistName" placeholder="Artist name" required>
+                                <input type="text" class="form-control custom-input" id="artistName" name="artistName" placeholder="Artist name" value="{{ request.form.get('artistName', '') }}" required>
                             </div>
                     
                             <!-- Venue -->
                             <div class="mb-3">
                                 <label for="venue" class="form-label">Venue</label>
-                                <input type="text" class="form-control custom-input" id="venue" name="venue" placeholder="Venue" required>
+                                <input type="text" class="form-control custom-input" id="venue" name="venue" placeholder="Venue" value="{{ request.form.get('venue', '') }}" required>
                             </div>
+                    
                             <!-- Genre -->
                             <div class="mb-3">
                                 <label for="genre" class="form-label">Genre</label>
                                 <select class="form-control" id="genre" name="genre" required>
-                                    <option value="Pop">Pop</option>
-                                    <option value="Jazz">Jazz</option>
-                                    <option value="Rock">Rock</option>
-                                    <option value="Classical">Classical</option>
-                                    <option value="Electronic">Electronic</option>
-                                    <option value="Indie">Indie</option>
-                                    <option value="Other">Other</option>
+                                    <option value="Pop" {% if request.form.get('genre') == 'Pop' %}selected{% endif %}>Pop</option>
+                                    <option value="Jazz" {% if request.form.get('genre') == 'Jazz' %}selected{% endif %}>Jazz</option>
+                                    <option value="Rock" {% if request.form.get('genre') == 'Rock' %}selected{% endif %}>Rock</option>
+                                    <option value="Classical" {% if request.form.get('genre') == 'Classical' %}selected{% endif %}>Classical</option>
+                                    <option value="Electronic" {% if request.form.get('genre') == 'Electronic' %}selected{% endif %}>Electronic</option>
+                                    <option value="Indie" {% if request.form.get('genre') == 'Indie' %}selected{% endif %}>Indie</option>
+                                    <option value="Other" {% if request.form.get('genre') == 'Other' %}selected{% endif %}>Other</option>
                                 </select>
                             </div>
                     
                             <!-- Date -->
                             <div class="mb-3">
                                 <label for="date" class="form-label">Date</label>
-                                <input type="text" class="form-control custom-input" id="date" name="date" placeholder="dd/mm/yyyy" required>
+                                <input type="text" class="form-control custom-input" id="date" name="date" placeholder="dd/mm/yyyy" value="{{ request.form.get('date', '') }}" required>
                             </div>
                     
                             <!-- Time -->
                             <div class="d-flex align-items-center mb-3">
-                                <input type="text" class="form-control custom-input me-2" id="startTime" name="startTime" placeholder="00:00" required>
+                                <input type="text" class="form-control custom-input me-2" id="startTime" name="startTime" placeholder="00:00" value="{{ request.form.get('startTime', '') }}" required>
                                 <span>→</span>
-                                <input type="text" class="form-control custom-input ms-2" id="endTime" name="endTime" placeholder="00:00" required>
+                                <input type="text" class="form-control custom-input ms-2" id="endTime" name="endTime" placeholder="00:00" value="{{ request.form.get('endTime', '') }}" required>
                             </div>
                     
                             <!-- Tickets Available and Price -->
                             <div class="row">
                                 <div class="col-sm-6 mb-3">
                                     <label for="tickets" class="form-label">Tickets available for event</label>
-                                    <input type="number" class="form-control custom-input" id="tickets" name="tickets" placeholder="Amount of tickets" required>
+                                    <input type="number" class="form-control custom-input" id="tickets" name="tickets" placeholder="Amount of tickets" value="{{ request.form.get('tickets', '') }}" required>
                                 </div>
                                 <div class="col-sm-6 mb-3">
                                     <label for="price" class="form-label">Price</label>
-                                    <input type="text" class="form-control custom-input" id="price" name="price" placeholder="$" required>
+                                    <input type="text" class="form-control custom-input" id="price" name="price" placeholder="$" value="{{ request.form.get('price', '') }}" required>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +91,7 @@
                         <!-- Description Textarea -->
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control custom-textarea" id="description" name="description" rows="5" placeholder="Enter event description" required></textarea>
+                            <textarea class="form-control custom-textarea" id="description" name="description" rows="5" placeholder="Enter event description" required>{{ request.form.get('description', '') }}</textarea>
                         </div>
 
                         <!-- Save event button -->

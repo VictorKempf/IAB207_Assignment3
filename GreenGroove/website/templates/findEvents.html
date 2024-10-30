@@ -38,8 +38,13 @@
                         <div class="findEvent-card-body d-flex flex-column">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <h5 class="findEvent-card-title mb-0">{{ event.event_name }}</h5>
-                                <!-- Event Status -->
-                                <span class="status-button {{ event.status | lower }}">{{ event.status }}</span>
+                                <span class="status-button 
+                                {% if event.status == 'Sold Out' %}sold-out
+                                {% elif event.status == 'Inactive' %}inactive
+                                {% elif event.status == 'Cancelled' %}cancelled
+                                {% elif event.status == 'Open' %}open{% endif %}">
+                                {{ event.status }}
+                                </span>     
                             </div>
                             
                             <p class="findEvent-card-text">{{ event.description[:100] }}...</p>
